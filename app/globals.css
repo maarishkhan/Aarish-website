@@ -1,0 +1,69 @@
+@import 'tailwindcss';
+
+:root {
+  --background: #f5f8fb;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --muted: #5b6475;
+  --border: #dfeaf3;
+  --primary: #123d66;
+  --primary-soft: #dfeeff;
+  --accent: #2d9c9a;
+  --accent-soft: #dff7f7;
+  --highlight: #f3f8ff;
+  --shadow: rgba(15, 23, 42, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #f7fafc 0%, #edf6ff 100%);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: rgba(45, 156, 154, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  .container-shell {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-shell {
+    @apply py-16 sm:py-20;
+  }
+
+  .section-heading {
+    @apply mb-8 flex flex-col gap-3;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-sky-700;
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.04)];
+  }
+}

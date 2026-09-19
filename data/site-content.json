@@ -1,0 +1,151 @@
+{
+  "name": "M Aarish Khan",
+  "title": "Biomedical Engineering Researcher",
+  "headline": "Biomedical Engineering Researcher",
+  "bio": "Researcher exploring translational biomedical engineering, computational health, and experimental methods that connect engineering design with human clinical outcomes.",
+  "university": "University at Buffalo Honors College | School of Engineering and Applied Sciences",
+  "location": "Buffalo, NY, USA",
+  "email": "kmohammadaarish@gmail.com",
+  "phone": "+1 (555) 123-4567",
+  "profileImage": "/uploads/1789856799352-sbhvz5hu.jpeg",
+  "heroImage": "/uploads/1789856799352-7dwqhsui.jpeg",
+  "theme": {
+    "accent": "#1f5eff",
+    "accentSoft": "#dfe8ff",
+    "secondary": "#8b5cf6",
+    "secondarySoft": "#ede9fe"
+  },
+  "socials": {
+    "github": "https://github.com/Aarishkhan08",
+    "linkedin": "https://www.linkedin.com/in/mak08/",
+    "medium": "https://medium.com/@kmohammadaarish",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ImyaSdAAAAAJ&authuser=1&citation_for_view=ImyaSdAAAAAJ:u5HHmVD_uO8C",
+    "orcid": "https://orcid.org/my-orcid?orcid=0009-0000-6041-780X",
+    "researchgate": "https://www.researchgate.net"
+  },
+  "navItems": [
+    {
+      "label": "Home",
+      "href": "/",
+      "enabled": true
+    },
+    {
+      "label": "About",
+      "href": "/about",
+      "enabled": true
+    },
+    {
+      "label": "Research",
+      "href": "/research",
+      "enabled": true
+    },
+    {
+      "label": "Projects",
+      "href": "/projects",
+      "enabled": true
+    },
+    {
+      "label": "Publications",
+      "href": "/publications",
+      "enabled": true
+    },
+    {
+      "label": "Experience",
+      "href": "/experience",
+      "enabled": true
+    },
+    {
+      "label": "Education",
+      "href": "/education",
+      "enabled": true
+    },
+    {
+      "label": "Skills",
+      "href": "/skills",
+      "enabled": true
+    },
+    {
+      "label": "Awards",
+      "href": "/awards",
+      "enabled": true
+    },
+    {
+      "label": "Presentations",
+      "href": "/presentations",
+      "enabled": true
+    },
+    {
+      "label": "Blog",
+      "href": "/blog",
+      "enabled": true
+    },
+    {
+      "label": "CV",
+      "href": "/cv",
+      "enabled": true
+    },
+    {
+      "label": "Contact",
+      "href": "/contact",
+      "enabled": true
+    },
+    {
+      "label": "Research AI",
+      "href": "/research-ai",
+      "enabled": false
+    }
+  ],
+  "templateSections": [
+    {
+      "key": "researchInterests",
+      "label": "Research interests",
+      "enabled": true
+    },
+    {
+      "key": "featuredResearch",
+      "label": "Featured research",
+      "enabled": true
+    },
+    {
+      "key": "publications",
+      "label": "Publications",
+      "enabled": true
+    },
+    {
+      "key": "experience",
+      "label": "Experience",
+      "enabled": true
+    },
+    {
+      "key": "education",
+      "label": "Education",
+      "enabled": true
+    },
+    {
+      "key": "awards",
+      "label": "Awards",
+      "enabled": true
+    },
+    {
+      "key": "presentations",
+      "label": "Presentations",
+      "enabled": true
+    },
+    {
+      "key": "blog",
+      "label": "Blog",
+      "enabled": true
+    },
+    {
+      "key": "researchAI",
+      "label": "Research AI",
+      "enabled": false
+    }
+  ],
+  "features": {
+    "research": true,
+    "publications": true,
+    "blog": true,
+    "researchAI": false
+  }
+}
