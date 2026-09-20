@@ -87,7 +87,7 @@
     {
       "label": "Contact",
       "href": "/contact",
-      "enabled": true
+      "enabled": false
     },
     {
       "label": "Research AI",
