@@ -666,7 +666,7 @@ const defaultAwards: Award[] = [
   {
     id: 'award-3',
     title: 'SmallSat Education Conference',
-    organization: 'maru Space Technology, LLC',
+    organization: 'Kennedy Space Center(NASA)',
     year: '2025',
     description: 'Studied variation in solar panel efficiency across altitude; presented findings and research at the Kennedy Space Center SmallSat Education Conference.',
     category: 'Confrence Presentation',
