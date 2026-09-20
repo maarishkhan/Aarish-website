@@ -88,7 +88,7 @@ export default function HomePage() {
                                 : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50',
                             ].join(' ')}
                           >
-                            {isMedium ? 'Research Writing' : link.title}
+                            {isMedium ? 'Medium Writing' : link.title}
                           </Link>
                         );
                       })}
