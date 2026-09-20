@@ -29,23 +29,28 @@ export default function HomePage() {
       <section className="relative pb-12 pt-6 sm:pt-8">
         <div className="container-shell">
           <div className="overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_30px_80px_rgba(15,23,42,0.10)]">
-            <div className="relative">
-              <img src={heroImage} alt={siteConfig.name} className="h-52 w-full object-cover sm:h-64 lg:h-72" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-900/15 to-transparent" />
-
-              <div className="absolute bottom-0 left-5 flex items-end gap-4 pb-5 sm:left-8 sm:pb-6">
-                <img src={profileImage} alt={siteConfig.name} className="h-24 w-24 rounded-full border-4 border-white object-cover shadow-lg sm:h-28 sm:w-28" />
-                <div className="text-white">
-                  <h1 className="text-2xl font-black tracking-tight sm:text-3xl">{siteConfig.name}</h1>
-                  <p className="mt-1 text-sm font-medium text-white/85">{siteConfig.title}</p>
-                  <p className="mt-0.5 text-xs text-white/75">{siteConfig.location}</p>
-                </div>
-              </div>
+            <div className="grid overflow-hidden bg-slate-950 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)]">
+              <figure className="relative flex min-h-72 items-center justify-center bg-slate-100 sm:min-h-80">
+                <img src={profileImage} alt={`${siteConfig.name} at NASA`} className="h-full w-full object-contain" />
+                <figcaption className="absolute bottom-3 left-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
+                  NASA Kennedy Space Center
+                </figcaption>
+              </figure>
+              <figure className="relative flex min-h-48 items-center justify-center border-t border-white/15 bg-[#071424] sm:min-h-80 sm:border-l sm:border-t-0">
+                <img src={heroImage} alt="Knowledge Is Power" className="h-full w-full object-contain" />
+                <figcaption className="absolute bottom-3 right-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
+                  Research & innovation
+                </figcaption>
+              </figure>
             </div>
 
             <div className="px-5 pb-7 pt-6 sm:px-8">
               <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div className="space-y-4">
+                  <div>
+                    <h1 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">{siteConfig.name}</h1>
+                    <p className="mt-1 text-sm font-medium text-slate-600">{siteConfig.title} · {siteConfig.location}</p>
+                  </div>
                   <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-700">
                     <span className="h-2 w-2 rounded-full" style={{ backgroundColor: theme.accent }} />
                     Research profile
