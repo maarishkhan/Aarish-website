@@ -1,19 +1,7 @@
 import Link from 'next/link';
 import type { Route } from 'next';
-import { ArrowRight, BookOpenText, Sparkles, BriefcaseBusiness, GraduationCap, Telescope, Award, BrainCircuit, Newspaper } from 'lucide-react';
+import { ArrowRight, BookOpenText, Sparkles, BriefcaseBusiness } from 'lucide-react';
 import { getSiteConfig, getSocialLinks, featuredResearch, interests, publications, experience, education, awards, presentations, blogPosts } from '@/data/site-config';
-
-const sectionIcons: Record<string, typeof Sparkles> = {
-  researchInterests: Sparkles,
-  featuredResearch: Telescope,
-  publications: Newspaper,
-  experience: BriefcaseBusiness,
-  education: GraduationCap,
-  awards: Award,
-  presentations: BrainCircuit,
-  blog: BookOpenText,
-  researchAI: Sparkles,
-};
 
 export default function HomePage() {
   const siteConfig = getSiteConfig();
@@ -73,7 +61,7 @@ export default function HomePage() {
                   {socialLinks.length > 0 && (
                     <div className="flex flex-wrap gap-2">
                       {socialLinks.map((link) => {
-                        const isMedium = link.title === 'Medium';
+                        const isScholar = link.title === 'Google Scholar';
 
                         return (
                           <Link
@@ -83,12 +71,12 @@ export default function HomePage() {
                             rel="noreferrer"
                             className={[
                               'inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold transition',
-                              isMedium
+                              isScholar
                                 ? 'border border-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-sky-700 text-white shadow-sm hover:brightness-110'
                                 : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50',
                             ].join(' ')}
                           >
-                            {isMedium ? 'Medium Writing' : link.title}
+                            {isScholar ? 'Google Scholar' : link.title}
                           </Link>
                         );
                       })}
