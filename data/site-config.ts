@@ -727,7 +727,7 @@ const defaultPresentations: Presentation[] = [
     id: 'pres-1',
     title: 'Bispecific DuoBody Antibody Targeting 4-1BB on Cancer Cells and PD-L1 on T-Cells for Immunotherapy in NSCLC',
     event: 'IEEE ISEC 2025',
-    presentationType: 'Poster',
+    presentationType: 'Conference',
     date: '2025',
     location: 'Conference venue',
     abstract: 'Research presentation highlighting a computational immunotherapy design strategy for non-small cell lung cancer using bispecific antibodies.',
