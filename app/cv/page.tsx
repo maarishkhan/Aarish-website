@@ -8,7 +8,7 @@ export default function CvPage() {
           <p className="eyebrow">CV</p>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Curriculum Vitae</h1>
         </div>
-        <a href="/cv.pdf" className="rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white">Download CV PDF</a>
+        <a href="/cv.pdf" target="_blank" rel="noreferrer" className="rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white">Download CV PDF</a>
       </div>
 
       <div className="card-surface p-8">
