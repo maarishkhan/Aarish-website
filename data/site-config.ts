@@ -665,11 +665,11 @@ const defaultAwards: Award[] = [
   },
   {
     id: 'award-3',
-    title: 'Science and Math Award',
-    organization: 'RIT',
+    title: 'SmallSat Education Conference',
+    organization: 'maru Space Technology, LLC',
     year: '2025',
-    description: '$24,000/year scholarship awarded in recognition of achievement in science and mathematics.',
-    category: 'Scholarship',
+    description: 'Studied variation in solar panel efficiency across altitude; presented findings and research at the Kennedy Space Center SmallSat Education Conference.',
+    category: 'Confrence Presentation',
     featured: true,
   },
   {
