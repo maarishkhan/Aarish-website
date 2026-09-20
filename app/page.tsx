@@ -31,7 +31,7 @@ export default function HomePage() {
       <section className="relative pb-12 pt-6 sm:pt-8">
         <div className="container-shell">
           <div className="overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_30px_80px_rgba(15,23,42,0.10)]">
-            <div className="grid grid-cols-2 overflow-hidden bg-slate-950 lg:h-[390px] lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.2fr)_minmax(0,1fr)] lg:grid-rows-2">
+            <div className="grid grid-cols-1 overflow-hidden bg-slate-950 lg:h-[390px] lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.2fr)_minmax(0,1fr)] lg:grid-rows-2">
               <figure className="relative flex aspect-[3/4] items-center justify-center border-b border-r border-white/15 bg-slate-100 lg:row-span-2 lg:aspect-auto">
                 <img src={profileImage} alt={`${siteConfig.name} at NASA`} className="h-full w-full object-contain" />
                 <figcaption className="absolute bottom-3 left-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
@@ -50,7 +50,7 @@ export default function HomePage() {
                   Scientific communication
                 </figcaption>
               </figure>
-              <figure className="relative col-span-2 flex aspect-[16/7] items-center justify-center border-l border-white/15 bg-[#071424] lg:col-span-1 lg:aspect-auto">
+              <figure className="relative col-span-1 flex aspect-[16/7] items-center justify-center border-l border-white/15 bg-[#071424] lg:aspect-auto">
                 <img src={heroImage} alt="Knowledge Is Power" className="h-full w-full object-contain" />
                 <figcaption className="absolute bottom-3 right-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
                   Knowledge is power
