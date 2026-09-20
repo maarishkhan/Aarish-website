@@ -31,26 +31,28 @@ export default function HomePage() {
       <section className="relative pb-12 pt-6 sm:pt-8">
         <div className="container-shell">
           <div className="overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_30px_80px_rgba(15,23,42,0.10)]">
-            <div className="grid grid-cols-1 overflow-hidden bg-slate-950 lg:h-[390px] lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.2fr)_minmax(0,1fr)] lg:grid-rows-2">
-              <figure className="relative flex aspect-[3/4] items-center justify-center border-b border-r border-white/15 bg-slate-100 lg:row-span-2 lg:aspect-auto">
-                <img src={profileImage} alt={`${siteConfig.name} at NASA`} className="h-full w-full object-contain" />
+            <div className="bg-slate-950 p-2">
+              <div className="grid grid-cols-1 gap-2 lg:h-[390px] lg:grid-cols-[0.75fr_1.33fr_1fr]">
+              <figure className="relative flex aspect-[3/4] items-center justify-center overflow-hidden bg-slate-100 lg:aspect-auto">
+                <img src={profileImage} alt={`${siteConfig.name} at NASA`} className="h-full w-full object-contain object-bottom" />
                 <figcaption className="absolute bottom-3 left-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
                   NASA Kennedy Space Center
                 </figcaption>
               </figure>
-              <figure className="relative flex aspect-[4/3] items-center justify-center border-b border-white/15 bg-slate-900 lg:row-span-2 lg:aspect-auto">
+              <figure className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-slate-900 lg:aspect-auto">
                 <img src={posterImage} alt={`${siteConfig.name} presenting cancer immunotherapy research`} className="h-full w-full object-cover object-center" />
                 <figcaption className="absolute bottom-3 left-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
                   Cancer immunotherapy poster presentation
                 </figcaption>
               </figure>
-              <figure className="flex aspect-square flex-col border-b border-l border-white/15 bg-slate-800 p-2 lg:aspect-auto">
-                <img src={podiumImage} alt={`${siteConfig.name} speaking at a podium`} className="min-h-0 w-full flex-1 object-contain" />
-                <figcaption className="mt-1 self-end rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
-                  Scientific communication
-                </figcaption>
-              </figure>
-              <figure className="relative col-span-1 flex aspect-[16/7] items-center justify-center border-l border-white/15 bg-[#071424] lg:aspect-auto">
+                <figure className="relative flex aspect-square items-center justify-center overflow-hidden bg-slate-800 lg:aspect-auto">
+                  <img src={podiumImage} alt={`${siteConfig.name} speaking at a podium`} className="h-full w-full object-contain object-bottom" />
+                  <figcaption className="absolute bottom-3 right-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
+                    Scientific communication
+                  </figcaption>
+                </figure>
+              </div>
+              <figure className="relative mt-2 flex aspect-[16/7] items-center justify-center overflow-hidden bg-[#071424] lg:aspect-[4/1]">
                 <img src={heroImage} alt="Knowledge Is Power" className="h-full w-full object-contain" />
                 <figcaption className="absolute bottom-3 right-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
                   Knowledge is power
