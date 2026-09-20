@@ -62,11 +62,11 @@ export const defaultSiteContent: PersistedSiteContent = {
     secondarySoft: '#ede9fe',
   },
   socials: {
-    github: 'https://github.com/example',
-    linkedin: 'https://linkedin.com/in/example',
+    github: 'https://github.com/Aarishkhan08',
+    linkedin: 'www.linkedin.com/in/mak08',
     medium: 'https://medium.com/@kmohammadaarish',
-    scholar: 'https://scholar.google.com',
-    orcid: 'https://orcid.org/0000-0000-0000-0000',
+    scholar: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ImyaSdAAAAAJ&authuser=1&citation_for_view=ImyaSdAAAAAJ:u5HHmVD_uO8C',
+    orcid: 'https://orcid.org/0009-0000-6041-780X',
     researchgate: 'https://www.researchgate.net',
   },
   navItems: [
