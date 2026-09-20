@@ -58,7 +58,7 @@ export default function CvPage() {
             </SidebarSection>
             <SidebarSection title="EDUCATION">
               <div><p className="font-semibold text-white">University at Buffalo</p><p>Biomedical Engineering Major</p><p>Honors College · Fall 2026 – Present</p></div>
-              <div><p className="font-semibold text-white">Williamsville North High School</p><p>Class of 2026</p><p>AP Scholar of Distinction, 2025</p></div>
+              <div><p className="font-semibold text-white">Williamsville North High School</p><p>Class of 2026</p><p>AP Scholar of Distinction, 2025</p><p>GPA: 4/4</p></div>
             </SidebarSection>
             <SidebarSection title="TECHNICAL SKILLS">
               <p><strong>Programming:</strong> Python, Java, Arduino, R</p><p><strong>AI/ML:</strong> AlphaFold, PyTorch, Hugging Face, Crew AI, Ollama</p><p><strong>Comp. Bio:</strong> GROMACS, PLIP, Prodigy, HDock, FastENLOC, Biopython, Benchling</p><p><strong>Web Dev:</strong> Streamlit, Google Colab</p><p><strong>Cloud:</strong> Oracle Cloud Infrastructure</p>

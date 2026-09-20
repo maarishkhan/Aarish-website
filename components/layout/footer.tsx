@@ -23,7 +23,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-slate-200 pt-6 text-sm text-slate-500">
-          © 2025 {siteConfig.name}. All rights reserved.
+          © 2026 {siteConfig.name}. All rights reserved.
         </div>
       </div>
     </footer>

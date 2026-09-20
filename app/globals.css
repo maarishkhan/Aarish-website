@@ -66,4 +66,13 @@ body {
   .card-surface {
     @apply rounded-2xl border border-slate-200 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.04)];
   }
+
+  /* Custom styles for image alignment */
+  .hero-image-container {
+    @apply flex items-center justify-center;
+  }
+
+  .hero-image {
+    @apply w-full h-full object-contain;
+  }
 }
