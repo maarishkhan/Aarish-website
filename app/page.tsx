@@ -44,9 +44,9 @@ export default function HomePage() {
                   Cancer immunotherapy poster presentation
                 </figcaption>
               </figure>
-              <figure className="relative flex aspect-square items-center justify-center border-b border-l border-white/15 bg-slate-800 lg:aspect-auto">
-                <img src={podiumImage} alt={`${siteConfig.name} speaking at a podium`} className="h-full w-full object-contain" />
-                <figcaption className="absolute bottom-3 right-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
+              <figure className="flex aspect-square flex-col border-b border-l border-white/15 bg-slate-800 p-2 lg:aspect-auto">
+                <img src={podiumImage} alt={`${siteConfig.name} speaking at a podium`} className="min-h-0 w-full flex-1 object-contain" />
+                <figcaption className="mt-1 self-end rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
                   Scientific communication
                 </figcaption>
               </figure>
