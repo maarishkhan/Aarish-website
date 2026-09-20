@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteConfig = getSiteConfig();
 
   return {
-    metadataBase: new URL('https://example.com'),
+    metadataBase: new URL('https://aarishkhan.vercel.app'),
     title: {
       default: siteConfig.name,
       template: `%s | ${siteConfig.name}`,
