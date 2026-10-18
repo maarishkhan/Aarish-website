@@ -553,7 +553,7 @@ const defaultEducation: EducationItem[] = [
     field: 'Biomedical Engineering',
     startDate: '08/2026',
     endDate: 'Present',
-    description: 'Honors College student studying biomedical engineering with interests in computational biology, biomaterials, and translational research.',
+    description: 'Honors College student studying biomedical engineering with interests in computational genomics, synthetic biology and genetic engineering, and translational research.',
     gpa: '',
     honors: ['Honors College'],
     coursework: ['Biomedical Engineering', 'Computational Biology', 'Data Analysis', 'Life Sciences'],
