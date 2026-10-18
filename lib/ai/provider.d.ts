@@ -1,4 +1,9 @@
-export function buildAiPrompt(prompt?: string): string;
+export type KnowledgeSection = { title: string; text: string };
+
+export function sectionsToContext(sections?: KnowledgeSection[]): string;
+export function buildSystemPrompt(sections?: KnowledgeSection[]): string;
+export function buildAiPrompt(prompt?: string, sections?: KnowledgeSection[]): string;
+export function answerFromSections(prompt?: string, sections?: KnowledgeSection[]): string;
 
 export function getConfiguredAiProvider(
   provider?: string,
@@ -20,13 +25,15 @@ export function getAiProviderStatus(): {
 export function getAiConfig(): {
   provider: string;
   model: string;
-  embeddingModel: string;
   enabled: boolean;
 };
 
-export async function callAiProvider(prompt?: string): {
+export function callAiProvider(
+  prompt?: string,
+  sections?: KnowledgeSection[],
+): Promise<{
   answer: string;
   provider: string;
-  status: string;
+  status: 'live' | 'fallback';
   message: string;
-};
+}>;
