@@ -679,6 +679,16 @@ const defaultAwards: Award[] = [
     featured: true,
   },
   {
+    id: 'award-6',
+    title: 'Honorable Mention, Literature (Grades 9–12)',
+    organization: 'National PTA Reflections, Western Region PTA',
+    year: '2024–2025',
+    description: 'Recognized for the essay “Accepting Imperfections – The Unsung Hero of Progress,” a reflection on the role of imperfection in human individuality and success.',
+    category: 'Literature',
+    image: '/uploads/pta-reflections-award.jpg',
+    featured: false,
+  },
+  {
     id: 'award-4',
     title: 'Medal of High Honors',
     organization: 'Terra Science Fair',
