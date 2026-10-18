@@ -1,11 +1,12 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Source_Serif_4 } from 'next/font/google';
 import { getSiteConfig } from '@/data/site-config';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
+const serif = Source_Serif_4({ subsets: ['latin'], display: 'swap', variable: '--font-serif' });
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteConfig = await getSiteConfig();
@@ -39,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} ${serif.variable}`}>
         <div className="min-h-screen bg-slate-50 text-slate-900">
           <Navbar />
           <main>{children}</main>

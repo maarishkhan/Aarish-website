@@ -11,7 +11,7 @@ export default function ResearchPage() {
         {researchProjects.map((project) => (
           <article
             key={project.id}
-            className={`card-surface overflow-hidden ${project.images[0] ? 'lg:col-span-2 lg:grid lg:grid-cols-2' : 'p-6 sm:p-8'}`}
+            className={`card-surface card-hover overflow-hidden ${project.images[0] ? 'lg:col-span-2 lg:grid lg:grid-cols-2' : 'p-6 sm:p-8'}`}
           >
             {project.images[0] && (
               <img src={project.images[0]} alt={project.title} className="h-full max-h-96 w-full object-cover lg:max-h-none" loading="lazy" />

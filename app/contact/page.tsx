@@ -9,14 +9,13 @@ export default async function ContactPage() {
 
   return (
     <div className="container-shell section-shell">
-      <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
       <PageHeader
         eyebrow="Contact"
         title="Connect and collaborate"
         intro="I welcome conversations about research collaboration, mentorship, and opportunities in biomedical engineering and computational biology. Email is the best way to reach me."
       />
 
-      <div>
+      <div className="max-w-2xl">
         <div className="card-surface space-y-5 p-6 sm:p-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Email</p>
@@ -37,7 +36,6 @@ export default async function ContactPage() {
             </div>
           )}
         </div>
-      </div>
       </div>
     </div>
   );

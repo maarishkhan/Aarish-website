@@ -7,7 +7,7 @@ export default function PresentationsPage() {
       <PageHeader eyebrow="Presentations" title="Talks, posters, and scholarly communication" />
       <div className="space-y-5">
         {presentations.map((presentation) => (
-          <article key={presentation.id} className="card-surface p-6">
+          <article key={presentation.id} className="card-surface card-hover border-l-4 border-l-gold p-6">
             <p className="text-xs uppercase tracking-[0.14em] text-slate-500">{presentation.presentationType}</p>
             <h2 className="mt-2 text-2xl font-semibold text-brand-dark">{presentation.title}</h2>
             <p className="mt-2 text-sm text-slate-600">{[presentation.event, presentation.location].filter(Boolean).join(' • ')}</p>

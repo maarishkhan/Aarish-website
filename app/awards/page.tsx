@@ -7,7 +7,7 @@ export default function AwardsPage() {
       <PageHeader eyebrow="Awards" title="Recognition and honors" />
       <div className="gap-5 md:columns-2 xl:columns-3">
         {awards.map((award) => (
-          <article key={award.id} className="card-surface mb-5 break-inside-avoid overflow-hidden p-6">
+          <article key={award.id} className="card-surface card-hover mb-5 break-inside-avoid overflow-hidden p-6">
             {award.image && (
               <img src={award.image} alt={`${award.title}, ${award.organization}`} className="-mx-6 -mt-6 mb-5 h-auto w-[calc(100%+3rem)] max-w-none" loading="lazy" />
             )}
