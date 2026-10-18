@@ -17,7 +17,7 @@ export default function ExperiencePage() {
                 <h2 className="text-2xl font-semibold text-brand-dark">{item.role}</h2>
                 <p className="mt-2 text-sm text-slate-600">{item.organization} • {item.location}</p>
               </div>
-              <p className="pill !mb-0 shrink-0 self-start normal-case tracking-normal">{formatPeriod(item)}</p>
+              {formatPeriod(item) && <p className="pill !mb-0 shrink-0 self-start normal-case tracking-normal">{formatPeriod(item)}</p>}
             </div>
             <p className="mt-4 text-sm leading-7 text-slate-600">{item.description}</p>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600">
