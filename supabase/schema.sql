@@ -162,3 +162,35 @@ create table if not exists admin_users (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- ---------------------------------------------------------------------------
+-- Row level security
+-- The public site reads content with the anon key, so visitors may read ONLY published
+-- rows. All writes go through the server using the service-role key, which bypasses RLS,
+-- so no insert/update/delete policies are defined: the anon key can never modify data.
+-- Safe to re-run.
+-- ---------------------------------------------------------------------------
+
+do $$
+declare
+  t text;
+begin
+  foreach t in array array[
+    'research_interests', 'research_projects', 'publications', 'experiences',
+    'education', 'skills', 'awards', 'presentations', 'blog_posts'
+  ]
+  loop
+    execute format('alter table %I enable row level security', t);
+    execute format('drop policy if exists "Public can read published rows" on %I', t);
+    execute format('create policy "Public can read published rows" on %I for select using (published = true)', t);
+  end loop;
+end $$;
+
+-- Site settings hold the public site content, so they are readable by anyone.
+alter table site_settings enable row level security;
+drop policy if exists "Public can read site settings" on site_settings;
+create policy "Public can read site settings" on site_settings for select using (true);
+
+-- Private tables: RLS on with no policies = no access except via the service-role key.
+alter table profiles enable row level security;
+alter table admin_users enable row level security;

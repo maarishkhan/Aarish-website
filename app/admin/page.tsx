@@ -3,8 +3,8 @@ import { getSiteConfig } from '@/data/site-config';
 import { getAiStatus } from '@/lib/content-validation';
 import { isSupabaseConfigured } from '@/lib/supabase';
 
-export default function AdminPage() {
-  const siteConfig = getSiteConfig();
+export default async function AdminPage() {
+  const siteConfig = await getSiteConfig();
   const aiStatus = getAiStatus(process.env.AI_PROVIDER, process.env.AI_API_KEY);
   const databaseReady = isSupabaseConfigured();
 

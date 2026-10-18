@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
+import { getServiceClient } from '@/lib/supabase-admin';
 
 export type TemplateSection = {
   key: string;
@@ -45,7 +46,7 @@ export type PersistedSiteContent = {
 };
 
 export const defaultSiteContent: PersistedSiteContent = {
-  name: 'M Aarish Khan',
+  name: 'Mohammad Aarish Khan',
   title: 'Biomedical Engineering Researcher',
   headline: 'Translational biomedical engineering for diagnostics, devices, and patient-centered innovation.',
   bio: 'I design and investigate biomedical technologies that connect engineering creativity with clinical impact, with a focus on computational biology, biomaterials, imaging, and human-centered medical systems.',
@@ -67,13 +68,12 @@ export const defaultSiteContent: PersistedSiteContent = {
     medium: 'https://medium.com/@kmohammadaarish',
     scholar: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ImyaSdAAAAAJ&authuser=1&citation_for_view=ImyaSdAAAAAJ:u5HHmVD_uO8C',
     orcid: 'https://orcid.org/0009-0000-6041-780X',
-    researchgate: 'https://www.researchgate.net',
+    researchgate: '',
   },
   navItems: [
     { label: 'Home', href: '/', enabled: true },
     { label: 'About', href: '/about', enabled: true },
     { label: 'Research', href: '/research', enabled: true },
-    { label: 'Projects', href: '/projects', enabled: true },
     { label: 'Publications', href: '/publications', enabled: true },
     { label: 'Experience', href: '/experience', enabled: true },
     { label: 'Education', href: '/education', enabled: true },
@@ -202,29 +202,35 @@ export async function writeSiteContent(content: Partial<PersistedSiteContent>) {
     },
   };
 
-  if (isSupabaseConfigured()) {
-    const supabase = getSupabaseClient() as {
+  const supabase = getServiceClient() ?? (isSupabaseConfigured() ? getSupabaseClient() : null);
+  let savedRemotely = false;
+
+  if (supabase) {
+    const client = supabase as {
       from: (table: string) => {
         upsert: (
           row: { key: string; value: string },
           options: { onConflict: string }
-        ) => Promise<unknown>;
+        ) => Promise<{ error: { message?: string } | null }>;
       };
-    } | null;
+    };
+    const { error } = await client
+      .from('site_settings')
+      .upsert({ key: 'site_content', value: JSON.stringify(nextValue) }, { onConflict: 'key' });
 
-    if (supabase) {
-      try {
-        const payload = JSON.stringify(nextValue);
-        await supabase
-          .from('site_settings')
-          .upsert({ key: 'site_content', value: payload }, { onConflict: 'key' });
-      } catch {
-        // continue with the local file sync below so the change is still preserved
-      }
+    if (error) {
+      console.error('Could not save site content to Supabase:', error.message);
+    } else {
+      savedRemotely = true;
     }
   }
 
-  const filePath = getSiteContentPath();
-  fs.writeFileSync(filePath, `${JSON.stringify(nextValue, null, 2)}\n`, 'utf-8');
+  try {
+    fs.writeFileSync(getSiteContentPath(), `${JSON.stringify(nextValue, null, 2)}\n`, 'utf-8');
+  } catch (error) {
+    // Hosted file systems are read-only; that is fine as long as the database save worked.
+    if (!savedRemotely) throw error;
+  }
+
   return nextValue;
 }

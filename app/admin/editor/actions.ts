@@ -1,10 +1,10 @@
 'use server';
 
-import fs from 'node:fs';
-import path from 'node:path';
-
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+import { requireAdminSession } from '@/lib/admin-auth';
+import { saveImageUpload } from '@/lib/uploads';
 import { readSiteContent, writeSiteContent } from '@/lib/site-content-store';
 
 const templateSectionKeys = [
@@ -28,20 +28,12 @@ async function saveUploadedImage(value: FormDataEntryValue | null, fallbackValue
     return fallbackValue ?? '';
   }
 
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-  fs.mkdirSync(uploadDir, { recursive: true });
-
-  const extension = path.extname(value.name) || '.png';
-  const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}${extension}`;
-  const targetPath = path.join(uploadDir, filename);
-
-  const buffer = Buffer.from(await value.arrayBuffer());
-  fs.writeFileSync(targetPath, buffer);
-
-  return `/uploads/${filename}`;
+  return saveImageUpload(value);
 }
 
 export async function saveSiteContentAction(formData: FormData) {
+  await requireAdminSession();
+
   const currentContent = await readSiteContent();
 
   const navItems = currentContent.navItems.map((item, index) => ({
@@ -89,5 +81,6 @@ export async function saveSiteContentAction(formData: FormData) {
   };
 
   await writeSiteContent(nextContent);
+  revalidatePath('/', 'layout');
   redirect('/admin/editor');
 }

@@ -8,7 +8,7 @@ export default function AdminLoginPage() {
         <p className="eyebrow">Secure access</p>
         <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950">Admin sign in</h1>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          Sign in to manage profile and research content. Demo credentials are stored in environment variables for local use.
+          Sign in to manage profile and research content. 
         </p>
 
         <form action={loginAdminAction} className="mt-6 space-y-4">
@@ -18,8 +18,8 @@ export default function AdminLoginPage() {
               id="email"
               name="email"
               type="email"
-              defaultValue="admin@university.edu"
-              placeholder="admin@university.edu"
+              autoComplete="username"
+              required
               className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm focus:border-sky-500 focus:outline-none"
             />
           </div>
@@ -29,6 +29,8 @@ export default function AdminLoginPage() {
               id="password"
               name="password"
               type="password"
+              autoComplete="current-password"
+              required
               placeholder="••••••••"
               className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm focus:border-sky-500 focus:outline-none"
             />

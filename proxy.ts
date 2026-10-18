@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { ADMIN_COOKIE_NAME, verifyAdminSessionToken } from '@/lib/admin-session';
 
-export function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const isAdminPath = pathname.startsWith('/admin');
-  const isAuthed = request.cookies.get('research_admin_session')?.value === 'authenticated';
+  const isAuthed = await verifyAdminSessionToken(request.cookies.get(ADMIN_COOKIE_NAME)?.value);
 
   if (!isAdminPath || pathname === '/admin/login') {
     return NextResponse.next();

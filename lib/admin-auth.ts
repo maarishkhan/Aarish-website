@@ -1,24 +1,27 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export const ADMIN_COOKIE_NAME = 'research_admin_session';
-export const DEFAULT_ADMIN_EMAIL = String(process.env.ADMIN_EMAIL ?? 'admin@university.edu').trim();
-export const DEFAULT_ADMIN_PASSWORD = String(process.env.ADMIN_PASSWORD ?? 'research-admin').trim();
+import { ADMIN_COOKIE_NAME, verifyAdminSessionToken } from '@/lib/admin-session';
+
+export { ADMIN_COOKIE_NAME };
 
 function normalizeCredential(value: string | null | undefined) {
   return String(value ?? '').trim();
 }
 
 export function isValidAdminCredentials(email: string, password: string) {
-  return (
-    normalizeCredential(email).toLowerCase() === DEFAULT_ADMIN_EMAIL.toLowerCase() &&
-    normalizeCredential(password) === DEFAULT_ADMIN_PASSWORD
-  );
+  const adminEmail = normalizeCredential(process.env.ADMIN_EMAIL);
+  const adminPassword = normalizeCredential(process.env.ADMIN_PASSWORD);
+
+  // No built-in defaults: admin login stays disabled until credentials are configured.
+  if (!adminEmail || !adminPassword) return false;
+
+  return normalizeCredential(email).toLowerCase() === adminEmail.toLowerCase() && normalizeCredential(password) === adminPassword;
 }
 
 export async function isAdminAuthenticated() {
   const cookieStore = await cookies();
-  return cookieStore.get(ADMIN_COOKIE_NAME)?.value === 'authenticated';
+  return verifyAdminSessionToken(cookieStore.get(ADMIN_COOKIE_NAME)?.value);
 }
 
 export async function requireAdminSession() {
