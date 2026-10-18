@@ -1,25 +1,23 @@
 import Link from 'next/link';
 import type { Route } from 'next';
 import { publications } from '@/data/site-config';
+import { PageHeader } from '@/components/layout/page-header';
 
 export default function PublicationsPage() {
   return (
     <div className="container-shell section-shell">
-      <div className="section-heading">
-        <p className="eyebrow">Publications</p>
-        <h1 className="text-4xl font-semibold tracking-tight text-slate-950">Scholarly output</h1>
-      </div>
+      <PageHeader eyebrow="Publications" title="Scholarly output" />
       <div className="space-y-5">
         {publications.map((publication) => (
           <article key={publication.id} className="card-surface p-6">
             <p className="text-xs uppercase tracking-[0.15em] text-slate-500">{publication.publicationType}</p>
-            <h2 className="mt-2 text-2xl font-semibold text-slate-900">{publication.title}</h2>
+            <h2 className="mt-2 text-2xl font-semibold text-brand-dark">{publication.title}</h2>
             <p className="mt-2 text-sm text-slate-600">{publication.authors.join(', ')}</p>
             <p className="mt-2 text-sm text-slate-500">{publication.journal || publication.conference} • {publication.publicationDate}</p>
             <p className="mt-4 text-sm leading-7 text-slate-600">{publication.abstract}</p>
             <div className="mt-5 flex flex-wrap items-center gap-4">
               {publication.abstractUrl && (
-                <Link href={publication.abstractUrl as Route} className="inline-flex text-sm font-medium text-sky-700" target="_blank" rel="noreferrer">
+                <Link href={publication.abstractUrl as Route} className="inline-flex text-sm font-medium text-brand" target="_blank" rel="noreferrer">
                   View abstract
                 </Link>
               )}

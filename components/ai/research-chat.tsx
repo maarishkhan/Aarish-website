@@ -40,7 +40,7 @@ export function ResearchChat() {
   }
 
   return (
-    <div className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="card-surface max-w-4xl p-6 sm:p-8">
       <div className="flex flex-wrap gap-2">
         {SUGGESTIONS.map((suggestion) => (
           <button
@@ -68,13 +68,13 @@ export function ResearchChat() {
           onChange={(event) => setQuestion(event.target.value)}
           maxLength={500}
           rows={3}
-          className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none ring-0 transition focus:border-sky-500"
+          className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none ring-0 transition focus:border-brand"
           placeholder="Ask about the research, publications, experience, or education"
         />
         <button
           type="submit"
           disabled={loading || !question.trim()}
-          className="inline-flex items-center rounded-full bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+          className="btn btn-primary"
         >
           {loading ? 'Thinking…' : 'Ask'}
         </button>
@@ -82,7 +82,7 @@ export function ResearchChat() {
 
       <div aria-live="polite">
         {answer ? (
-          <div className="mt-6 whitespace-pre-line rounded-2xl border border-sky-100 bg-sky-50 p-4 text-sm leading-7 text-slate-700">
+          <div className="mt-6 whitespace-pre-line rounded-2xl border border-brand/15 bg-brand/5 p-4 text-sm leading-7 text-slate-700">
             {answer}
           </div>
         ) : null}

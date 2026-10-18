@@ -198,7 +198,7 @@ const defaultResearchProjects: ResearchProject[] = [
     endDate: '06/2025',
     status: 'Published',
     featured: true,
-    images: ['/uploads/poster-with-coauthor.jpg', '/uploads/research-poster.jpeg'],
+    images: ['/uploads/poster-with-coauthor.jpg'],
     paperUrl: 'https://ieeexplore.ieee.org/document/11147433',
     githubUrl: '',
     doi: '10.1109/ISEC64801.2025.11147433',

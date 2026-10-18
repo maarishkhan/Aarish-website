@@ -18,7 +18,7 @@ function SidebarSection({ title, children }: { title: string; children: ReactNod
 function MainSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
-      <h2 className="font-serif text-2xl font-bold uppercase tracking-wide text-slate-900">{title}</h2>
+      <h2 className="font-serif text-2xl font-bold uppercase tracking-wide text-brand-dark">{title}</h2>
       <div className="mt-1.5 h-px bg-[#bb7728]" />
       <div className="mt-4 space-y-3 text-sm leading-6 text-slate-800">{children}</div>
     </section>
@@ -29,7 +29,7 @@ function Role({ title, details, bullets }: { title: string; details: string; bul
   return (
     <article className="break-inside-avoid">
       <div className="flex flex-col gap-0.5 xl:flex-row xl:items-baseline xl:justify-between xl:gap-5">
-        <h3 className="font-semibold text-slate-900">{title}</h3>
+        <h3 className="font-semibold text-brand-dark">{title}</h3>
         <p className="shrink-0 text-xs italic text-slate-500">{details}</p>
       </div>
       <ul className="mt-1 list-disc space-y-0.5 pl-5 text-[13px] leading-5 marker:text-[#bb7728]">
@@ -79,7 +79,7 @@ export default async function CvPage() {
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4 print:hidden">
         <div>
           <p className="eyebrow">CV</p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Curriculum Vitae</h1>
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-brand-dark">Curriculum Vitae</h1>
         </div>
         <PrintButton />
       </div>

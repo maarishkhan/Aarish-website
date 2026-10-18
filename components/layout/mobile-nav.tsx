@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import type { Route } from 'next';
+import { NavLink } from '@/components/layout/nav-link';
 import { Menu, X } from 'lucide-react';
 
 type NavItem = { label: string; href: string };
@@ -27,13 +26,7 @@ export function MobileNav({ items }: { items: NavItem[] }) {
           <ul className="grid gap-1 sm:grid-cols-2">
             {items.map((item) => (
               <li key={item.href}>
-                <Link
-                  href={item.href as Route}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-                >
-                  {item.label}
-                </Link>
+                <NavLink href={item.href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-slate-50">{item.label}</NavLink>
               </li>
             ))}
           </ul>

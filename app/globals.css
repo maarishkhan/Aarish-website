@@ -1,5 +1,13 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-brand: #13314d;
+  --color-brand-dark: #0b1e32;
+  --color-accent: #9a5f1a;
+  --color-accent-light: #e3b878;
+  --color-gold: #bb7728;
+}
+
 :root {
   --background: #f5f8fb;
   --foreground: #0f172a;
@@ -59,7 +67,39 @@ body {
   }
 
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.18em] text-sky-700;
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-accent;
+  }
+
+  .btn {
+    @apply inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply bg-brand text-white hover:bg-brand-dark disabled:bg-slate-400;
+  }
+
+  .btn-secondary {
+    @apply border border-slate-300 bg-white text-brand-dark hover:border-brand hover:bg-slate-50;
+  }
+
+  .btn-light {
+    @apply bg-white text-brand-dark hover:bg-slate-100;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2;
+  }
+
+  .pill {
+    @apply mb-4 inline-flex rounded-full border border-brand/20 bg-brand/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-brand;
+  }
+
+  .chip {
+    @apply rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-600;
+  }
+
+  .link-brand {
+    @apply inline-flex items-center gap-2 text-sm font-medium text-brand underline-offset-4 hover:underline;
   }
 
   .card-surface {

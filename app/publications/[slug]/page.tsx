@@ -15,13 +15,13 @@ export default async function PublicationDetailPage({ params }: { params: Promis
 
   return (
     <div className="container-shell section-shell">
-      <Link href={'/publications' as Route} className="mb-6 inline-flex items-center text-sm font-medium text-sky-700">
+      <Link href={'/publications' as Route} className="mb-6 inline-flex items-center text-sm font-medium text-brand">
         ← Back to publications
       </Link>
 
       <div className="card-surface p-6 md:p-8">
         <p className="text-xs uppercase tracking-[0.15em] text-slate-500">{publication.publicationType}</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-brand-dark md:text-4xl">
           {publication.title}
         </h1>
 
@@ -42,7 +42,7 @@ export default async function PublicationDetailPage({ params }: { params: Promis
               href={publication.abstractUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center rounded-full bg-sky-700 px-4 py-2 text-sm font-medium text-white"
+              className="inline-flex items-center rounded-full bg-brand px-4 py-2 text-sm font-medium text-white"
             >
               View abstract
             </a>
@@ -52,7 +52,7 @@ export default async function PublicationDetailPage({ params }: { params: Promis
               href={recordUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-800"
+              className="btn btn-secondary btn-sm"
             >
               View details
             </a>
@@ -60,16 +60,16 @@ export default async function PublicationDetailPage({ params }: { params: Promis
         </div>
 
         <div className="mt-8">
-          <h2 className="text-lg font-semibold text-slate-900">Abstract</h2>
+          <h2 className="text-lg font-semibold text-brand-dark">Abstract</h2>
           <p className="mt-3 text-sm leading-7 text-slate-600">{publication.abstract}</p>
         </div>
 
         {publication.keywords.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-lg font-semibold text-slate-900">Keywords</h2>
+            <h2 className="text-lg font-semibold text-brand-dark">Keywords</h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {publication.keywords.map((keyword) => (
-                <span key={keyword} className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-600">
+                <span key={keyword} className="chip">
                   {keyword}
                 </span>
               ))}
@@ -78,7 +78,7 @@ export default async function PublicationDetailPage({ params }: { params: Promis
         )}
 
         <div className="mt-8 border-t border-slate-200 pt-6">
-          <h2 className="text-lg font-semibold text-slate-900">Citation</h2>
+          <h2 className="text-lg font-semibold text-brand-dark">Citation</h2>
           <p className="mt-3 text-sm leading-7 text-slate-600">{publication.citation}</p>
         </div>
       </div>

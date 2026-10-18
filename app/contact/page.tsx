@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Route } from 'next';
+import { PageHeader } from '@/components/layout/page-header';
 import { getSiteConfig, getSocialLinks } from '@/data/site-config';
 
 export default async function ContactPage() {
@@ -8,17 +9,18 @@ export default async function ContactPage() {
 
   return (
     <div className="container-shell section-shell">
-      <div className="max-w-2xl">
-        <p className="eyebrow">Contact</p>
-        <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950">Connect and collaborate</h1>
-        <p className="mt-5 text-base leading-7 text-slate-600">
-          I welcome conversations about research collaboration, mentorship, and opportunities in biomedical engineering and computational biology. Email is the best way to reach me.
-        </p>
+      <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+      <PageHeader
+        eyebrow="Contact"
+        title="Connect and collaborate"
+        intro="I welcome conversations about research collaboration, mentorship, and opportunities in biomedical engineering and computational biology. Email is the best way to reach me."
+      />
 
-        <div className="card-surface mt-8 space-y-5 p-6">
+      <div>
+        <div className="card-surface space-y-5 p-6 sm:p-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Email</p>
-            <a href={`mailto:${siteConfig.email}`} className="mt-1 inline-block text-lg font-medium text-sky-700">{siteConfig.email}</a>
+            <a href={`mailto:${siteConfig.email}`} className="mt-1 inline-block text-xl font-medium text-brand underline-offset-4 hover:underline">{siteConfig.email}</a>
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Affiliation</p>
@@ -35,6 +37,7 @@ export default async function ContactPage() {
             </div>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

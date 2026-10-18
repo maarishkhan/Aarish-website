@@ -15,13 +15,6 @@ export default async function HomePage() {
       return accumulator;
     }, {});
 
-  const theme = siteConfig.theme ?? {
-    accent: '#1f5eff',
-    accentSoft: '#dfe8ff',
-    secondary: '#8b5cf6',
-    secondarySoft: '#ede9fe',
-  };
-
   const profileImage = siteConfig.profileImage || 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80';
   const posterImage = '/uploads/research-poster.jpeg';
   const podiumImage = '/uploads/leadership-podium.jpeg';
@@ -58,7 +51,7 @@ export default async function HomePage() {
               <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div className="space-y-4">
                   <div>
-                    <h1 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">{siteConfig.name}</h1>
+                    <h1 className="text-2xl font-black tracking-tight text-brand-dark sm:text-3xl">{siteConfig.name}</h1>
                     <p className="mt-1 text-sm font-medium text-slate-600">{siteConfig.title} · {siteConfig.location}</p>
                   </div>
                   <p className="max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
@@ -82,7 +75,7 @@ export default async function HomePage() {
                             className={[
                               'inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold transition',
                               isScholar
-                                ? 'border border-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-sky-700 text-white shadow-sm hover:brightness-110'
+                                ? 'border border-transparent bg-brand text-white hover:bg-brand-dark'
                                 : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50',
                             ].join(' ')}
                           >
@@ -95,10 +88,10 @@ export default async function HomePage() {
                 </div>
 
                 <div className="flex flex-wrap gap-3">
-                  <Link href="/research" className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-white shadow-lg transition hover:-translate-y-0.5" style={{ background: `linear-gradient(135deg, ${theme.accent}, ${theme.secondary})` }}>
+                  <Link href="/research" className="btn btn-primary">
                     Explore Research <ArrowRight size={16} />
                   </Link>
-                  <Link href="/cv" className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-800 transition hover:border-slate-400 hover:bg-slate-50">
+                  <Link href="/cv" className="btn btn-secondary">
                     View CV
                   </Link>
                 </div>
@@ -113,15 +106,15 @@ export default async function HomePage() {
           <div className="container-shell">
             <div className="section-heading">
               <p className="eyebrow">Research Interests</p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Core areas of investigation</h2>
+              <h2 className="text-3xl font-semibold tracking-tight text-brand-dark">Core areas of investigation</h2>
             </div>
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {interests.slice(0, 4).map((interest) => (
                 <div key={interest.id} className="card-surface p-6">
-                  <div className="mb-4 inline-flex rounded-xl p-3 text-white shadow-sm" style={{ background: `linear-gradient(135deg, ${theme.accent}, ${theme.secondary})` }}>
+                  <div className="mb-4 inline-flex rounded-xl bg-brand p-3 text-white shadow-sm">
                     <Sparkles size={20} />
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-900">{interest.title}</h3>
+                  <h3 className="text-xl font-semibold text-brand-dark">{interest.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{interest.shortDescription}</p>
                 </div>
               ))}
@@ -135,30 +128,30 @@ export default async function HomePage() {
           <div className="container-shell">
             <div className="section-heading">
               <p className="eyebrow">Featured Research</p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Current and recent projects</h2>
+              <h2 className="text-3xl font-semibold tracking-tight text-brand-dark">Current and recent projects</h2>
             </div>
             <div className="grid gap-6 lg:grid-cols-3">
               {featuredResearch.map((project) => (
                 <article key={project.id} className="card-surface overflow-hidden p-6">
-                  <div className="mb-5 inline-flex rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-sky-700">
+                  <div className="pill">
                     {project.status}
                   </div>
-                  <h3 className="text-2xl font-semibold text-slate-900">{project.title}</h3>
+                  <h3 className="text-2xl font-semibold text-brand-dark">{project.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{project.shortDescription}</p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {project.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-600">
+                      <span key={tag} className="chip">
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <Link href={`/research/${project.slug}` as Route} className="mt-6 inline-flex items-center gap-2 text-sm font-medium" style={{ color: theme.accent }}>
+                  <Link href={`/research/${project.slug}` as Route} className="link-brand mt-6">
                     Read project <ArrowRight size={16} />
                   </Link>
                 </article>
               ))}
             </div>
-            <Link href="/research" className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-sky-700">
+            <Link href="/research" className="link-brand mt-8">
               All research <ArrowRight size={16} />
             </Link>
           </div>
@@ -170,24 +163,24 @@ export default async function HomePage() {
           <div className="container-shell">
             <div className="section-heading">
               <p className="eyebrow">Selected Publications</p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Peer-reviewed and scholarly work</h2>
+              <h2 className="text-3xl font-semibold tracking-tight text-brand-dark">Peer-reviewed and scholarly work</h2>
             </div>
             <div className="space-y-4">
               {publications.slice(0, 3).map((publication) => (
                 <article key={publication.id} className="card-surface flex flex-col gap-4 p-6 md:flex-row md:items-start md:justify-between">
                   <div>
                     <p className="text-xs uppercase tracking-[0.14em] text-slate-500">{publication.publicationType}</p>
-                    <h3 className="mt-2 text-xl font-semibold text-slate-900">{publication.title}</h3>
+                    <h3 className="mt-2 text-xl font-semibold text-brand-dark">{publication.title}</h3>
                     <p className="mt-2 text-sm text-slate-600">{publication.authors.join(', ')}</p>
                     <p className="mt-2 text-sm text-slate-500">{publication.journal || publication.conference} • {publication.publicationDate}</p>
                   </div>
-                  <Link href={`/publications/${publication.slug}` as Route} className="inline-flex items-center gap-2 self-start rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-800">
+                  <Link href={`/publications/${publication.slug}` as Route} className="btn btn-secondary btn-sm self-start">
                     View details
                   </Link>
                 </article>
               ))}
             </div>
-            <Link href="/publications" className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-sky-700">
+            <Link href="/publications" className="link-brand mt-8">
               All publications <ArrowRight size={16} />
             </Link>
           </div>
@@ -200,12 +193,12 @@ export default async function HomePage() {
             <div className="card-surface flex flex-col gap-5 p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
               <div className="max-w-2xl">
                 <p className="eyebrow">Research AI</p>
-                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">Ask about the research</h2>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-brand-dark">Ask about the research</h2>
                 <p className="mt-3 text-sm leading-7 text-slate-600">
                   Questions about projects, publications, tools, or background? The assistant answers using only the content of this website.
                 </p>
               </div>
-              <Link href="/research-ai" className="inline-flex items-center gap-2 self-start rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 md:self-center">
+              <Link href="/research-ai" className="btn btn-primary self-start md:self-center">
                 Open Research AI <ArrowRight size={16} />
               </Link>
             </div>
@@ -217,14 +210,14 @@ export default async function HomePage() {
         <div className="container-shell">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
-              <p className="eyebrow text-sky-300">Get in touch</p>
+              <p className="eyebrow text-accent-light">Get in touch</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight">Interested in collaborating?</h2>
               <p className="mt-4 text-sm leading-7 text-slate-300">
                 I welcome conversations about research, mentorship, and opportunities in biomedical engineering and computational biology.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-900">
+              <Link href="/contact" className="btn btn-light">
                 Contact me <ArrowRight size={16} />
               </Link>
               <Link href="/experience" className="inline-flex items-center gap-2 rounded-full border border-slate-500 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800">

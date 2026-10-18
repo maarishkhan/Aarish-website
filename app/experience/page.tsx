@@ -1,18 +1,16 @@
 import { experience, formatPeriod } from '@/data/site-config';
+import { PageHeader } from '@/components/layout/page-header';
 
 export default function ExperiencePage() {
   return (
     <div className="container-shell section-shell">
-      <div className="section-heading">
-        <p className="eyebrow">Experience</p>
-        <h1 className="text-4xl font-semibold tracking-tight text-slate-950">Research and professional experience</h1>
-      </div>
+      <PageHeader eyebrow="Experience" title="Research and professional experience" />
       <div className="space-y-6">
         {experience.map((item) => (
           <article key={item.id} className="card-surface p-6">
             <div className="flex flex-col gap-3 md:flex-row md:justify-between md:items-start">
               <div>
-                <h2 className="text-2xl font-semibold text-slate-900">{item.role}</h2>
+                <h2 className="text-2xl font-semibold text-brand-dark">{item.role}</h2>
                 <p className="mt-2 text-sm text-slate-600">{item.organization} • {item.location}</p>
               </div>
               <p className="text-sm text-slate-500">{formatPeriod(item)}</p>

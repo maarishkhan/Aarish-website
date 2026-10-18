@@ -11,7 +11,7 @@ export async function Footer() {
       <div className="container-shell py-12">
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 className="text-xl font-semibold text-slate-900">{siteConfig.name}</h2>
+            <h2 className="text-xl font-semibold text-brand-dark">{siteConfig.name}</h2>
             <p className="mt-2 max-w-md text-sm leading-6 text-slate-600">{siteConfig.title}</p>
           </div>
           <div className="flex flex-wrap gap-4 text-sm text-slate-600">

@@ -13,9 +13,9 @@ export default async function AdminPage() {
       <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="section-heading">
           <p className="eyebrow">Admin overview</p>
-          <h1 className="text-4xl font-semibold tracking-tight text-slate-950">Content management dashboard</h1>
+          <h1 className="text-4xl font-semibold tracking-tight text-brand-dark">Content management dashboard</h1>
         </div>
-        <Link href="/admin/editor" className="inline-flex items-center rounded-full bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800">
+        <Link href="/admin/editor" className="btn btn-primary btn-sm">
           Open editor
         </Link>
       </div>
@@ -39,7 +39,7 @@ export default async function AdminPage() {
       </div>
 
       <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-xl font-semibold text-slate-900">Admin capabilities</h2>
+        <h2 className="text-xl font-semibold text-brand-dark">Admin capabilities</h2>
         <ul className="mt-4 grid gap-3 text-sm text-slate-600 md:grid-cols-2">
           <li>• Manage research projects, publications, awards, and blog posts</li>
           <li>• Add or edit academic profile metadata from a secure dashboard</li>
