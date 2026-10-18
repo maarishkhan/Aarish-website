@@ -82,7 +82,7 @@ export default async function HomePage() {
           <dl className="container-shell grid grid-cols-2 gap-y-6 py-7 md:grid-cols-4">
             {[
               { value: researchProjects.filter((item) => item.published).length, label: 'Research projects' },
-              { value: publications.filter((item) => item.published).length, label: 'Publications' },
+              { value: publications.filter((item) => item.published).length, label: publications.filter((item) => item.published).length === 1 ? 'Publication' : 'Publications' },
               { value: cvConferences.length, label: 'Conferences' },
               { value: awards.length, label: 'Awards & honors' },
             ].map((stat) => (

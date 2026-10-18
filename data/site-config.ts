@@ -340,20 +340,6 @@ const defaultPublications: Publication[] = [
     featured: true,
     published: true,
   },
-  {
-    id: 'pub-2',
-    title: 'DuoDok — Independent Computational Research Tool',
-    slug: 'duodok-independent-computational-research-tool',
-    authors: ['Mohammad Aarish Khan'],
-    publicationType: 'Abstract',
-    conference: 'iFORE',
-    publicationDate: '2025',
-    abstract: 'DuoDok is a personalized computational research tool that automates portions of the bispecific antibody workflow and supports early-stage scientific exploration and presentation.',
-    keywords: ['computational tools', 'antibody design', 'research workflow'],
-    citation: 'Khan, M. A. “DuoDok — Independent Computational Research Tool.” iFORE 2025.',
-    featured: false,
-    published: true,
-  },
 ];
 
 export const databasePublications: Publication[] = await readDatabaseCollection<Publication>(
