@@ -7,7 +7,7 @@ export default function AwardsPage() {
         <p className="eyebrow">Awards</p>
         <h1 className="text-4xl font-semibold tracking-tight text-slate-950">Recognition and honors</h1>
       </div>
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
         {awards.map((award) => (
           <article key={award.id} className="card-surface overflow-hidden p-6">
             {award.image && (
