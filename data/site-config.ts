@@ -485,7 +485,7 @@ const defaultExperience: ExperienceItem[] = [
     endDate: '',
     period: '2025',
     description: 'Led two international student teams from ideation through solution development.',
-    responsibilities: ['Led planning and solution development for an asteroid-mining project (1st Place) and a multiple-sclerosis health web app (Project of Distinction)', 'Co-authored abstracts and presentations for both projects', 'Selected as one of five students internationally, out of roughly 8,000 applicants, for the Emerging Student Researcher of the Year award'],
+    responsibilities: ['Led planning and solution development for an asteroid-mining project (1st Place) and a multiple-sclerosis health web app (Project of Distinction)', 'Co-authored abstracts and presentations for both projects', 'Selected by the Academy community as one of five Emerging Student Researchers of the Year, from over 8,000 eligible students in more than 100 countries'],
     skills: ['Team Leadership', 'Project Planning', 'Scientific Communication'],
     researchAreas: ['Health Technology', 'Space Science'],
     displayOrder: 6,
@@ -645,6 +645,7 @@ export type Award = {
   category: string;
   url?: string;
   image?: string;
+  quote?: { text: string; attribution: string };
   featured: boolean;
 };
 
@@ -654,9 +655,13 @@ const defaultAwards: Award[] = [
     title: 'Emerging Student Researcher of the Year',
     organization: 'NY Academy of Sciences',
     year: '2025',
-    description: 'Selected as one of the top 5 students internationally out of approximately 8,000 applicants for this recognition.',
+    description: 'Selected by the Academy\u2019s community as one of five Emerging Student Researchers of the Year, from over 8,000 eligible students in more than 100 countries, for leadership and contributions to the Junior Academy. Nominated by a teammate and honored on April 22, 2025.',
     category: 'Research excellence',
     image: '/uploads/nyas-emerging-student-researcher.jpg',
+    quote: {
+      text: 'He shared insight and creative solutions to the complex problems we faced in crafting such an innovative solution. What sets Mohammad apart as a future STEM leader is his resilience, ability to think critically under pressure, and his unwavering commitment to supporting his team.',
+      attribution: 'Nominating teammate, NY Academy of Sciences Junior Academy',
+    },
     featured: true,
   },
   {
@@ -721,6 +726,7 @@ export const databaseAwards: Award[] = await readDatabaseCollection<Award>(
     category: asString(row.category, 'Academic award'),
     url: asString(row.url, ''),
     image: asString(row.image, ''),
+    quote: row.quote_text ? { text: asString(row.quote_text, ''), attribution: asString(row.quote_attribution, '') } : undefined,
     featured: asBoolean(row.featured, false),
   })
 );

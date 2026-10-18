@@ -67,7 +67,7 @@ export async function buildKnowledgeSections(): Promise<KnowledgeSection[]> {
     },
     {
       title: 'Awards and honors',
-      text: awards.map((item) => `${item.title}, ${item.organization} (${item.year}). ${item.description}`).join('\n'),
+      text: awards.map((item) => `${item.title}, ${item.organization} (${item.year}). ${item.description}${item.quote ? ` A nominating teammate wrote: "${item.quote.text}"` : ''}`).join('\n'),
     },
     {
       title: 'Presentations and conferences',
