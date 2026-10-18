@@ -168,6 +168,7 @@ export type ResearchProject = {
   status: string;
   featured: boolean;
   images: string[];
+  imageCaptions?: string[];
   githubUrl?: string;
   paperUrl?: string;
   doi?: string;
@@ -199,6 +200,7 @@ const defaultResearchProjects: ResearchProject[] = [
     status: 'Published',
     featured: true,
     images: ['/uploads/poster-with-coauthor.jpg'],
+    imageCaptions: ['Presenting the poster at the ACS Northeast Regional Discussion (NERD) 2025'],
     paperUrl: 'https://ieeexplore.ieee.org/document/11147433',
     githubUrl: '',
     doi: '10.1109/ISEC64801.2025.11147433',
@@ -284,6 +286,7 @@ export const databaseResearchProjects: ResearchProject[] = await readDatabaseCol
     status: asString(row.status, 'Ongoing'),
     featured: asBoolean(row.featured, false),
     images: asStringArray(row.images),
+    imageCaptions: asStringArray(row.image_captions),
     githubUrl: asString(row.github_url ?? row.githubUrl, ''),
     paperUrl: asString(row.paper_url ?? row.paperUrl, ''),
     doi: asString(row.doi, ''),
@@ -667,22 +670,48 @@ const defaultAwards: Award[] = [
   {
     id: 'award-2',
     title: 'Outstanding Poster Presentation Award',
-    organization: 'ACS NERD',
+    organization: 'American Chemical Society (ACS) NERD',
     year: '2025',
-    description: 'Recognized for a standout poster presentation in a prominent scientific research forum.',
+    description: 'Awarded Outstanding Poster Presentation at the Northeast Regional Discussion (NERD) 2025 for the poster “Bispecific DuoBody Antibody Targeting 4-1BB on Cancer Cells and PD-L1 on T-Cells for Immunotherapy in Non-Small Cell Lung Cancer (NSCLC),” co-authored with Gaurav Sharma of Eigen Sciences.',
     category: 'Poster presentation',
     image: '/uploads/acs-nerd-award.jpg',
     featured: true,
   },
   {
-    id: 'award-3',
-    title: 'SmallSat Education Conference',
-    organization: 'Kennedy Space Center (NASA)',
+    id: 'award-4',
+    title: 'Medal of High Honors and Office of Naval Research Award',
+    organization: 'Terra Science Fair',
     year: '2025',
-    description: 'Studied variation in solar panel efficiency across altitude; presented findings and research at the Kennedy Space Center SmallSat Education Conference.',
-    category: 'Conference presentation',
-    image: '/uploads/smallsat-kennedy-space-center.jpg',
+    description: 'Awarded the Medal of High Honors for outstanding research impact and scientific communication, and received the Office of Naval Research Award.',
+    category: 'Science fair',
     featured: true,
+  },
+  {
+    id: 'award-7',
+    title: '1st Place, Asteroid-Mining Project',
+    organization: 'NY Academy of Sciences, Junior Academy Challenge',
+    year: '',
+    description: 'Led ideation and implementation for an international student team whose asteroid-mining project won 1st Place.',
+    category: 'Team award',
+    featured: false,
+  },
+  {
+    id: 'award-8',
+    title: 'Project of Distinction, Multiple-Sclerosis Health App',
+    organization: 'NY Academy of Sciences, Junior Academy Challenge',
+    year: '',
+    description: 'Led ideation and implementation for an international student team whose multiple-sclerosis health web app was named a Project of Distinction.',
+    category: 'Team award',
+    featured: false,
+  },
+  {
+    id: 'award-5',
+    title: 'AP Scholar with Distinction',
+    organization: 'College Board',
+    year: '2025, 2026',
+    description: 'Earned in both 2025 and 2026 for academic excellence across Advanced Placement coursework.',
+    category: 'Academic achievement',
+    featured: false,
   },
   {
     id: 'award-6',
@@ -695,21 +724,13 @@ const defaultAwards: Award[] = [
     featured: false,
   },
   {
-    id: 'award-4',
-    title: 'Medal of High Honors',
-    organization: 'Terra Science Fair',
+    id: 'award-3',
+    title: 'Invited Presenter, SmallSat Education Conference',
+    organization: 'Kennedy Space Center (NASA)',
     year: '2025',
-    description: 'Awarded for outstanding research impact and scientific communication.',
-    category: 'Science fair',
-    featured: false,
-  },
-  {
-    id: 'award-5',
-    title: 'AP Scholar with Distinction',
-    organization: 'College Board',
-    year: '2025, 2026',
-    description: 'Earned in both 2025 and 2026 for academic excellence across Advanced Placement coursework.',
-    category: 'Academic achievement',
+    description: 'Studied variation in solar-panel efficiency across altitude with a high-altitude balloon payload and presented the findings at the SmallSat Education Conference.',
+    category: 'Conference presentation',
+    image: '/uploads/smallsat-kennedy-space-center.jpg',
     featured: false,
   },
 ];
@@ -748,13 +769,23 @@ export type Presentation = {
 
 const defaultPresentations: Presentation[] = [
   {
+    id: 'pres-0',
+    title: 'Bispecific DuoBody Antibody Targeting 4-1BB on Cancer Cells and PD-L1 on T-Cells for Immunotherapy in Non-Small Cell Lung Cancer (NSCLC)',
+    event: 'ACS Northeast Regional Discussion (NERD) 2025',
+    presentationType: 'Poster',
+    date: '2025',
+    location: '',
+    abstract: 'Poster presentation of the computational design of a bispecific antibody for NSCLC immunotherapy, including the DuoDok workflow tool. Received the Outstanding Poster Presentation Award.',
+    relatedProject: 'bispecific-antibody-cancer-immunotherapy',
+  },
+  {
     id: 'pres-1',
     title: 'Bispecific DuoBody Antibody Targeting 4-1BB on Cancer Cells and PD-L1 on T-Cells for Immunotherapy in NSCLC',
-    event: 'IEEE ISEC 2025',
+    event: '2025 IEEE Integrated STEM Education Conference (ISEC)',
     presentationType: 'Conference',
     date: '2025',
     location: 'Princeton, NJ',
-    abstract: 'Research presentation highlighting a computational immunotherapy design strategy for non-small cell lung cancer using bispecific antibodies.',
+    abstract: 'Published and presented the bispecific antibody design study as a conference paper.',
     relatedProject: 'bispecific-antibody-cancer-immunotherapy',
   },
   {

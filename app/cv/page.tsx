@@ -117,7 +117,7 @@ export default async function CvPage() {
             </SidebarSection>
             <SidebarSection title="Awards & honors">
               {awards.map((award) => (
-                <p key={award.id}>– {award.organization}: {award.title} {award.year}</p>
+                <p key={award.id}>– {award.organization}: {award.title}{award.year ? ` ${award.year}` : ''}</p>
               ))}
             </SidebarSection>
             <SidebarSection title="Conferences">

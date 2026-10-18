@@ -35,7 +35,7 @@ export default async function HomePage() {
                 <figure className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-slate-900 lg:aspect-auto">
                   <Image src={posterImage} alt={`${siteConfig.name} presenting cancer immunotherapy research`} fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-center" />
                   <figcaption className="absolute bottom-3 left-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
-                    Cancer immunotherapy poster presentation
+                    ACS NERD 2025 poster presentation
                   </figcaption>
                 </figure>
                 <figure className="relative hidden aspect-square items-center justify-center overflow-hidden bg-slate-800 lg:flex lg:aspect-auto">

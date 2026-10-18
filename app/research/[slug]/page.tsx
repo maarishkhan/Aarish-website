@@ -70,10 +70,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         )}
 
         {project.images.length > 0 && (
-          <div className={`mt-8 grid gap-4 ${project.images.length > 1 ? 'sm:grid-cols-2' : ''}`}>
-            {project.images.map((src) => (
-              <figure key={src} className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
-                <img src={src} alt={`${project.title}`} className="h-full w-full object-cover" loading="lazy" />
+          <div className={`mt-8 grid gap-4 ${project.images.length > 1 ? 'sm:grid-cols-2' : 'max-w-2xl'}`}>
+            {project.images.map((src, index) => (
+              <figure key={src} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                <img src={src} alt={project.imageCaptions?.[index] || project.title} className="h-auto w-full" loading="lazy" />
+                {project.imageCaptions?.[index] && (
+                  <figcaption className="px-4 py-3 text-sm text-slate-600">{project.imageCaptions[index]}</figcaption>
+                )}
               </figure>
             ))}
           </div>
