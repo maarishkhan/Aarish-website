@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { PrintButton } from '@/components/cv/print-button';
+import { PageHeader } from '@/components/layout/page-header';
 import { awards, education, experience, formatPeriod, getSiteConfig, publications, skills } from '@/data/site-config';
 import { cvConferences, cvLeadership, cvWorkshopsAndCertifications } from '@/data/cv-extras';
 
@@ -10,7 +11,7 @@ function SidebarSection({ title, children }: { title: string; children: ReactNod
     <section>
       <h2 className="font-serif text-lg font-bold uppercase tracking-wide text-white">{title}</h2>
       <div className="mt-1.5 h-px bg-[#bb7728]" />
-      <div className="mt-3 space-y-2 text-[13px] leading-5 text-slate-100">{children}</div>
+      <div className="mt-3 space-y-2 text-[13px] leading-5 text-slate-100 print:mt-2 print:space-y-1 print:text-[10.5px] print:leading-4">{children}</div>
     </section>
   );
 }
@@ -20,7 +21,7 @@ function MainSection({ title, children }: { title: string; children: ReactNode }
     <section>
       <h2 className="font-serif text-2xl font-bold uppercase tracking-wide text-brand-dark">{title}</h2>
       <div className="mt-1.5 h-px bg-[#bb7728]" />
-      <div className="mt-4 space-y-3 text-sm leading-6 text-slate-800">{children}</div>
+      <div className="mt-4 space-y-3 text-sm leading-6 text-slate-800 print:mt-2 print:space-y-2 print:text-[12px] print:leading-5">{children}</div>
     </section>
   );
 }
@@ -75,19 +76,13 @@ export default async function CvPage() {
   );
 
   return (
-    <div className="container-shell section-shell">
-      <div className="mb-6 flex flex-wrap items-end justify-between gap-4 print:hidden">
-        <div>
-          <p className="eyebrow">CV</p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-brand-dark">Curriculum Vitae</h1>
-        </div>
-        <PrintButton />
-      </div>
+    <div className="container-shell section-shell print:max-w-none print:p-0">
+      <PageHeader eyebrow="CV" title="Curriculum Vitae" intro="A full record of research, awards, and leadership. Download it as a PDF using the button." action={<PrintButton variant="gold" />} />
 
-      <div className="overflow-hidden border border-slate-200 bg-white shadow-[0_20px_55px_rgba(15,23,42,0.12)] lg:grid lg:grid-cols-[19rem_minmax(0,1fr)] print:shadow-none">
-        <aside className="bg-[#13314d] p-7 text-white sm:p-9 lg:min-h-[1050px] print:[-webkit-print-color-adjust:exact] print:[print-color-adjust:exact]">
+      <div className="overflow-hidden border border-slate-200 bg-white shadow-[0_20px_55px_rgba(15,23,42,0.12)] lg:grid lg:grid-cols-[19rem_minmax(0,1fr)] print:grid print:grid-cols-[15.5rem_minmax(0,1fr)] print:border-0 print:shadow-none">
+        <aside className="bg-[#13314d] p-7 text-white sm:p-9 lg:min-h-[1050px] print:min-h-0 print:p-5 print:text-[11px] print:[-webkit-print-color-adjust:exact] print:[print-color-adjust:exact]">
           <header className="mb-8">
-            <h2 className="font-serif text-[2rem] font-bold uppercase leading-[1.05] tracking-wide">
+            <h2 className="font-serif text-[2rem] font-bold uppercase leading-[1.05] tracking-wide print:text-[1.5rem] print:tracking-normal">
               {firstName}
               <br />
               {restName.join(' ')}
@@ -95,10 +90,10 @@ export default async function CvPage() {
             <p className="mt-5 text-sm font-semibold">{site.title}</p>
             <p className="mt-2 text-sm italic text-slate-300">{site.location}</p>
           </header>
-          <div className="space-y-7">
+          <div className="space-y-7 print:space-y-4">
             <SidebarSection title="Contact">
               {contactLines.map((line) => (
-                <p key={line} className="break-words">{line}</p>
+                <p key={line} className="break-all">{line}</p>
               ))}
             </SidebarSection>
             <SidebarSection title="Education">
@@ -133,7 +128,7 @@ export default async function CvPage() {
           </div>
         </aside>
 
-        <main className="space-y-10 p-7 sm:p-9 lg:p-10">
+        <main className="space-y-10 p-7 sm:p-9 lg:p-10 print:space-y-4 print:p-5 print:text-[12px]">
           <MainSection title="Research experience">
             {current.length > 0 && (
               <>
