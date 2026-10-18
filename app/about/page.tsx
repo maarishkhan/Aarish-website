@@ -16,7 +16,7 @@ export default async function AboutPage() {
         </div>
         <figure className="order-first mx-auto w-full max-w-[20rem] md:order-none">
           <div className="relative aspect-square overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm">
-            <Image src="/uploads/leadership-podium.jpeg" alt={siteConfig.name} fill sizes="320px" className="object-cover object-top" priority />
+            <Image src={siteConfig.profileImage || '/uploads/headshot.jpg'} alt={siteConfig.name} fill sizes="320px" className="object-cover object-top" priority />
           </div>
           <figcaption className="mt-3 text-center text-sm text-slate-500">{siteConfig.name}</figcaption>
         </figure>
@@ -25,12 +25,14 @@ export default async function AboutPage() {
         <h2 className="text-xl font-semibold text-slate-900">Presenting research</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {[
+            { src: '/uploads/poster-with-coauthor.jpg', caption: 'With co-author Gaurav Sharma at the ACS NERD poster session' },
+            { src: '/uploads/smallsat-kennedy-space-center.jpg', caption: 'SmallSat Education Conference, Kennedy Space Center (NASA)' },
             { src: '/uploads/presenting-diagnostics.jpg', caption: 'Presenting a proposal on making diagnostics accessible anywhere' },
             { src: '/uploads/presenting-phases.jpg', caption: 'Walking through the project phases and deliverables' },
           ].map((photo) => (
             <figure key={photo.src} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <div className="relative aspect-video">
-                <Image src={photo.src} alt={photo.caption} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover" />
+              <div className="relative aspect-[4/3]">
+                <Image src={photo.src} alt={photo.caption} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover object-top" />
               </div>
               <figcaption className="px-4 py-3 text-sm text-slate-600">{photo.caption}</figcaption>
             </figure>

@@ -34,10 +34,7 @@ export default async function HomePage() {
             <div className="bg-slate-950 p-2">
               <div className="grid grid-cols-1 gap-2 lg:h-[390px] lg:grid-cols-[0.75fr_1.33fr_1fr]">
                 <figure className="relative flex aspect-[3/4] items-center justify-center overflow-hidden bg-slate-100 lg:aspect-auto">
-                  <Image src={profileImage} alt={`${siteConfig.name} at NASA`} fill priority sizes="(min-width: 1024px) 25vw, 100vw" className="object-cover object-top" />
-                  <figcaption className="absolute bottom-3 left-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
-                    NASA Kennedy Space Center
-                  </figcaption>
+                  <Image src={profileImage} alt={`Portrait of ${siteConfig.name}`} fill priority sizes="(min-width: 1024px) 25vw, 100vw" className="object-cover object-top" />
                 </figure>
                 <figure className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-slate-900 lg:aspect-auto">
                   <Image src={posterImage} alt={`${siteConfig.name} presenting cancer immunotherapy research`} fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-center" />

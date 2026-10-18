@@ -23,6 +23,13 @@ export default function ExperiencePage() {
                 <li key={responsibility}>{responsibility}</li>
               ))}
             </ul>
+            {item.images && item.images.length > 0 && (
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {item.images.map((src) => (
+                  <img key={src} src={src} alt={`${item.role} at ${item.organization}`} className="aspect-video w-full rounded-xl border border-slate-200 object-cover" loading="lazy" />
+                ))}
+              </div>
+            )}
           </article>
         ))}
       </div>

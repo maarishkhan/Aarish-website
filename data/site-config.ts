@@ -198,7 +198,7 @@ const defaultResearchProjects: ResearchProject[] = [
     endDate: '06/2025',
     status: 'Published',
     featured: true,
-    images: ['/uploads/research-poster.jpeg'],
+    images: ['/uploads/poster-with-coauthor.jpg', '/uploads/research-poster.jpeg'],
     paperUrl: 'https://ieeexplore.ieee.org/document/11147433',
     githubUrl: '',
     doi: '10.1109/ISEC64801.2025.11147433',
@@ -393,6 +393,7 @@ export type ExperienceItem = {
   skills: string[];
   researchAreas: string[];
   displayOrder: number;
+  images?: string[];
 };
 
 export function formatPeriod(item: { startDate?: string; endDate?: string; period?: string }) {
@@ -469,10 +470,11 @@ const defaultExperience: ExperienceItem[] = [
     endDate: '',
     period: 'Summer internship',
     description: 'Member of a five-student team that built a high-altitude balloon payload carrying six solar panels.',
-    responsibilities: ['Designed electronics and wrote code for the balloon payload', 'Studied variation in solar-panel efficiency across altitude', 'Presented findings through a research abstract and presentation at the SmallSat Education Conference, Kennedy Space Center (NASA)'],
+    responsibilities: ['Designed the payload electronics: an Arduino R4 Minima logging six solar panels (via INA3221 power sensors), pressure (BMP390), and humidity (DHT11) to an SD card, and wrote the code', 'Studied variation in solar-panel efficiency across altitude', 'Presented findings through a research abstract and presentation at the SmallSat Education Conference, Kennedy Space Center (NASA)'],
     skills: ['Arduino', 'Electronics', 'Data Analysis'],
     researchAreas: ['Sensing and Instrumentation'],
     displayOrder: 5,
+    images: ['/uploads/balloon-initial-wiring.jpg', '/uploads/balloon-final-circuitry.jpg'],
   },
   {
     id: 'exp-6',
@@ -520,6 +522,7 @@ export const databaseExperience: ExperienceItem[] = await readDatabaseCollection
     skills: asStringArray(row.skills),
     researchAreas: asStringArray(row.research_areas),
     displayOrder: Number(row.display_order ?? 0),
+    images: asStringArray(row.images),
   })
 );
 
@@ -641,6 +644,7 @@ export type Award = {
   description: string;
   category: string;
   url?: string;
+  image?: string;
   featured: boolean;
 };
 
@@ -661,6 +665,7 @@ const defaultAwards: Award[] = [
     year: '2025',
     description: 'Recognized for a standout poster presentation in a prominent scientific research forum.',
     category: 'Poster presentation',
+    image: '/uploads/acs-nerd-award.jpg',
     featured: true,
   },
   {
@@ -669,7 +674,8 @@ const defaultAwards: Award[] = [
     organization: 'Kennedy Space Center(NASA)',
     year: '2025',
     description: 'Studied variation in solar panel efficiency across altitude; presented findings and research at the Kennedy Space Center SmallSat Education Conference.',
-    category: 'Confrence Presentation',
+    category: 'Conference presentation',
+    image: '/uploads/smallsat-kennedy-space-center.jpg',
     featured: true,
   },
   {
@@ -703,6 +709,7 @@ export const databaseAwards: Award[] = await readDatabaseCollection<Award>(
     description: asString(row.description, ''),
     category: asString(row.category, 'Academic award'),
     url: asString(row.url, ''),
+    image: asString(row.image, ''),
     featured: asBoolean(row.featured, false),
   })
 );
