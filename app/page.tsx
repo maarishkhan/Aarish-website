@@ -24,7 +24,7 @@ export default async function HomePage() {
 
   const profileImage = siteConfig.profileImage || 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80';
   const posterImage = '/uploads/research-poster.jpeg';
-  const headshotImage = '/uploads/headshot.jpg';
+  const podiumImage = '/uploads/leadership-podium.jpeg';
 
   return (
     <>
@@ -46,7 +46,10 @@ export default async function HomePage() {
                   </figcaption>
                 </figure>
                 <figure className="relative hidden aspect-square items-center justify-center overflow-hidden bg-slate-800 lg:flex lg:aspect-auto">
-                  <Image src={headshotImage} alt={`Portrait of ${siteConfig.name}`} fill priority sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover object-top" />
+                  <Image src={podiumImage} alt={`${siteConfig.name} speaking at a podium`} fill priority sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover object-top" />
+                  <figcaption className="absolute bottom-3 right-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
+                    Scientific communication
+                  </figcaption>
                 </figure>
               </div>
             </div>
