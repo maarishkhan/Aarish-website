@@ -566,7 +566,7 @@ const defaultEducation: EducationItem[] = [
     field: 'STEM and Research',
     startDate: '09/2022',
     endDate: '06/2026',
-    description: 'Graduated in the Class of 2026 with strong achievement in STEM, research, and academic leadership. Cumulative average 97.48%; SAT 1510; AP Scholar with Distinction (2025, 2026).',
+    description: 'Graduated in the Class of 2026 with strong achievement in STEM, research, and academic leadership. Cumulative average 97.48%; AP Scholar with Distinction (2025, 2026).',
     gpa: '',
     honors: ['AP Scholar with Distinction'],
     coursework: ['Advanced STEM', 'Research', 'Computer Science'],
