@@ -2,12 +2,12 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { getSiteConfig, getSocialLinks } from '@/data/site-config';
 
-export function Footer() {
-  const siteConfig = getSiteConfig();
+export async function Footer() {
+  const siteConfig = await getSiteConfig();
   const socialLinks = getSocialLinks(siteConfig);
 
   return (
-    <footer className="border-t border-slate-200 bg-white">
+    <footer className="print:hidden border-t border-slate-200 bg-white">
       <div className="container-shell py-12">
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
@@ -23,7 +23,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-slate-200 pt-6 text-sm text-slate-500">
-          © 2026 {siteConfig.name}. All rights reserved.
+          © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
         </div>
       </div>
     </footer>

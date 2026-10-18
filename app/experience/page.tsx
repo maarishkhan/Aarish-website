@@ -1,4 +1,4 @@
-import { experience } from '@/data/site-config';
+import { experience, formatPeriod } from '@/data/site-config';
 
 export default function ExperiencePage() {
   return (
@@ -15,7 +15,7 @@ export default function ExperiencePage() {
                 <h2 className="text-2xl font-semibold text-slate-900">{item.role}</h2>
                 <p className="mt-2 text-sm text-slate-600">{item.organization} • {item.location}</p>
               </div>
-              <p className="text-sm text-slate-500">{item.startDate} — {item.endDate}</p>
+              <p className="text-sm text-slate-500">{formatPeriod(item)}</p>
             </div>
             <p className="mt-4 text-sm leading-7 text-slate-600">{item.description}</p>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600">

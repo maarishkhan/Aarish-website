@@ -26,7 +26,6 @@ body {
   margin: 0;
   background: linear-gradient(180deg, #f7fafc 0%, #edf6ff 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 ::selection {
@@ -73,6 +72,6 @@ body {
   }
 
   .hero-image {
-    @apply w-full h-full object-contain;
+    @apply w-full h-full object-cover object-top;
   }
 }

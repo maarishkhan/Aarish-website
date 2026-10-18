@@ -1,10 +1,11 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import type { Route } from 'next';
-import { ArrowRight, BookOpenText, Sparkles, BriefcaseBusiness } from 'lucide-react';
-import { getSiteConfig, getSocialLinks, featuredResearch, interests, publications, experience, education, awards, presentations, blogPosts } from '@/data/site-config';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import { getSiteConfig, getSocialLinks, featuredResearch, interests, publications } from '@/data/site-config';
 
-export default function HomePage() {
-  const siteConfig = getSiteConfig();
+export default async function HomePage() {
+  const siteConfig = await getSiteConfig();
   const socialLinks = getSocialLinks(siteConfig).filter((link) => link.enabled);
 
   const enabledSections = siteConfig.templateSections
@@ -21,7 +22,6 @@ export default function HomePage() {
     secondarySoft: '#ede9fe',
   };
 
-  const heroImage = siteConfig.heroImage || 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80';
   const profileImage = siteConfig.profileImage || 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80';
   const posterImage = '/uploads/research-poster.jpeg';
   const podiumImage = '/uploads/leadership-podium.jpeg';
@@ -34,30 +34,24 @@ export default function HomePage() {
             <div className="bg-slate-950 p-2">
               <div className="grid grid-cols-1 gap-2 lg:h-[390px] lg:grid-cols-[0.75fr_1.33fr_1fr]">
                 <figure className="relative flex aspect-[3/4] items-center justify-center overflow-hidden bg-slate-100 lg:aspect-auto">
-                  <img src={profileImage} alt={`${siteConfig.name} at NASA`} className="hero-image" />
+                  <Image src={profileImage} alt={`${siteConfig.name} at NASA`} fill priority sizes="(min-width: 1024px) 25vw, 100vw" className="object-cover object-top" />
                   <figcaption className="absolute bottom-3 left-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
                     NASA Kennedy Space Center
                   </figcaption>
                 </figure>
                 <figure className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-slate-900 lg:aspect-auto">
-                  <img src={posterImage} alt={`${siteConfig.name} presenting cancer immunotherapy research`} className="hero-image" />
+                  <Image src={posterImage} alt={`${siteConfig.name} presenting cancer immunotherapy research`} fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-center" />
                   <figcaption className="absolute bottom-3 left-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
                     Cancer immunotherapy poster presentation
                   </figcaption>
                 </figure>
                 <figure className="relative flex aspect-square items-center justify-center overflow-hidden bg-slate-800 lg:aspect-auto">
-                  <img src={podiumImage} alt={`${siteConfig.name} speaking at a podium`} className="hero-image" />
+                  <Image src={podiumImage} alt={`${siteConfig.name} speaking at a podium`} fill priority sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover object-top" />
                   <figcaption className="absolute bottom-3 right-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
                     Scientific communication
                   </figcaption>
                 </figure>
               </div>
-              <figure className="relative mt-2 flex aspect-[16/7] items-center justify-center overflow-hidden bg-[#071424] lg:aspect-[4/1]">
-                <img src={heroImage} alt="Knowledge Is Power" className="h-full w-full object-contain" />
-                <figcaption className="absolute bottom-3 right-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
-                  Knowledge is power
-                </figcaption>
-              </figure>
             </div>
 
             <div className="px-5 pb-7 pt-6 sm:px-8">
@@ -67,16 +61,11 @@ export default function HomePage() {
                     <h1 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">{siteConfig.name}</h1>
                     <p className="mt-1 text-sm font-medium text-slate-600">{siteConfig.title} · {siteConfig.location}</p>
                   </div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-700">
-                    <span className="h-2 w-2 rounded-full" style={{ backgroundColor: theme.accent }} />
-                    Research profile
-                  </div>
                   <p className="max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
                     {siteConfig.headline}
                   </p>
                   <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
                     <span className="rounded-full bg-slate-100 px-3 py-1.5 font-medium text-slate-700">{siteConfig.university}</span>
-                    <span className="rounded-full bg-slate-100 px-3 py-1.5 font-medium text-slate-700">{siteConfig.location}</span>
                   </div>
 
                   {socialLinks.length > 0 && (
@@ -169,6 +158,9 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
+            <Link href="/research" className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-sky-700">
+              All research <ArrowRight size={16} />
+            </Link>
           </div>
         </section>
       )}
@@ -195,151 +187,53 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
-          </div>
-        </section>
-      )}
-
-      {enabledSections.experience && (
-        <section className="section-shell">
-          <div className="container-shell">
-            <div className="section-heading">
-              <p className="eyebrow">Academic Experience</p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Research and training timeline</h2>
-            </div>
-            <div className="space-y-6">
-              {experience.slice(0, 3).map((item) => (
-                <div key={item.id} className="card-surface flex flex-col gap-4 p-6 md:flex-row md:items-start md:justify-between">
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <BriefcaseBusiness className="text-sky-700" size={18} />
-                      <h3 className="text-xl font-semibold text-slate-900">{item.role}</h3>
-                    </div>
-                    <p className="mt-2 text-sm text-slate-600">{item.organization} • {item.location}</p>
-                    <p className="mt-2 text-sm text-slate-500">{item.startDate} — {item.endDate}</p>
-                  </div>
-                  <p className="max-w-2xl text-sm leading-7 text-slate-600">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {enabledSections.education && (
-        <section className="section-shell bg-slate-100/60">
-          <div className="container-shell">
-            <div className="section-heading">
-              <p className="eyebrow">Education</p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Academic preparation</h2>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2">
-              {education.map((item) => (
-                <article key={item.id} className="card-surface p-6">
-                  <div className="flex items-center gap-3">
-                    <BookOpenText className="text-sky-700" size={18} />
-                    <h3 className="text-xl font-semibold text-slate-900">{item.degree}</h3>
-                  </div>
-                  <p className="mt-3 text-sm text-slate-600">{item.institution} • {item.field}</p>
-                  <p className="mt-2 text-sm text-slate-500">{item.startDate} — {item.endDate}</p>
-                  <p className="mt-4 text-sm leading-6 text-slate-600">{item.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {enabledSections.awards && (
-        <section className="section-shell">
-          <div className="container-shell">
-            <div className="section-heading">
-              <p className="eyebrow">Awards</p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Recognition and achievements</h2>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {awards.slice(0, 3).map((award) => (
-                <div key={award.id} className="card-surface p-6">
-                  <p className="text-xs uppercase tracking-[0.14em] text-sky-700">{award.category}</p>
-                  <h3 className="mt-3 text-xl font-semibold text-slate-900">{award.title}</h3>
-                  <p className="mt-2 text-sm text-slate-600">{award.organization} • {award.year}</p>
-                  <p className="mt-4 text-sm leading-6 text-slate-600">{award.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {enabledSections.presentations && (
-        <section className="section-shell bg-slate-100/60">
-          <div className="container-shell">
-            <div className="section-heading">
-              <p className="eyebrow">Presentations</p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Academic communication</h2>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {presentations.slice(0, 3).map((presentation) => (
-                <article key={presentation.id} className="card-surface p-6">
-                  <p className="text-xs uppercase tracking-[0.14em] text-slate-500">{presentation.presentationType}</p>
-                  <h3 className="mt-3 text-xl font-semibold text-slate-900">{presentation.title}</h3>
-                  <p className="mt-2 text-sm text-slate-600">{presentation.event} • {presentation.location}</p>
-                  <p className="mt-2 text-sm text-slate-500">{presentation.date}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {enabledSections.blog && (
-        <section className="section-shell">
-          <div className="container-shell">
-            <div className="section-heading">
-              <p className="eyebrow">Latest Research Insights</p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Blog and commentary</h2>
-            </div>
-            <div className="grid gap-5 lg:grid-cols-3">
-              {blogPosts.slice(0, 3).map((post) => (
-                <article key={post.id} className="card-surface p-6">
-                  <p className="text-xs uppercase tracking-[0.14em] text-sky-700">{post.category}</p>
-                  <h3 className="mt-3 text-xl font-semibold text-slate-900">{post.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{post.summary}</p>
-                  <Link href={`/blog/${post.slug}` as Route} className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-sky-700">
-                    Read article <ArrowRight size={16} />
-                  </Link>
-                </article>
-              ))}
-            </div>
+            <Link href="/publications" className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-sky-700">
+              All publications <ArrowRight size={16} />
+            </Link>
           </div>
         </section>
       )}
 
       {enabledSections.researchAI && (
-        <section className="section-shell bg-slate-900 text-white">
+        <section className="section-shell">
           <div className="container-shell">
-            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-              <div>
-                <p className="eyebrow text-sky-300">Research AI</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight">Ask about the research profile</h2>
-                <p className="mt-4 max-w-xl text-sm leading-7 text-slate-300">
-                  Explore research interests, publications, projects, and academic background through an AI-assisted knowledge layer grounded in published site content.
+            <div className="card-surface flex flex-col gap-5 p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-2xl">
+                <p className="eyebrow">Research AI</p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">Ask about the research</h2>
+                <p className="mt-3 text-sm leading-7 text-slate-600">
+                  Questions about projects, publications, tools, or background? The assistant answers using only the content of this website.
                 </p>
               </div>
-              <div className="rounded-3xl border border-slate-700 bg-slate-800 p-6">
-                <p className="text-sm text-slate-300">Example questions</p>
-                <ul className="mt-4 space-y-3 text-sm text-slate-100">
-                  <li>• What are the main research areas?</li>
-                  <li>• Which projects involve biomedical imaging?</li>
-                  <li>• What computational methods are represented?</li>
-                </ul>
-                <Link href="/research-ai" className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-900">
-                  Open Research AI <ArrowRight size={16} />
-                </Link>
-              </div>
+              <Link href="/research-ai" className="inline-flex items-center gap-2 self-start rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 md:self-center">
+                Open Research AI <ArrowRight size={16} />
+              </Link>
             </div>
           </div>
         </section>
       )}
+
+      <section className="section-shell bg-slate-900 text-white">
+        <div className="container-shell">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-2xl">
+              <p className="eyebrow text-sky-300">Get in touch</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight">Interested in collaborating?</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-300">
+                I welcome conversations about research, mentorship, and opportunities in biomedical engineering and computational biology.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-900">
+                Contact me <ArrowRight size={16} />
+              </Link>
+              <Link href="/experience" className="inline-flex items-center gap-2 rounded-full border border-slate-500 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800">
+                Experience &amp; education
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

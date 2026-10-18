@@ -2,8 +2,8 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { blogPosts, getSiteConfig } from '@/data/site-config';
 
-export default function BlogPage() {
-  const siteConfig = getSiteConfig();
+export default async function BlogPage() {
+  const siteConfig = await getSiteConfig();
 
   return (
     <div className="container-shell section-shell">

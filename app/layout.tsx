@@ -1,20 +1,24 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import { getSiteConfig } from '@/data/site-config';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
+
 export async function generateMetadata(): Promise<Metadata> {
-  const siteConfig = getSiteConfig();
+  const siteConfig = await getSiteConfig();
 
   return {
-    metadataBase: new URL('https://aarishkhan.vercel.app'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://aarishkhan.vercel.app'),
     title: {
       default: siteConfig.name,
       template: `%s | ${siteConfig.name}`,
     },
     description: siteConfig.bio,
-    keywords: ['Biomedical Engineering', 'Researcher', 'Academic Portfolio', 'Biomaterials', 'Medical Imaging'],
+    keywords: ['Biomedical Engineering', 'Computational Biology', 'Cancer Immunotherapy', 'Genomics', 'Undergraduate Researcher'],
+
     openGraph: {
       title: siteConfig.name,
       description: siteConfig.bio,
@@ -35,7 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className={inter.className}>
         <div className="min-h-screen bg-slate-50 text-slate-900">
           <Navbar />
           <main>{children}</main>

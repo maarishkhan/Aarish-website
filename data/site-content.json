@@ -1,8 +1,8 @@
 {
-  "name": "M Aarish Khan",
+  "name": "Mohammad Aarish Khan",
   "title": "Biomedical Engineering Researcher",
-  "headline": "Biomedical Engineering Researcher",
-  "bio": "Researcher exploring translational biomedical engineering, computational health, and experimental methods that connect engineering design with human clinical outcomes.",
+  "headline": "Undergraduate biomedical engineering researcher working on computational immunotherapy, genomics, and low-cost health technology.",
+  "bio": "I am a biomedical engineering student in the Honors College at the University at Buffalo. My research spans computational immunotherapy and antibody design, the genetics of ADHD, and low-cost water purification for underserved communities. I am interested in connecting rigorous computational methods with clinically and socially meaningful questions.",
   "university": "University at Buffalo Honors College | School of Engineering and Applied Sciences",
   "location": "Buffalo, NY, USA",
   "email": "kmohammadaarish@gmail.com",
@@ -21,7 +21,7 @@
     "medium": "https://medium.com/@kmohammadaarish",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ImyaSdAAAAAJ&authuser=1&citation_for_view=ImyaSdAAAAAJ:u5HHmVD_uO8C",
     "orcid": "https://orcid.org/0009-0000-6041-780X",
-    "researchgate": "https://www.researchgate.net"
+    "researchgate": ""
   },
   "navItems": [
     {
@@ -37,11 +37,6 @@
     {
       "label": "Research",
       "href": "/research",
-      "enabled": true
-    },
-    {
-      "label": "Projects",
-      "href": "/projects",
       "enabled": true
     },
     {
@@ -77,7 +72,7 @@
     {
       "label": "Blog",
       "href": "/blog",
-      "enabled": true
+      "enabled": false
     },
     {
       "label": "CV",
@@ -92,7 +87,7 @@
     {
       "label": "Research AI",
       "href": "/research-ai",
-      "enabled": false
+      "enabled": true
     }
   ],
   "templateSections": [

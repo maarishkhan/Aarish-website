@@ -1,7 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
-
 import { readDatabaseCollection } from '@/lib/content-database';
+import { readSiteContent } from '@/lib/site-content-store';
 
 export type TemplateSection = {
   key: string;
@@ -65,107 +63,11 @@ function asStringArray(value: unknown): string[] {
   return value.map((item) => String(item));
 }
 
-const defaultSiteConfig: SiteConfig = {
-  name: 'M Aarish Khan',
-  title: 'Biomedical Engineering Researcher',
-  headline: 'Biomedical engineering researcher exploring AI-driven computational biology, genomics, and translational health innovation.',
-  bio: 'I am a biomedical engineering researcher at the University at Buffalo with interests in computational biology, biomedical imaging, biomaterials, and translational research. My work spans ADHD genetics, antibody engineering, water purification design, and interdisciplinary scientific communication.',
-  university: 'University at Buffalo Honors College and Jacobs School of Medicine and Biomedical Sciences',
-  location: 'Buffalo, NY, USA',
-  email: 'admin@university.edu',
-  phone: '+1 (555) 123-4567',
-  profileImage: 'https://media.licdn.com/dms/image/v2/D4E03AQE_wKn5xe7uRQ/profile-displayphoto-scale_100_100/B4EZ97LznaHoAY-/0/1784478120673?e=1791417600&v=beta&t=SOPTrqLh9J3yOQ9-zVSgtCHec81kLqS0UwGK8CTunpU',
-  heroImage: 'https://media.licdn.com/dms/image/v2/D4E16AQFrIbeiSAY71w/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1706494686090?e=1791417600&v=beta&t=qeqO_Y3Avyt6sWe2Sp63cUno85NxyUdVjbXR8G3x-6g',
-  theme: {
-    accent: '#1f5eff',
-    accentSoft: '#dfe8ff',
-    secondary: '#8b5cf6',
-    secondarySoft: '#ede9fe',
-  },
-  socials: {
-    github: '',
-    linkedin: 'https://www.linkedin.com/in/mak08/',
-    medium: 'https://medium.com/@kmohammadaarish',
-    scholar: '',
-    orcid: '',
-    researchgate: '',
-  },
-  navItems: [
-    { label: 'Home', href: '/', enabled: true },
-    { label: 'About', href: '/about', enabled: true },
-    { label: 'Research', href: '/research', enabled: true },
-    { label: 'Projects', href: '/projects', enabled: true },
-    { label: 'Publications', href: '/publications', enabled: true },
-    { label: 'Experience', href: '/experience', enabled: true },
-    { label: 'Education', href: '/education', enabled: true },
-    { label: 'Skills', href: '/skills', enabled: true },
-    { label: 'Awards', href: '/awards', enabled: true },
-    { label: 'Presentations', href: '/presentations', enabled: true },
-    { label: 'Blog', href: '/blog', enabled: true },
-    { label: 'CV', href: '/cv', enabled: true },
-    { label: 'Contact', href: '/contact', enabled: true },
-    { label: 'Research AI', href: '/research-ai', enabled: true },
-  ],
-  templateSections: [
-    { key: 'researchInterests', label: 'Research interests', enabled: true },
-    { key: 'featuredResearch', label: 'Featured research', enabled: true },
-    { key: 'publications', label: 'Publications', enabled: true },
-    { key: 'experience', label: 'Experience', enabled: true },
-    { key: 'education', label: 'Education', enabled: true },
-    { key: 'awards', label: 'Awards', enabled: true },
-    { key: 'presentations', label: 'Presentations', enabled: true },
-    { key: 'blog', label: 'Blog', enabled: true },
-    { key: 'researchAI', label: 'Research AI', enabled: true },
-  ],
-  features: {
-    research: true,
-    publications: true,
-    blog: true,
-    researchAI: true,
-  },
-};
-
-export function getSiteConfig(): SiteConfig {
-  const filePath = path.join(process.cwd(), 'data', 'site-content.json');
-
-  try {
-    if (!fs.existsSync(filePath)) {
-      return defaultSiteConfig;
-    }
-
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    const parsed = JSON.parse(raw) as Partial<SiteConfig> | null;
-
-    return {
-      ...defaultSiteConfig,
-      ...(parsed ?? {}),
-      theme: {
-        ...defaultSiteConfig.theme,
-        ...((parsed?.theme ?? {}) as Record<string, string | undefined>),
-      },
-      socials: {
-        ...defaultSiteConfig.socials,
-        ...((parsed?.socials ?? {}) as Record<string, string | undefined>),
-      },
-      navItems: Array.isArray(parsed?.navItems) && parsed.navItems.length > 0 ? parsed.navItems : defaultSiteConfig.navItems,
-      templateSections:
-        Array.isArray(parsed?.templateSections) && parsed.templateSections.length > 0
-          ? parsed.templateSections
-          : defaultSiteConfig.templateSections,
-      features: {
-        ...defaultSiteConfig.features,
-        ...(parsed?.features ?? {}),
-      },
-    };
-  } catch {
-    return defaultSiteConfig;
-  }
+export async function getSiteConfig(): Promise<SiteConfig> {
+  return (await readSiteContent()) as SiteConfig;
 }
 
-export const siteConfig = getSiteConfig();
-
-export function getSocialLinks(config?: SiteConfig) {
-  const activeConfig = config ?? getSiteConfig();
+export function getSocialLinks(activeConfig: SiteConfig) {
 
   return [
     { title: 'GitHub', href: activeConfig.socials.github || '#', enabled: !!activeConfig.socials.github },
@@ -190,42 +92,42 @@ export type ResearchInterest = {
 
 export const interests: ResearchInterest[] = [
   {
-    id: 'bioimaging',
-    title: 'Biomedical Imaging',
-    shortDescription: 'Image-guided systems and computational reconstruction for medical diagnostics and monitoring.',
-    description: 'I am exploring biomedical imaging approaches that improve clarity, interpretability, and decision support across clinical and research workflows.',
-    keywords: ['MRI', 'CT', 'imaging', 'signal processing'],
-    icon: 'sparkles',
+    id: 'cancer-immunotherapy',
+    title: 'Computational Immunotherapy',
+    shortDescription: 'Structure-based design of bispecific antibodies for cancer immunotherapy.',
+    description: 'Using molecular modeling and interaction analysis to design and evaluate antibody-based immunotherapies, such as bispecific antibodies targeting 4-1BB and PD-L1 in non-small cell lung cancer.',
+    keywords: ['bispecific antibodies', 'AlphaFold', 'GROMACS', 'NSCLC'],
+    icon: 'dna',
     displayOrder: 1,
     published: true,
   },
   {
-    id: 'biomaterials',
-    title: 'Biomaterials',
-    shortDescription: 'Material design for implantable, responsive, and tissue-compatible biomedical applications.',
-    description: 'This area focuses on biomaterial selection, surface characterization, and structure-function relationships relevant to medical devices and regenerative interfaces.',
-    keywords: ['biomaterials', 'tissue interfaces', 'device design'],
-    icon: 'dna',
+    id: 'computational-genetics',
+    title: 'Computational Genetics',
+    shortDescription: 'Statistical and computational analysis of genetic data to study complex disease.',
+    description: 'Applying colocalization and statistical genetics pipelines, such as FastENLOC, to investigate the genetic architecture of ADHD and other complex conditions.',
+    keywords: ['genomics', 'FastENLOC', 'bioinformatics', 'ADHD'],
+    icon: 'graph',
     displayOrder: 2,
     published: true,
   },
   {
-    id: 'computational-biology',
-    title: 'Computational Biology',
-    shortDescription: 'Quantitative analysis of biological systems and patient-derived datasets.',
-    description: 'Computational methods are used to interpret biological signals, model biological processes, and support translational research decisions.',
-    keywords: ['bioinformatics', 'modeling', 'statistical analysis'],
-    icon: 'graph',
+    id: 'global-health-engineering',
+    title: 'Global Health Engineering',
+    shortDescription: 'Low-cost, context-aware technologies for underserved communities.',
+    description: 'Designing affordable and maintainable engineering solutions, including water purification systems for refugee communities, shaped by local constraints and community needs.',
+    keywords: ['water purification', 'systems design', 'public health'],
+    icon: 'pulse',
     displayOrder: 3,
     published: true,
   },
   {
-    id: 'medical-devices',
-    title: 'Medical Devices',
-    shortDescription: 'Engineering design for sensing, intervention, and clinical monitoring technologies.',
-    description: 'I focus on human-centered design and validation of devices intended for diagnosis, monitoring, and therapeutic support.',
-    keywords: ['device design', 'sensing', 'clinical translation'],
-    icon: 'pulse',
+    id: 'sensing-and-devices',
+    title: 'Sensing and Devices',
+    shortDescription: 'Embedded electronics and instrumentation for data collection in the field.',
+    description: 'Building sensor and electronics systems, from high-altitude balloon payloads to environmental sampling, that connect engineering design with biological and environmental measurement.',
+    keywords: ['Arduino', 'instrumentation', 'sensing', 'device design'],
+    icon: 'sparkles',
     displayOrder: 4,
     published: true,
   },
@@ -278,21 +180,49 @@ export type ResearchProject = {
 
 const defaultResearchProjects: ResearchProject[] = [
   {
+    id: 'proj-0',
+    title: 'Bispecific Antibody Design for Cancer Immunotherapy',
+    slug: 'bispecific-antibody-cancer-immunotherapy',
+    shortDescription: 'Computational design of a bispecific DuoBody antibody targeting 4-1BB and PD-L1 for non-small cell lung cancer, published at IEEE ISEC 2025.',
+    description: 'First-author computational study, conducted with Gaurav Sharma of Eigen Sciences, that designs and evaluates a bispecific DuoBody antibody engaging 4-1BB on cancer cells and PD-L1 on T-cells as a potential immunotherapy for non-small cell lung cancer (NSCLC). The work is accompanied by DuoDok, an independent web tool that automates parts of the workflow.',
+    researchQuestion: 'Can a single bispecific antibody simultaneously engage PD-L1 and 4-1BB with high affinity and stability, and can the computational workflow that evaluates it be automated?',
+    motivation: 'Non-small cell lung cancer is a leading cause of cancer deaths, and dual-target antibodies may strengthen the immune response beyond single-target checkpoint inhibitors. Computational design lets candidate antibodies be screened quickly before costly laboratory work.',
+    methodology: 'Ten antibodies and two receptors were evaluated through a six-stage pipeline: protein selection, structure modeling (AlphaFold), binding-site identification, molecular docking (HDock), interaction analysis (PLIP, Prodigy), and molecular dynamics simulation (GROMACS). DuoDok automates portions of this workflow as a web application.',
+    results: 'Docking and molecular dynamics confirmed strong binding of antibodies to 4-1BB and PD-L1, and the DuoBody design showed high predicted affinity and stability, supporting it as a promising NSCLC-targeting candidate. Published at IEEE ISEC 2025 and recognized with the Outstanding Poster Presentation Award (ACS NERD 2025) and the Medal of High Honors (Terra Science Fair).',
+    researchArea: 'Computational Immunotherapy',
+    technologies: ['AlphaFold', 'GROMACS', 'HDock', 'PLIP', 'Prodigy', 'Biopython', 'Streamlit'],
+    datasets: ['Antibody and receptor structures'],
+    advisor: '',
+    institution: 'Eigen Sciences',
+    startDate: '01/2024',
+    endDate: '06/2025',
+    status: 'Published',
+    featured: true,
+    images: ['/uploads/research-poster.jpeg'],
+    paperUrl: 'https://ieeexplore.ieee.org/document/11147433',
+    githubUrl: '',
+    doi: '10.1109/ISEC64801.2025.11147433',
+    tags: ['cancer immunotherapy', 'bispecific antibodies', 'computational biology'],
+    published: true,
+    createdAt: '2025-06-01',
+    updatedAt: '2026-10-18',
+  },
+  {
     id: 'proj-1',
     title: 'ADHD Genetics Research',
     slug: 'adhd-genetics-research',
     shortDescription: 'Computational analysis of genetic data using FastENLOC to investigate the genetic basis of ADHD.',
-    description: 'As part of ongoing work with Williams Lab at the University at Buffalo, I use the FastENLOC computational pipeline to analyze genetic data in a study focused on the genetic basis of ADHD.',
+    description: 'Williams Lab at the University at Buffalo is investigating the genetic basis of ADHD. Mohammad Aarish Khan contributes by analyzing genetic data with the FastENLOC computational pipeline.',
     researchQuestion: 'How can genomic and computational analysis help illuminate the genetic architecture underlying ADHD?',
     motivation: 'Understanding the genetic underpinnings of ADHD may provide insight into disease mechanisms and inform more targeted research strategies.',
-    methodology: 'My work applies computational genetics pipelines, statistical analysis, and evidence-based interpretation of gene-level associations.',
-    results: 'The project is contributing to a growing understanding of how genetic data can be analyzed to support ADHD research.',
+    methodology: 'Computational genetics pipelines, statistical analysis, and evidence-based interpretation of gene-level associations.',
+    results: 'Ongoing. The work contributes to understanding how genetic data can be analyzed to support ADHD research.',
     researchArea: 'Computational Biology',
     technologies: ['Python', 'FastENLOC', 'Genomics', 'Biological Data Analysis'],
     datasets: ['Genetic association data', 'Research genotype datasets'],
     advisor: 'Williams Lab',
     institution: 'University at Buffalo',
-    startDate: '2025-01',
+    startDate: '08/2026',
     endDate: 'Present',
     status: 'Ongoing',
     featured: true,
@@ -309,17 +239,17 @@ const defaultResearchProjects: ResearchProject[] = [
     title: 'Nushoor Water Purification Research',
     slug: 'nushoor-water-purification',
     shortDescription: 'Low-cost water purification system design for refugee communities in Bangladesh with resource constraints in mind.',
-    description: 'I collaborate on a team creating a low-cost water purification system designed for underserved communities, tailoring system design to local constraints such as affordability, maintenance, and environmental conditions.',
+    description: 'A team at a local incubator for underserved communities is developing a low-cost water purification system for refugee communities in Bangladesh. Mohammad Aarish Khan collaborates on the system design, tailoring it to local constraints such as affordability, maintenance, and environmental conditions.',
     researchQuestion: 'How can water purification systems be designed to remain effective, affordable, and sustainable in underserved settings?',
     motivation: 'Many communities have limited resources and require low-maintenance, context-aware engineering solutions for essential water access.',
     methodology: 'The project combines systems design, community-driven constraints assessment, and engineering design optimization for practical deployment.',
-    results: 'The effort aims to produce a practical, low-cost purification design that can meet the needs of resource-limited communities.',
+    results: 'Ongoing. The goal is a practical, low-cost purification design that meets the needs of resource-limited communities.',
     researchArea: 'Medical and Environmental Engineering',
     technologies: ['Systems Design', 'Water Treatment', 'Human-Centered Engineering'],
     datasets: ['Community requirements', 'Water quality considerations'],
     advisor: 'Local incubator team',
     institution: 'Local Incubator for Underserved Communities',
-    startDate: '2024-09',
+    startDate: '06/2026',
     endDate: 'Present',
     status: 'Ongoing',
     featured: true,
@@ -393,9 +323,9 @@ const defaultPublications: Publication[] = [
     id: 'pub-1',
     title: 'Bispecific DuoBody antibody targeting 4-1BB on cancer cells and PD-L1 on T cells for immunotherapy in non-small cell lung cancer (NSCLC)',
     slug: 'bispecific-duobody-antibody-targeting-41bb-pdl1-nsclc',
-    authors: ['M. Aarish Khan', 'et al.'],
+    authors: ['Mohammad Aarish Khan', 'Gaurav Sharma'],
     publicationType: 'Conference paper',
-    conference: 'IEEE ISEC',
+    conference: '2025 IEEE Integrated STEM Education Conference (ISEC)',
     publicationDate: '2025',
     abstract: 'This computational immunotherapy study evaluates a bispecific DuoBody antibody designed to engage 4-1BB on cancer cells and PD-L1 on T cells in non-small cell lung cancer, using structural modeling and interaction analysis tools such as AlphaFold, GROMACS, HDock, PLIP, and Prodigy.',
     keywords: ['cancer immunotherapy', 'bispecific antibodies', 'computational biology', 'NSCLC'],
@@ -403,7 +333,7 @@ const defaultPublications: Publication[] = [
     pdfUrl: 'https://ieeexplore.ieee.org/document/11147433',
     abstractUrl: 'https://ieeexplore.ieee.org/abstract/document/11147433',
     externalUrl: 'https://ieeexplore.ieee.org/document/11147433',
-    citation: 'Khan, M. A., et al. “Bispecific DuoBody Antibody Targeting 4-1BB on Cancer Cells and PD-L1 on T Cells for Immunotherapy in Non-Small Cell Lung Cancer (NSCLC).” IEEE ISEC 2025. doi: 10.1109/ISEC64801.2025.11147433',
+    citation: 'Khan, M. A., and Sharma, G. “Bispecific DuoBody Antibody Targeting 4-1BB on Cancer Cells and PD-L1 on T Cells for Immunotherapy in Non-Small Cell Lung Cancer (NSCLC).” 2025 IEEE Integrated STEM Education Conference (ISEC), Princeton, NJ, USA, 2025. doi: 10.1109/ISEC64801.2025.11147433',
     featured: true,
     published: true,
   },
@@ -456,12 +386,20 @@ export type ExperienceItem = {
   location: string;
   startDate: string;
   endDate: string;
+  /** Free-text period (e.g. "Summer internship") shown when no start/end dates are known. */
+  period?: string;
   description: string;
   responsibilities: string[];
   skills: string[];
   researchAreas: string[];
   displayOrder: number;
 };
+
+export function formatPeriod(item: { startDate?: string; endDate?: string; period?: string }) {
+  const range = [item.startDate, item.endDate].filter(Boolean).join(' – ');
+
+  return range || item.period || '';
+}
 
 const defaultExperience: ExperienceItem[] = [
   {
@@ -485,7 +423,7 @@ const defaultExperience: ExperienceItem[] = [
     startDate: '06/2026',
     endDate: 'Present',
     description: 'Collaborate on a team designing a low-cost water purification system for refugee communities in Bangladesh, balancing affordability, maintenance, and environmental constraints.',
-    responsibilities: ['Design low-cost purification systems', 'Tailor solutions to community constraints', 'Support engineering decision-making for practical deployment'],
+    responsibilities: ['Design low-cost purification systems for refugee communities in Bangladesh', 'Tailor system design to community-specific constraints, including limited resources, cost, maintenance, and environmental conditions', 'Support engineering decision-making for practical deployment'],
     skills: ['Systems Design', 'Public Health Engineering', 'Problem Solving'],
     researchAreas: ['Environmental Engineering', 'Public Health'],
     displayOrder: 2,
@@ -493,15 +431,76 @@ const defaultExperience: ExperienceItem[] = [
   {
     id: 'exp-3',
     organization: 'Eigen Sciences',
-    role: 'Researcher — Bispecific Antibodies for Cancer Immunotherapy',
+    role: 'First Author — Bispecific Antibodies for Cancer Immunotherapy',
     location: 'Computational Biology Research',
-    startDate: '2024',
-    endDate: '2025',
+    startDate: '01/2024',
+    endDate: '06/2025',
     description: 'Designed a bispecific DuoBody antibody targeting 4-1BB on cancer cells and PD-L1 on T-cells as a potential treatment for non-small cell lung cancer using six computational platforms.',
-    responsibilities: ['Model molecular binding interactions', 'Run computational antibody analysis', 'Support poster development and conference presentation'],
+    responsibilities: [
+      'Worked with 10 antibodies, 2 receptors, and computational platforms including AlphaFold, GROMACS, HDock, PLIP, and Prodigy to model binding interactions',
+      'Published “Bispecific DuoBody Antibody Targeting 4-1BB on Cancer Cells and PD-L1 on T-Cells for Immunotherapy in NSCLC” at IEEE ISEC 2025 (DOI: 10.1109/ISEC64801.2025.11147433)',
+      'Created two research posters and presented at five conferences: ACS NERD, iFORE, Terra Science Fair, Global Impact Council Conference, and IEEE ISEC',
+      'Recognition: Outstanding Poster Presentation Award (ACS NERD 2025); Medal of High Honors and Office of Naval Research Award (Terra Science Fair)',
+    ],
     skills: ['AlphaFold', 'GROMACS', 'HDock', 'PLIP', 'Prodigy', 'Biopython'],
     researchAreas: ['Cancer Immunotherapy', 'Computational Drug Design'],
     displayOrder: 3,
+  },
+  {
+    id: 'exp-4',
+    organization: 'Independent Project',
+    role: 'DuoDok — Computational Research Tool',
+    location: 'Personal project',
+    startDate: '',
+    endDate: '',
+    period: 'Personal project',
+    description: 'Built a simulated pipeline that automates portions of the bispecific antibody computational workflow, deployed as a web application.',
+    responsibilities: ['Built and deployed a web application automating parts of the bispecific antibody workflow', 'Authored a research abstract and presented at iFORE 2025 and ACS NERD 2025, with an upcoming e-Ball conference presentation'],
+    skills: ['Python', 'Streamlit', 'Computational Biology'],
+    researchAreas: ['Research Software', 'Antibody Design'],
+    displayOrder: 4,
+  },
+  {
+    id: 'exp-5',
+    organization: 'UB Nanotechnology Lab',
+    role: 'Summer Research Intern — High-Altitude Balloon Mission',
+    location: 'University at Buffalo',
+    startDate: '',
+    endDate: '',
+    period: 'Summer internship',
+    description: 'Member of a five-student team that built a high-altitude balloon payload carrying six solar panels.',
+    responsibilities: ['Designed electronics and wrote code for the balloon payload', 'Studied variation in solar-panel efficiency across altitude', 'Presented findings through a research abstract and presentation at the SmallSat Education Conference, Kennedy Space Center (NASA)'],
+    skills: ['Arduino', 'Electronics', 'Data Analysis'],
+    researchAreas: ['Sensing and Instrumentation'],
+    displayOrder: 5,
+  },
+  {
+    id: 'exp-6',
+    organization: 'NY Academy of Sciences — Junior Academy Challenge',
+    role: 'Head of Ideation & Implementation, International Research Projects',
+    location: 'International teams',
+    startDate: '',
+    endDate: '',
+    period: '2025',
+    description: 'Led two international student teams from ideation through solution development.',
+    responsibilities: ['Led planning and solution development for an asteroid-mining project (1st Place) and a multiple-sclerosis health web app (Project of Distinction)', 'Co-authored abstracts and presentations for both projects', 'Selected as one of five students internationally, out of roughly 8,000 applicants, for the Emerging Student Researcher of the Year award'],
+    skills: ['Team Leadership', 'Project Planning', 'Scientific Communication'],
+    researchAreas: ['Health Technology', 'Space Science'],
+    displayOrder: 6,
+  },
+  {
+    id: 'exp-7',
+    organization: 'Eric Pitman Summer Workshop',
+    role: 'Participant — Environmental Genomics',
+    location: 'University at Buffalo',
+    startDate: '',
+    endDate: '',
+    period: '2025',
+    description: 'Analyzed water samples from Scajaquada Creek using whole-genome analysis and R-based programming to characterize microorganisms and biological material.',
+    responsibilities: ['Applied whole-genome analysis and R programming to environmental water samples', 'Presented findings in a final research presentation', 'Gained hands-on experience in genomics, bioinformatics, and data analysis'],
+    skills: ['R', 'Genomics', 'Bioinformatics'],
+    researchAreas: ['Environmental Genomics'],
+    displayOrder: 7,
   },
 ];
 
@@ -515,6 +514,7 @@ export const databaseExperience: ExperienceItem[] = await readDatabaseCollection
     location: asString(row.location, ''),
     startDate: asString(row.start_date, ''),
     endDate: asString(row.end_date, ''),
+    period: asString(row.period, ''),
     description: asString(row.description, ''),
     responsibilities: asStringArray(row.responsibilities),
     skills: asStringArray(row.skills),
@@ -731,7 +731,7 @@ const defaultPresentations: Presentation[] = [
     date: '2025',
     location: 'Conference venue',
     abstract: 'Research presentation highlighting a computational immunotherapy design strategy for non-small cell lung cancer using bispecific antibodies.',
-    relatedProject: 'adhd-genetics-research',
+    relatedProject: 'bispecific-antibody-cancer-immunotherapy',
   },
   {
     id: 'pres-2',
@@ -741,7 +741,7 @@ const defaultPresentations: Presentation[] = [
     date: '2025',
     location: 'Conference venue',
     abstract: 'Presentation of a research workflow tool for automating portions of the bispecific antibody computational pipeline.',
-    relatedProject: 'nushoor-water-purification',
+    relatedProject: 'bispecific-antibody-cancer-immunotherapy',
   },
   {
     id: 'pres-3',
@@ -751,7 +751,7 @@ const defaultPresentations: Presentation[] = [
     date: '2025',
     location: 'University at Buffalo',
     abstract: 'Analysis of water samples from Scajaquada Creek using whole-genome methods and R-based programming to characterize microbial communities.',
-    relatedProject: 'adhd-genetics-research',
+    relatedProject: '',
   },
 ];
 
@@ -796,7 +796,7 @@ const defaultBlogPosts: BlogPost[] = [
     slug: 'translational-research-through-computational-design',
     summary: 'An overview of how computational modeling, reproducible analysis, and biomedical engineering can accelerate translational research questions.',
     content: 'This blog reflects a research perspective on combining computational design with biomedical inquiry to answer important translational questions. The goal is to connect rigorous analysis, experimental thinking, and human-centered clinical impact in a way that is useful to students, collaborators, and researchers alike.',
-    author: 'M Aarish Khan',
+    author: 'Mohammad Aarish Khan',
     publishedAt: '2026',
     category: 'Research Methods',
     tags: ['methodology', 'biomedical engineering', 'computational biology'],
@@ -825,4 +825,3 @@ export const databaseBlogPosts: BlogPost[] = await readDatabaseCollection<BlogPo
 
 export const blogPosts = databaseBlogPosts;
 
-export const socialLinks = getSocialLinks();

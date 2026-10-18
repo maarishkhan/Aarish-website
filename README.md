@@ -12,7 +12,7 @@ This project is structured as a reusable template for a Biomedical Engineering r
 - future AI-powered research assistance using RAG and pgvector
 - Vercel-friendly deployment with free-tier assumptions
 
-All personal information is represented as editable configuration and sample data, with clear placeholders to avoid presenting fictional information as real.
+Personal information is stored as editable configuration and database content, not hard-coded into pages.
 
 ## Project architecture
 
@@ -55,88 +55,48 @@ Then visit:
 
 ## Environment variables
 
-Copy `.env.example` to `.env.local` and update the values as needed.
+Copy `.env.example` to `.env.local` and fill it in. Never commit `.env.local`.
 
-```bash
-cp .env.example .env.local
-```
-
-Required for the site to run without AI features:
-
-- `NEXT_PUBLIC_SITE_URL`
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-
-Optional:
-
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `AI_PROVIDER`
-- `AI_MODEL`
-- `AI_API_KEY`
-- `EMBEDDING_MODEL`
+| Variable | Needed for |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL, sitemap, link previews |
+| `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Reading content in production |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only: saving admin edits, image uploads, admin allow-list (never expose to the browser) |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Admin login. There are no defaults: login stays disabled until set |
+| `ADMIN_SESSION_SECRET` | Signs admin session cookies. 16+ random characters (`openssl rand -hex 32`). Required in production |
+| `AI_PROVIDER`, `AI_API_KEY`, `AI_MODEL` | Optional live LLM for Research AI (`anthropic`, `openai` or `gemini`) |
 
 ## Supabase setup
 
-1. Create a Supabase project.
-2. Set the URL and anon key in `.env.local`.
-3. Apply SQL migrations under `supabase/migrations/`.
-4. Configure Row Level Security for public and admin access.
+1. Create a Supabase project and copy the URL, anon key and service-role key.
+2. In the SQL editor, run [supabase/schema.sql](supabase/schema.sql). It creates the tables and enables Row Level Security: visitors can read only published rows, and only the server (service-role key) can write. The script is safe to re-run.
+3. Add admin users: set `ADMIN_EMAIL`, or insert rows into `admin_users`. A Supabase Auth account that is not on this list cannot sign in to the admin area.
+4. Uploaded images are stored in a public Supabase Storage bucket named `site-uploads`, created automatically on first upload.
 
-## Database migration and seed guidance
+## Deploying to Vercel
 
-The project includes a migration-ready structure to support tables for:
+1. Import the GitHub repository in Vercel.
+2. Add every variable from the table above under Project Settings, Environment Variables (Production).
+3. Run `supabase/schema.sql` in Supabase (step 2 above) before the first deploy.
+4. Deploy, then check: `/admin/editor` redirects to the login page when signed out; signing in works; a profile edit and an image upload persist after a refresh; `/sitemap.xml` and `/robots.txt` load.
 
-- profiles
-- research_interests
-- research_projects
-- publications
-- experiences
-- education
-- skills
-- awards
-- presentations
-- blog_posts
-- social_links
-- site_settings
-- admin_users
+Without the Supabase variables the site still renders from the built-in data, but admin edits and uploads only work locally (Vercel's file system is read-only).
 
-Keep SQL schema definitions in `supabase/migrations/` and sample configuration in `data/`.
+## Content
 
-## Admin authentication
+- Profile, navigation, section toggles and images: admin editor at `/admin/editor`.
+- Projects, publications, experience, education, skills, awards, presentations and blog posts: Supabase tables (defaults live in `data/site-config.ts`).
+- The CV page is generated from the same data; extra CV-only entries (conferences, certifications, leadership) are in `data/cv-extras.ts`.
 
-The admin experience is intended to use Supabase Auth. Protect the dashboard routes and restrict database writes to authenticated, authorized administrator users.
+## Research AI
 
-## AI/RAG architecture
+`/research-ai` answers questions using only the website's own content (`lib/ai/knowledge.ts`). Without an API key it uses built-in keyword search over that content. With `AI_PROVIDER` and `AI_API_KEY` set, a model writes the answer from the same content, and the app falls back to keyword search if the model call fails. Requests are rate-limited and capped at 500 characters.
 
-The AI layer is designed around a server-only interface:
+## Security notes
 
-- `lib/ai/provider.ts`
-- `lib/ai/chat.ts`
-- `lib/ai/embeddings.ts`
-- `lib/ai/retrieval.ts`
-- `lib/ai/prompts.ts`
-- `lib/ai/types.ts`
-
-This architecture isolates the frontend from provider-specific logic and supports future OpenAI/Gemini/Anthropic or local model integration.
-
-## Security and content integrity
-
-- Never expose credentials to the browser.
-- Validate all forms and external input with Zod.
-- Use Supabase RLS for public/admin separation.
-- Keep the website functional without AI configuration.
-- Show friendly configuration messages when AI is unavailable.
-
-## Deployment
-
-This app is designed to be deployed to Vercel, with reasonable portability to Cloudflare or similar hosting later.
-
-### Vercel
-
-```bash
-npm run build
-npm run start
-```
+- Admin sessions are signed, expiring cookies; the dashboard and the editor action both check them.
+- Uploads are limited to JPEG, PNG, WebP and GIF files under 5 MB.
+- Keep the service-role key server-side only.
 
 ## Troubleshooting
 
@@ -148,6 +108,3 @@ npm run start
 ## License
 
 This project is intended for educational and research portfolio use. Add a license file before production deployment if you plan to distribute or publish it publicly.
-# Aarish-website
-# Aarish-website
-# Aarish-website
