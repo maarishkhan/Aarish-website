@@ -33,7 +33,7 @@ export default async function HomePage() {
           <div className="overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_30px_80px_rgba(15,23,42,0.10)]">
             <div className="bg-slate-950 p-2">
               <div className="grid grid-cols-1 gap-2 lg:h-[390px] lg:grid-cols-[0.75fr_1.33fr_1fr]">
-                <figure className="relative flex aspect-[3/4] items-center justify-center overflow-hidden bg-slate-100 lg:aspect-auto">
+                <figure className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-slate-100 sm:aspect-[3/4] lg:aspect-auto">
                   <Image src={profileImage} alt={`Portrait of ${siteConfig.name}`} fill priority sizes="(min-width: 1024px) 25vw, 100vw" className="object-cover object-top" />
                 </figure>
                 <figure className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-slate-900 lg:aspect-auto">
@@ -42,7 +42,7 @@ export default async function HomePage() {
                     Cancer immunotherapy poster presentation
                   </figcaption>
                 </figure>
-                <figure className="relative flex aspect-square items-center justify-center overflow-hidden bg-slate-800 lg:aspect-auto">
+                <figure className="relative hidden aspect-square items-center justify-center overflow-hidden bg-slate-800 lg:flex lg:aspect-auto">
                   <Image src={podiumImage} alt={`${siteConfig.name} speaking at a podium`} fill priority sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover object-top" />
                   <figcaption className="absolute bottom-3 right-3 rounded-full bg-slate-950/80 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
                     Scientific communication

@@ -11,7 +11,7 @@ export default function AwardsPage() {
         {awards.map((award) => (
           <article key={award.id} className="card-surface overflow-hidden p-6">
             {award.image && (
-              <img src={award.image} alt={`${award.title}, ${award.organization}`} className="-mx-6 -mt-6 mb-5 h-56 w-[calc(100%+3rem)] max-w-none object-cover object-top" loading="lazy" />
+              <img src={award.image} alt={`${award.title}, ${award.organization}`} className="-mx-6 -mt-6 mb-5 h-auto w-[calc(100%+3rem)] max-w-none" loading="lazy" />
             )}
             <p className="text-xs uppercase tracking-[0.14em] text-sky-700">{award.category}</p>
             <h2 className="mt-3 text-xl font-semibold text-slate-900">{award.title}</h2>

@@ -23,17 +23,15 @@ export default async function AboutPage() {
       </div>
       <section className="mt-12">
         <h2 className="text-xl font-semibold text-slate-900">Presenting research</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <div className="mt-4 gap-4 sm:columns-2">
           {[
             { src: '/uploads/poster-with-coauthor.jpg', caption: 'With co-author Gaurav Sharma at the ACS NERD poster session' },
             { src: '/uploads/smallsat-kennedy-space-center.jpg', caption: 'SmallSat Education Conference, Kennedy Space Center (NASA)' },
             { src: '/uploads/presenting-diagnostics.jpg', caption: 'Presenting a proposal on making diagnostics accessible anywhere' },
             { src: '/uploads/presenting-phases.jpg', caption: 'Walking through the project phases and deliverables' },
           ].map((photo) => (
-            <figure key={photo.src} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <div className="relative aspect-[4/3]">
-                <Image src={photo.src} alt={photo.caption} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover object-top" />
-              </div>
+            <figure key={photo.src} className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src={photo.src} alt={photo.caption} className="h-auto w-full" loading="lazy" />
               <figcaption className="px-4 py-3 text-sm text-slate-600">{photo.caption}</figcaption>
             </figure>
           ))}

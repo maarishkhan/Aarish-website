@@ -13,7 +13,7 @@ export default function ResearchPage() {
         {researchProjects.map((project) => (
           <article key={project.id} className="card-surface overflow-hidden p-6">
             {project.images[0] && (
-              <img src={project.images[0]} alt="" className="-mx-6 -mt-6 mb-5 h-44 w-[calc(100%+3rem)] max-w-none object-cover object-top" loading="lazy" />
+              <img src={project.images[0]} alt="" className="-mx-6 -mt-6 mb-5 h-44 w-[calc(100%+3rem)] max-w-none object-cover object-[50%_30%]" loading="lazy" />
             )}
             <div className="mb-4 inline-flex rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs uppercase tracking-[0.14em] text-sky-700">
               {project.status}
