@@ -778,7 +778,7 @@ const defaultPresentations: Presentation[] = [
     id: 'pres-2',
     title: 'DuoDok — Independent Computational Research Tool',
     event: 'iFORE 2025',
-    presentationType: 'Poster',
+    presentationType: 'Oral presentation',
     date: '2025',
     location: '',
     abstract: 'Presentation of a research workflow tool for automating portions of the bispecific antibody computational pipeline.',
