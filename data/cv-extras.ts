@@ -3,7 +3,7 @@
 
 export const cvConferences = [
   'Kennedy Space Center 2025 (NASA SmallSat Education Conference)',
-  'iFORE 2025',
+  'IFoRE 2025',
   'ACS NERD 2025',
   'Terra Science Fair',
   'Global Impact Council Conference',
