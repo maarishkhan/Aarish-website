@@ -1,6 +1,5 @@
-import Link from 'next/link';
-import type { Route } from 'next';
 import { notFound } from 'next/navigation';
+import { PageHeader } from '@/components/layout/page-header';
 import { publications } from '@/data/site-config';
 
 export default async function PublicationDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -15,17 +14,10 @@ export default async function PublicationDetailPage({ params }: { params: Promis
 
   return (
     <div className="container-shell section-shell">
-      <Link href={'/publications' as Route} className="mb-6 inline-flex items-center text-sm font-medium text-brand">
-        ← Back to publications
-      </Link>
+      <PageHeader eyebrow={publication.publicationType} title={publication.title} back={{ href: '/publications', label: 'All publications' }} compact />
 
       <div className="card-surface p-6 md:p-8">
-        <p className="text-xs uppercase tracking-[0.15em] text-slate-500">{publication.publicationType}</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-brand-dark md:text-4xl">
-          {publication.title}
-        </h1>
-
-        <p className="mt-4 text-sm text-slate-600">{publication.authors.join(', ')}</p>
+        <p className="text-sm font-medium text-slate-700">{publication.authors.join(', ')}</p>
         <p className="mt-2 text-sm text-slate-500">
           {publication.journal || publication.conference} • {publication.publicationDate}
         </p>

@@ -1,6 +1,5 @@
-import Link from 'next/link';
-import type { Route } from 'next';
 import { notFound } from 'next/navigation';
+import { PageHeader } from '@/components/layout/page-header';
 import { blogPosts } from '@/data/site-config';
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -13,14 +12,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="container-shell section-shell">
-      <Link href={'/blog' as Route} className="mb-6 inline-flex items-center text-sm font-medium text-brand">
-        ← Back to blog
-      </Link>
+      <PageHeader eyebrow={post.category} title={post.title} intro={post.summary} back={{ href: '/blog', label: 'All posts' }} compact />
 
       <article className="card-surface mx-auto max-w-3xl p-6 md:p-10">
-        <p className="text-xs uppercase tracking-[0.15em] text-brand">{post.category}</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-brand-dark md:text-4xl">{post.title}</h1>
-        <p className="mt-3 text-sm text-slate-500">{post.author} • {post.publishedAt}</p>
+        <p className="text-sm text-slate-500">{post.author} • {post.publishedAt}</p>
 
         <div className="mt-8 space-y-4 text-base leading-8 text-slate-700">
           {post.content.split(/\n{2,}/).map((paragraph, index) => (

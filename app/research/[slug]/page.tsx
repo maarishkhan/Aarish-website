@@ -1,6 +1,5 @@
-import Link from 'next/link';
-import type { Route } from 'next';
 import { notFound } from 'next/navigation';
+import { PageHeader } from '@/components/layout/page-header';
 import { researchProjects } from '@/data/site-config';
 
 function Section({ title, children }: { title: string; children: string }) {
@@ -45,16 +44,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
   return (
     <div className="container-shell section-shell">
-      <Link href={'/research' as Route} className="mb-6 inline-flex items-center text-sm font-medium text-brand">
-        ← Back to research
-      </Link>
+      <PageHeader eyebrow="Research project" title={project.title} intro={project.shortDescription} back={{ href: '/research', label: 'All research' }} compact />
 
       <article className="card-surface p-6 md:p-10">
         <div className="pill">
           {project.status}
         </div>
-        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-brand-dark md:text-4xl">{project.title}</h1>
-        <p className="mt-3 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-slate-500">
           {[project.researchArea, project.institution, [project.startDate, project.endDate].filter(Boolean).join(' – ')].filter(Boolean).join(' • ')}
         </p>
         {project.advisor && <p className="mt-1 text-sm text-slate-500">Lab / team: {project.advisor}</p>}
