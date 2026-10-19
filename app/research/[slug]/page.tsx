@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { PageHeader } from '@/components/layout/page-header';
+import { Pipeline } from '@/components/research/pipeline';
 import { researchProjects } from '@/data/site-config';
 
 function Section({ title, children }: { title: string; children: string }) {
@@ -81,6 +82,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         <Section title="Overview">{project.description}</Section>
         <Section title="Research question">{project.researchQuestion}</Section>
         <Section title="Motivation">{project.motivation}</Section>
+        {project.pipeline && project.pipeline.length > 0 && <Pipeline steps={project.pipeline} />}
         <Section title="Methodology">{project.methodology}</Section>
         <Section title="Outcomes">{project.results}</Section>
         <Chips title="Tools and technologies" items={project.technologies} />

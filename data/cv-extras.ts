@@ -27,3 +27,8 @@ export const cvLeadership: { organization: string; role: string; note?: string }
   { organization: 'Shared Decision Making Committee', role: 'Class Representative (2024–Present)' },
   { organization: 'Science Olympiad (2022–Present)', role: 'Science Honors Society (2023–Present)' },
 ];
+
+/** Short names for the home-page "presented at" and "recognized by" strip (text only, no logos). */
+export const presentedAt = ['IEEE ISEC', 'ACS NERD', 'IFoRE', 'NASA SmallSat Education Conference', 'Terra Science Fair', 'Global Impact Council'];
+
+export const recognizedBy = ['NY Academy of Sciences', 'American Chemical Society', 'Terra Science Fair', 'Office of Naval Research', 'RIT', 'College Board'];

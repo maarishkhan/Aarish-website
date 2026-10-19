@@ -169,6 +169,8 @@ export type ResearchProject = {
   featured: boolean;
   images: string[];
   imageCaptions?: string[];
+  /** Ordered steps shown as a diagram on the project page. */
+  pipeline?: { title: string; detail: string }[];
   githubUrl?: string;
   paperUrl?: string;
   doi?: string;
@@ -201,6 +203,14 @@ const defaultResearchProjects: ResearchProject[] = [
     featured: true,
     images: ['/uploads/poster-with-coauthor.jpg'],
     imageCaptions: ['Presenting the poster at the ACS Northeast Regional Discussion (NERD) 2025'],
+    pipeline: [
+      { title: 'Protein selection', detail: '10 antibodies and 2 receptors (4-1BB, PD-L1)' },
+      { title: 'Structure modeling', detail: 'AlphaFold' },
+      { title: 'Binding-site identification', detail: 'Locate where each antibody engages its receptor' },
+      { title: 'Molecular docking', detail: 'HDock' },
+      { title: 'Interaction analysis', detail: 'PLIP and Prodigy' },
+      { title: 'Molecular dynamics', detail: 'GROMACS simulation of stability' },
+    ],
     paperUrl: 'https://ieeexplore.ieee.org/document/11147433',
     githubUrl: '',
     doi: '10.1109/ISEC64801.2025.11147433',
@@ -287,6 +297,7 @@ export const databaseResearchProjects: ResearchProject[] = await readDatabaseCol
     featured: asBoolean(row.featured, false),
     images: asStringArray(row.images),
     imageCaptions: asStringArray(row.image_captions),
+    pipeline: Array.isArray(row.pipeline) ? (row.pipeline as { title: string; detail: string }[]) : undefined,
     githubUrl: asString(row.github_url ?? row.githubUrl, ''),
     paperUrl: asString(row.paper_url ?? row.paperUrl, ''),
     doi: asString(row.doi, ''),

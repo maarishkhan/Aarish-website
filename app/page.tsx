@@ -4,7 +4,7 @@ import type { Route } from 'next';
 import { ArrowRight, Cpu, Dna, Globe, Microscope } from 'lucide-react';
 import { Helix } from '@/components/ui/helix';
 import { awards, getSiteConfig, getSocialLinks, featuredResearch, interests, publications, researchProjects } from '@/data/site-config';
-import { cvConferences } from '@/data/cv-extras';
+import { cvConferences, presentedAt, recognizedBy } from '@/data/cv-extras';
 
 const interestIcons = [Microscope, Dna, Globe, Cpu];
 
@@ -93,6 +93,24 @@ export default async function HomePage() {
               </div>
             ))}
           </dl>
+        </div>
+      </section>
+
+      <section className="border-b border-slate-200 bg-white py-8" aria-label="Where this work has been presented and recognized">
+        <div className="container-shell grid gap-5 md:grid-cols-2 md:gap-10">
+          {[
+            { label: 'Presented at', items: presentedAt },
+            { label: 'Recognized by', items: recognizedBy },
+          ].map((group) => (
+            <div key={group.label}>
+              <p className="eyebrow">{group.label}</p>
+              <ul className="mt-3 flex flex-wrap gap-x-2 gap-y-2 text-sm font-medium text-brand-dark">
+                {group.items.map((item) => (
+                  <li key={item} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </section>
 
