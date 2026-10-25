@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { trackEvent } from '@/lib/track';
 
 type EmailActionsProps = {
   email: string;
@@ -29,6 +30,8 @@ export function EmailActions({ email, name }: EmailActionsProps) {
   const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${subject}&body=${encodeURIComponent(body)}`;
 
   async function copyAddress() {
+    trackEvent('contact_email', { method: 'copy', topic: topic.subject });
+
     try {
       await navigator.clipboard.writeText(email);
     } catch {
@@ -64,8 +67,8 @@ export function EmailActions({ email, name }: EmailActionsProps) {
         Subject: <span className="font-medium text-slate-700">{topic.subject}</span>
       </p>
       <div className="flex flex-wrap gap-3">
-        <a href={mailto} className="btn btn-primary btn-sm">Send an email</a>
-        <a href={gmail} target="_blank" rel="noreferrer" className="btn btn-secondary btn-sm">Open in Gmail</a>
+        <a href={mailto} onClick={() => trackEvent('contact_email', { method: 'mailto', topic: topic.subject })} className="btn btn-primary btn-sm">Send an email</a>
+        <a href={gmail} target="_blank" rel="noreferrer" onClick={() => trackEvent('contact_email', { method: 'gmail', topic: topic.subject })} className="btn btn-secondary btn-sm">Open in Gmail</a>
         <button type="button" onClick={copyAddress} className="btn btn-secondary btn-sm" aria-live="polite">
           {copied ? 'Copied!' : 'Copy email address'}
         </button>

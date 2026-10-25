@@ -3,6 +3,7 @@ import { PrintButton } from '@/components/cv/print-button';
 import { PageHeader } from '@/components/layout/page-header';
 import Link from 'next/link';
 import { experience, formatPeriod } from '@/data/site-config';
+import { TrackedLink } from '@/components/analytics/tracked-link';
 import { RadarChart } from '@/components/cv/radar-chart';
 import { leadershipGroupLabels } from '@/lib/cv-content-store';
 import { getCvData } from '@/lib/cv-data';
@@ -72,9 +73,9 @@ export default async function CvPage() {
           <div className="flex flex-wrap items-center gap-3">
             {cv.cvPdfUrl ? (
               <>
-                <a href={cv.cvPdfUrl} download={cv.cvPdfName || 'CV.pdf'} target="_blank" rel="noreferrer" title="Download the one-page resume as a PDF" className="btn btn-gold">
+                <TrackedLink event="cv_onepager_download" href={cv.cvPdfUrl} download={cv.cvPdfName || 'CV.pdf'} target="_blank" rel="noreferrer" title="Download the one-page resume as a PDF" className="btn btn-gold">
                   One-pager (PDF)
-                </a>
+                </TrackedLink>
                 <PrintButton variant="outline-light" label="Download / print as PDF" title="Download or print the full CV shown below" />
               </>
             ) : (

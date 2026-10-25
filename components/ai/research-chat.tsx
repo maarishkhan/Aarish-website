@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { trackEvent } from '@/lib/track';
 
 const SUGGESTIONS = [
   'What are the main research areas?',
@@ -20,6 +21,8 @@ export function ResearchChat() {
 
     if (!prompt || loading) return;
 
+    // Counts that a question was asked; the question itself is never sent to analytics.
+    trackEvent('research_ai_question');
     setQuestion(prompt);
     setLoading(true);
     setAnswer('');

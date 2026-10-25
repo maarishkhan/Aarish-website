@@ -22,7 +22,7 @@ export default async function PrivacyPage() {
               <strong>Hosting logs.</strong> The site is hosted on Vercel, which records technical request data such as IP address, browser type and the pages requested, for security and operation of the service.
             </li>
             <li>
-              <strong>Analytics.</strong> The site may use Vercel Web Analytics to count page views, referring sites, countries and device types. It is designed to work without cookies and does not build profiles of individual visitors.
+              <strong>Analytics.</strong> The site may use Vercel Web Analytics to count page views, referring sites, countries and device types. It is designed to work without cookies and does not build profiles of individual visitors. It also counts a few anonymous actions, such as a click on the CV download or an email button, or a question being asked of the Research AI, but never the content of any message or question.
             </li>
             <li>
               <strong>Research AI questions.</strong> If you use the Research AI page, the question you type is processed to produce an answer. When an AI provider is switched on, your question and the public site content are sent to that provider (for example Anthropic, OpenAI or Google) to generate the reply. Please do not enter personal, sensitive or confidential information. Questions are not stored by this site.
