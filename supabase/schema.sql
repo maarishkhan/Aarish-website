@@ -203,3 +203,8 @@ create table if not exists profile_entries (
   note text default '',
   display_order integer default 0
 );
+
+-- Conferences, certifications and leadership shown on the CV and home page: public read, writes only via the service-role key.
+alter table profile_entries enable row level security;
+drop policy if exists "Public can read profile entries" on profile_entries;
+create policy "Public can read profile entries" on profile_entries for select using (true);
