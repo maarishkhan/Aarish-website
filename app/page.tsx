@@ -132,7 +132,7 @@ export default async function HomePage() {
       </section>
 
       {enabledSections.researchInterests && (
-        <section className="section-shell bg-white">
+        <section className="section-tight bg-white">
           <div className="container-shell">
             <div className="section-heading">
               <p className="eyebrow">Research Interests</p>
@@ -161,7 +161,7 @@ export default async function HomePage() {
       )}
 
       {enabledSections.featuredResearch && (
-        <section className="section-shell">
+        <section className="section-tight">
           <div className="container-shell">
             <div className="section-heading">
               <p className="eyebrow">Featured Research</p>
@@ -196,7 +196,7 @@ export default async function HomePage() {
       )}
 
       {enabledSections.publications && (
-        <section className="section-shell bg-slate-100/60">
+        <section className="section-tight bg-slate-100/60">
           <div className="container-shell">
             <div className="section-heading">
               <p className="eyebrow">Selected Publications</p>
@@ -225,7 +225,7 @@ export default async function HomePage() {
       )}
 
       {enabledSections.researchAI && (
-        <section className="section-shell">
+        <section className="py-6 sm:py-8">
           <div className="container-shell">
             <div className="hero-band relative flex flex-col gap-6 overflow-hidden rounded-3xl p-8 text-white shadow-xl sm:p-10 md:flex-row md:items-center md:justify-between">
               <div className="pattern-hex absolute inset-0" aria-hidden="true" />
@@ -244,7 +244,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="section-shell relative overflow-hidden bg-brand-dark text-white">
+      <section className="section-tight relative overflow-hidden bg-brand-dark text-white">
         <div className="pattern-hex absolute inset-0" aria-hidden="true" />
         <div className="container-shell relative">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">

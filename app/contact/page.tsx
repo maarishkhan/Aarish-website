@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { PageHeader } from '@/components/layout/page-header';
 import { EmailActions } from '@/components/contact/email-actions';
+import { getPublicPhone } from '@/lib/contact-phone';
 import { getSiteConfig, getSocialLinks } from '@/data/site-config';
 
 export const metadata = {
@@ -13,6 +14,7 @@ export const metadata = {
 export default async function ContactPage() {
   const siteConfig = await getSiteConfig();
   const socialLinks = getSocialLinks(siteConfig).filter((link) => link.enabled);
+  const phone = getPublicPhone(siteConfig.phone);
 
   return (
     <div className="container-shell section-shell">
@@ -28,6 +30,12 @@ export default async function ContactPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Email</p>
             <a href={`mailto:${siteConfig.email}`} className="mt-1 inline-block text-xl font-medium text-brand underline-offset-4 hover:underline">{siteConfig.email}</a>
           </div>
+          {phone && (
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Phone</p>
+              <a href={phone.href} className="mt-1 inline-block text-lg font-medium text-brand underline-offset-4 hover:underline">{phone.display}</a>
+            </div>
+          )}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Affiliation</p>
             <p className="mt-1 text-sm text-slate-700">{siteConfig.university}</p>

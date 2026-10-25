@@ -3,16 +3,12 @@ import Link from 'next/link';
 import { saveSiteContentAction } from './actions';
 import { readSiteContent } from '@/lib/site-content-store';
 
+// The home page sections that can be switched on or off. Other pages are controlled from "Navigation & visibility".
 const defaultTemplateSections = [
-  { key: 'researchInterests', label: 'Research interests' },
-  { key: 'featuredResearch', label: 'Featured research' },
-  { key: 'publications', label: 'Publications' },
-  { key: 'experience', label: 'Experience' },
-  { key: 'education', label: 'Education' },
-  { key: 'awards', label: 'Awards' },
-  { key: 'presentations', label: 'Presentations' },
-  { key: 'blog', label: 'Blog' },
-  { key: 'researchAI', label: 'Research AI' },
+  { key: 'researchInterests', label: 'Research interests (core areas of investigation)' },
+  { key: 'featuredResearch', label: 'Featured research (current and recent projects)' },
+  { key: 'publications', label: 'Selected publications' },
+  { key: 'researchAI', label: 'Research AI banner ("Ask about the research")' },
 ];
 
 export default async function AdminEditorPage() {
@@ -164,7 +160,8 @@ export default async function AdminEditorPage() {
         </div>
 
         <div className="card-surface p-6 lg:col-span-2">
-          <h2 className="text-xl font-semibold text-brand-dark">Template section visibility</h2>
+          <h2 className="text-xl font-semibold text-brand-dark">Home page sections</h2>
+          <p className="mt-1 text-xs text-slate-500">Choose which blocks appear on the home page. To hide a whole page, use the menu switches above.</p>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {defaultTemplateSections.map((section) => {
               const currentSection = currentContent.templateSections.find((item) => item.key === section.key) ?? { key: section.key, label: section.label, enabled: true };
@@ -183,28 +180,6 @@ export default async function AdminEditorPage() {
                 </label>
               );
             })}
-          </div>
-        </div>
-
-        <div className="card-surface p-6 lg:col-span-2">
-          <h2 className="text-xl font-semibold text-brand-dark">Feature toggles</h2>
-          <div className="mt-5 grid gap-3 md:grid-cols-2">
-            {[
-              { key: 'feature-research', label: 'Research section', checked: currentContent.features.research },
-              { key: 'feature-publications', label: 'Publications section', checked: currentContent.features.publications },
-              { key: 'feature-blog', label: 'Blog section', checked: currentContent.features.blog },
-              { key: 'feature-researchAI', label: 'Research AI section', checked: currentContent.features.researchAI },
-            ].map((feature) => (
-              <label key={feature.key} className="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">
-                <span>{feature.label}</span>
-                <input
-                  type="checkbox"
-                  name={feature.key}
-                  defaultChecked={feature.checked}
-                  className="h-4 w-4 rounded border-slate-300 text-brand focus:ring-brand"
-                />
-              </label>
-            ))}
           </div>
         </div>
 

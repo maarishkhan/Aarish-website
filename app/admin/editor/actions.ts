@@ -7,17 +7,7 @@ import { requireAdminSession } from '@/lib/admin-auth';
 import { saveImageUpload } from '@/lib/uploads';
 import { readSiteContent, writeSiteContent } from '@/lib/site-content-store';
 
-const templateSectionKeys = [
-  'researchInterests',
-  'featuredResearch',
-  'publications',
-  'experience',
-  'education',
-  'awards',
-  'presentations',
-  'blog',
-  'researchAI',
-] as const;
+const templateSectionKeys = ['researchInterests', 'featuredResearch', 'publications', 'researchAI'] as const;
 
 function isUploadedFile(value: FormDataEntryValue | null): value is File {
   return typeof File !== 'undefined' && value instanceof File && value.size > 0;
@@ -72,12 +62,7 @@ export async function saveSiteContentAction(formData: FormData) {
     },
     navItems,
     templateSections,
-    features: {
-      research: formData.get('feature-research') === 'on',
-      publications: formData.get('feature-publications') === 'on',
-      blog: formData.get('feature-blog') === 'on',
-      researchAI: formData.get('feature-researchAI') === 'on',
-    },
+    features: currentContent.features,
   };
 
   await writeSiteContent(nextContent);

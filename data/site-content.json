@@ -6,7 +6,7 @@
   "university": "University at Buffalo Honors College | School of Engineering and Applied Sciences",
   "location": "Buffalo, NY, USA",
   "email": "kmohammadaarish@gmail.com",
-  "phone": "+1 (555) 123-4567",
+  "phone": "+1-716-998",
   "profileImage": "/uploads/1789856799352-sbhvz5hu.jpeg",
   "heroImage": "/uploads/1789856799352-7dwqhsui.jpeg",
   "theme": {
@@ -93,54 +93,29 @@
   "templateSections": [
     {
       "key": "researchInterests",
-      "label": "Research interests",
+      "label": "Research interests (core areas of investigation)",
       "enabled": true
     },
     {
       "key": "featuredResearch",
-      "label": "Featured research",
+      "label": "Featured research (current and recent projects)",
       "enabled": true
     },
     {
       "key": "publications",
-      "label": "Publications",
-      "enabled": true
-    },
-    {
-      "key": "experience",
-      "label": "Experience",
-      "enabled": true
-    },
-    {
-      "key": "education",
-      "label": "Education",
-      "enabled": true
-    },
-    {
-      "key": "awards",
-      "label": "Awards",
-      "enabled": true
-    },
-    {
-      "key": "presentations",
-      "label": "Presentations",
-      "enabled": true
-    },
-    {
-      "key": "blog",
-      "label": "Blog",
+      "label": "Selected publications",
       "enabled": true
     },
     {
       "key": "researchAI",
-      "label": "Research AI",
-      "enabled": false
+      "label": "Research AI banner (\"Ask about the research\")",
+      "enabled": true
     }
   ],
   "features": {
     "research": true,
     "publications": true,
     "blog": true,
-    "researchAI": false
+    "researchAI": true
   }
 }

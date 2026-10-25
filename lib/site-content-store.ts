@@ -53,7 +53,7 @@ export const defaultSiteContent: PersistedSiteContent = {
   university: 'University at Buffalo Honors College and Jacobs School of Medicine and Biomedical Sciences',
   location: 'Buffalo, NY, USA',
   email: 'admin@university.edu',
-  phone: '+1 (555) 426-9186',
+  phone: '',
   profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80',
   heroImage: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80',
   theme: {
@@ -89,11 +89,6 @@ export const defaultSiteContent: PersistedSiteContent = {
     { key: 'researchInterests', label: 'Research interests', enabled: true },
     { key: 'featuredResearch', label: 'Featured research', enabled: true },
     { key: 'publications', label: 'Publications', enabled: true },
-    { key: 'experience', label: 'Experience', enabled: true },
-    { key: 'education', label: 'Education', enabled: true },
-    { key: 'awards', label: 'Awards', enabled: true },
-    { key: 'presentations', label: 'Presentations', enabled: true },
-    { key: 'blog', label: 'Blog', enabled: true },
     { key: 'researchAI', label: 'Research AI', enabled: true },
   ],
   features: {

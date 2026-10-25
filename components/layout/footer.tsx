@@ -6,7 +6,9 @@ import { getSiteConfig, getSocialLinks } from '@/data/site-config';
 export async function Footer() {
   const siteConfig = await getSiteConfig();
   const socialLinks = getSocialLinks(siteConfig).filter((link) => link.enabled);
-  const navItems = siteConfig.navItems.filter((item) => item.enabled).slice(0, 8);
+  // Every page that is switched on in the menu, plus Contact, which always has a page even when its menu link is off.
+  const enabledItems = siteConfig.navItems.filter((item) => item.enabled && item.href !== '/contact');
+  const navItems = [...enabledItems, { label: 'Contact', href: '/contact', enabled: true }];
 
   return (
     <footer className="relative overflow-hidden bg-brand-dark text-slate-300 print:hidden">
