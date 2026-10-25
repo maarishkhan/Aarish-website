@@ -3,6 +3,12 @@ import type { Route } from 'next';
 import { publications } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
 
+export const metadata = {
+  title: 'Publications',
+  description: 'Publications and scholarly output on antibody design, immunotherapy, and biomedical engineering research.',
+  alternates: { canonical: '/publications' },
+};
+
 export default function PublicationsPage() {
   return (
     <div className="container-shell section-shell">

@@ -3,6 +3,12 @@ import type { Route } from 'next';
 import { PageHeader } from '@/components/layout/page-header';
 import { getSiteConfig, getSocialLinks } from '@/data/site-config';
 
+export const metadata = {
+  title: 'Contact',
+  description: 'Contact Mohammad Aarish Khan for research collaboration, mentorship, and opportunities in biomedical engineering and computational biology.',
+  alternates: { canonical: '/contact' },
+};
+
 export default async function ContactPage() {
   const siteConfig = await getSiteConfig();
   const socialLinks = getSocialLinks(siteConfig).filter((link) => link.enabled);

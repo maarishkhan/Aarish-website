@@ -4,6 +4,7 @@ import { ResearchChat } from '@/components/ai/research-chat';
 export const metadata = {
   title: 'Research AI',
   description: 'Ask questions about the research, publications, and experience featured on this website.',
+  alternates: { canonical: '/research-ai' },
 };
 
 export default function ResearchAIPage() {

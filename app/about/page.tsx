@@ -3,7 +3,11 @@ import Link from 'next/link';
 import { getSiteConfig } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
 
-export const metadata = { title: 'About' };
+export const metadata = {
+  title: 'About',
+  description: 'About Mohammad Aarish Khan, an undergraduate biomedical engineering researcher in the University at Buffalo Honors College.',
+  alternates: { canonical: '/about' },
+};
 
 export default async function AboutPage() {
   const siteConfig = await getSiteConfig();

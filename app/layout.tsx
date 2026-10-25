@@ -15,10 +15,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://aarishkhan.vercel.app'),
     title: {
-      default: siteConfig.name,
+      default: `${siteConfig.name} | ${siteConfig.title}`,
       template: `%s | ${siteConfig.name}`,
     },
-    description: siteConfig.bio,
+    description: siteConfig.headline,
     keywords: ['Biomedical Engineering', 'Computational Biology', 'Cancer Immunotherapy', 'Genomics', 'Undergraduate Researcher'],
 
     openGraph: {
@@ -31,9 +31,6 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title: siteConfig.name,
       description: siteConfig.bio,
-    },
-    alternates: {
-      canonical: '/',
     },
   };
 }

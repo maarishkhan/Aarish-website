@@ -4,8 +4,6 @@ import { PageHeader } from '@/components/layout/page-header';
 import { awards, education, experience, formatPeriod, getSiteConfig, publications, skills } from '@/data/site-config';
 import { cvConferences, cvLeadership, cvWorkshopsAndCertifications } from '@/data/cv-extras';
 
-export const metadata = { title: 'Curriculum Vitae' };
-
 function SidebarSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
@@ -45,6 +43,12 @@ function Role({ title, details, bullets }: { title: string; details: string; bul
 function stripProtocol(url: string) {
   return url.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
 }
+
+export const metadata = {
+  title: 'Curriculum Vitae',
+  description: 'Curriculum vitae of Mohammad Aarish Khan: education, research experience, awards, presentations, and skills.',
+  alternates: { canonical: '/cv' },
+};
 
 export default async function CvPage() {
   const site = await getSiteConfig();

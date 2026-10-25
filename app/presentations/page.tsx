@@ -1,6 +1,12 @@
 import { presentations } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
 
+export const metadata = {
+  title: 'Presentations and Posters',
+  description: 'Conference talks and research posters presented at IFoRE, ACS NERD, SmallSat, and IEEE ISEC.',
+  alternates: { canonical: '/presentations' },
+};
+
 export default function PresentationsPage() {
   return (
     <div className="container-shell section-shell">

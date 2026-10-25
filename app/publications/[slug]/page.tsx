@@ -12,8 +12,21 @@ export default async function PublicationDetailPage({ params }: { params: Promis
 
   const recordUrl = publication.externalUrl || publication.pdfUrl || publication.abstractUrl;
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    headline: publication.title,
+    abstract: publication.abstract,
+    datePublished: publication.publicationDate,
+    keywords: publication.keywords.join(', '),
+    author: publication.authors.map((name) => ({ '@type': 'Person', name })),
+    ...(publication.doi ? { sameAs: `https://doi.org/${publication.doi}` } : {}),
+    ...(recordUrl ? { url: recordUrl } : {}),
+  };
+
   return (
     <div className="container-shell section-shell">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, '\\u003c') }} />
       <PageHeader eyebrow={publication.publicationType} title={publication.title} back={{ href: '/publications', label: 'All publications' }} compact />
 
       <div className="card-surface p-6 md:p-8">
@@ -92,6 +105,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: publication.title,
+    alternates: { canonical: `/publications/${slug}` },
     description: publication.abstract,
   };
 }

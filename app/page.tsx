@@ -8,6 +8,8 @@ import { cvConferences, presentedAt, recognizedBy } from '@/data/cv-extras';
 
 const interestIcons = [Microscope, Dna, Globe, Cpu];
 
+export const metadata = { alternates: { canonical: '/' } };
+
 export default async function HomePage() {
   const siteConfig = await getSiteConfig();
   const socialLinks = getSocialLinks(siteConfig).filter((link) => link.enabled);
@@ -23,8 +25,23 @@ export default async function HomePage() {
   const posterImage = '/uploads/research-poster.jpeg';
   const podiumImage = '/uploads/leadership-podium.jpeg';
 
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://aarishkhan.vercel.app').replace(/\/$/, '');
+  const personJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: siteConfig.name,
+    url: siteUrl,
+    jobTitle: siteConfig.title,
+    description: siteConfig.headline,
+    image: profileImage.startsWith('http') ? profileImage : `${siteUrl}${profileImage}`,
+    affiliation: { '@type': 'CollegeOrUniversity', name: 'University at Buffalo' },
+    knowsAbout: ['Biomedical engineering', 'Computational biology', 'Cancer immunotherapy', 'Genomics', 'Antibody design'],
+    sameAs: socialLinks.map((link) => link.href),
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, '\\u003c') }} />
       <section className="hero-band relative overflow-hidden text-white">
         <div className="pattern-hex absolute inset-0" aria-hidden="true" />
         <Helix className="helix left-1/2 hidden w-[28rem] -translate-x-1/2 lg:block" />

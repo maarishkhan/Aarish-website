@@ -101,5 +101,5 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const project = researchProjects.find((item) => item.slug === slug);
 
-  return project ? { title: project.title, description: project.shortDescription } : {};
+  return project ? { title: project.title, description: project.shortDescription, alternates: { canonical: `/research/${slug}` } } : {};
 }

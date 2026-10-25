@@ -3,6 +3,12 @@ import { ArrowRight } from 'lucide-react';
 import { researchProjects } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
 
+export const metadata = {
+  title: 'Research Projects',
+  description: 'Biomedical engineering research projects: bispecific antibody design for cancer immunotherapy, the genetics of ADHD, and low-cost water purification.',
+  alternates: { canonical: '/research' },
+};
+
 export default function ResearchPage() {
   return (
     <div className="container-shell section-shell">

@@ -54,5 +54,5 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = blogPosts.find((item) => item.slug === slug && item.published);
 
-  return post ? { title: post.title, description: post.summary } : {};
+  return post ? { title: post.title, description: post.summary, alternates: { canonical: `/blog/${slug}` } } : {};
 }

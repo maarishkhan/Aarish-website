@@ -1,6 +1,12 @@
 import { education } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
 
+export const metadata = {
+  title: 'Education',
+  description: 'Education of Mohammad Aarish Khan: biomedical engineering in the Honors College at the University at Buffalo, with coursework and research interests.',
+  alternates: { canonical: '/education' },
+};
+
 export default function EducationPage() {
   return (
     <div className="container-shell section-shell">

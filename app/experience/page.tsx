@@ -1,6 +1,12 @@
 import { experience, formatPeriod } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
 
+export const metadata = {
+  title: 'Research Experience',
+  description: 'Research and leadership experience in computational immunotherapy, ADHD genetics, and low-cost water purification at the University at Buffalo.',
+  alternates: { canonical: '/experience' },
+};
+
 export default function ExperiencePage() {
   return (
     <div className="container-shell section-shell">

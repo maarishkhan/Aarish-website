@@ -2,8 +2,6 @@ import { Braces, Brain, Cloud, Dna, Globe, Layers, Wrench } from 'lucide-react';
 import { skills } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
 
-export const metadata = { title: 'Skills' };
-
 const categoryIcons: Record<string, typeof Braces> = {
   Programming: Braces,
   'AI/ML': Brain,
@@ -11,6 +9,12 @@ const categoryIcons: Record<string, typeof Braces> = {
   'Web Development': Globe,
   Productivity: Wrench,
   Cloud: Cloud,
+};
+
+export const metadata = {
+  title: 'Skills',
+  description: 'Technical and research skills in computational biology, genomics, programming, and laboratory methods.',
+  alternates: { canonical: '/skills' },
 };
 
 export default function SkillsPage() {

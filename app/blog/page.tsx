@@ -3,6 +3,12 @@ import type { Route } from 'next';
 import { blogPosts, getSiteConfig } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
 
+export const metadata = {
+  title: 'Blog',
+  description: 'Writing on biomedical engineering research, computational immunotherapy, genomics, and lessons from undergraduate research.',
+  alternates: { canonical: '/blog' },
+};
+
 export default async function BlogPage() {
   const siteConfig = await getSiteConfig();
 

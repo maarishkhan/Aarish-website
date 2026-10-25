@@ -1,6 +1,12 @@
 import { awards } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
 
+export const metadata = {
+  title: 'Awards and Honors',
+  description: 'Awards and honors earned by Mohammad Aarish Khan, including recognition from the New York Academy of Sciences, ACS NERD, IEEE and the AP Scholar program.',
+  alternates: { canonical: '/awards' },
+};
+
 export default function AwardsPage() {
   return (
     <div className="container-shell section-shell">

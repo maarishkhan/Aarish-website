@@ -15,5 +15,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...(blogEnabled ? blogPosts.filter((item) => item.published).map((item) => `/blog/${item.slug}`) : []),
   ];
 
-  return [...pages, ...details].map((path) => ({ url: `${base}${path === '/' ? '' : path}` }));
+  const lastModified = new Date();
+
+  return [...pages, ...details].map((path) => ({
+    url: `${base}${path === '/' ? '' : path}`,
+    lastModified,
+    priority: path === '/' ? 1 : details.includes(path) ? 0.6 : 0.8,
+  }));
 }
