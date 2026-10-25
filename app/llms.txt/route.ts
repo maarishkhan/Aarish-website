@@ -1,9 +1,10 @@
 import { awards, getSiteConfig, getSocialLinks, publications, researchProjects } from '@/data/site-config';
+import { readCvContent } from '@/lib/cv-content-store';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const siteConfig = await getSiteConfig();
+  const [siteConfig, cv] = await Promise.all([getSiteConfig(), readCvContent()]);
   const base = (process.env.NEXT_PUBLIC_SITE_URL || 'https://aarishkhan.vercel.app').replace(/\/$/, '');
 
   const lines = [
@@ -23,6 +24,9 @@ export async function GET() {
     '',
     '## Awards',
     ...awards.map((award) => `- ${award.title}, ${[award.organization, award.year].filter(Boolean).join(', ')}`),
+    '',
+    '## Leadership',
+    ...cv.leadership.map((item) => `- ${item.organization}: ${item.role}${item.note ? `. ${item.note}` : ''}`),
     '',
     '## Pages',
     `- [About](${base}/about)`,

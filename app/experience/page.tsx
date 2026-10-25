@@ -1,5 +1,6 @@
 import { experience, formatPeriod } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
+import { readCvContent } from '@/lib/cv-content-store';
 
 export const metadata = {
   title: 'Research Experience',
@@ -7,7 +8,9 @@ export const metadata = {
   alternates: { canonical: '/experience' },
 };
 
-export default function ExperiencePage() {
+export default async function ExperiencePage() {
+  const { leadership } = await readCvContent();
+
   return (
     <div className="container-shell section-shell">
       <PageHeader eyebrow="Experience" title="Research and professional experience" />
@@ -42,6 +45,22 @@ export default function ExperiencePage() {
           </li>
         ))}
       </ol>
+
+      {leadership.length > 0 && (
+        <section className="mt-16">
+          <p className="eyebrow">Leadership</p>
+          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-brand-dark">Leadership and involvement</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {leadership.map((item) => (
+              <article key={item.organization} className="card-surface card-hover p-5">
+                <h3 className="text-lg font-semibold text-brand-dark">{item.organization}</h3>
+                {item.role && <p className="mt-1 text-sm font-medium text-slate-700">{item.role}</p>}
+                {item.note && <p className="mt-2 text-sm leading-6 text-slate-600">{item.note}</p>}
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
