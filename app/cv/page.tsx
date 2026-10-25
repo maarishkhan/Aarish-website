@@ -4,6 +4,7 @@ import { PageHeader } from '@/components/layout/page-header';
 import Link from 'next/link';
 import { experience, formatPeriod } from '@/data/site-config';
 import { RadarChart } from '@/components/cv/radar-chart';
+import { leadershipGroupLabels } from '@/lib/cv-content-store';
 import { getCvData } from '@/lib/cv-data';
 
 function SidebarSection({ title, children }: { title: string; children: ReactNode }) {
@@ -162,18 +163,28 @@ export default async function CvPage() {
           )}
 
           <MainSection title="Leadership & extracurriculars">
-            <div className="space-y-1.5 text-[13px] leading-5">
-              {cv.leadership.map((item) => (
-                <p key={item.organization}>
-                  <strong>– {item.organization}</strong> <span className="ml-2">{item.role}</span>
-                  {item.note && (
-                    <>
-                      <br />
-                      {item.note}
-                    </>
-                  )}
-                </p>
-              ))}
+            <div className="space-y-3 text-[13px] leading-5">
+              {[
+                { label: leadershipGroupLabels.university, items: cv.leadership },
+                { label: leadershipGroupLabels.school, items: cv.leadershipSchool },
+              ]
+                .filter((group) => group.items.length > 0)
+                .map((group) => (
+                  <div key={group.label} className="space-y-1.5">
+                    <p className="text-xs font-bold italic uppercase tracking-wide text-[#bb7728]">{group.label}</p>
+                    {group.items.map((item) => (
+                      <p key={item.organization}>
+                        <strong>– {item.organization}</strong> {item.role && <span className="ml-2">{item.role}</span>}
+                        {item.note && (
+                          <>
+                            <br />
+                            {item.note}
+                          </>
+                        )}
+                      </p>
+                    ))}
+                  </div>
+                ))}
             </div>
           </MainSection>
         </main>

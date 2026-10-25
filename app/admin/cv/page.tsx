@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { saveCvContentAction } from './actions';
 import { awards, experience, formatPeriod, getSiteConfig, skills } from '@/data/site-config';
-import { readCvContent } from '@/lib/cv-content-store';
+import { leadershipGroupLabels, readCvContent } from '@/lib/cv-content-store';
 import { PDF_LIMIT_MB } from '@/lib/uploads';
 import { getCvData, radarAxes } from '@/lib/cv-data';
 
@@ -167,16 +167,21 @@ export default async function AdminCvPage({ searchParams }: { searchParams: Prom
           <textarea name="certifications" rows={8} defaultValue={cv.certifications.join('\n')} className={`${fieldClass} mt-3`} />
         </section>
 
-        <section className="card-surface p-6 lg:col-span-2">
-          <h2 className="text-xl font-semibold text-brand-dark">Leadership and extracurriculars</h2>
-          <p className="mt-1 text-xs text-slate-500">One per line, written as: Organization | Role | optional note.</p>
-          <textarea
-            name="leadership"
-            rows={8}
-            defaultValue={cv.leadership.map((item) => [item.organization, item.role, item.note].filter(Boolean).join(' | ')).join('\n')}
-            className={`${fieldClass} mt-3 font-mono`}
-          />
-        </section>
+        {[
+          { name: 'leadership', title: `Leadership: ${leadershipGroupLabels.university}`, items: cv.leadership },
+          { name: 'leadershipSchool', title: `Leadership: ${leadershipGroupLabels.school}`, items: cv.leadershipSchool },
+        ].map((group) => (
+          <section key={group.name} className="card-surface p-6 lg:col-span-2">
+            <h2 className="text-xl font-semibold text-brand-dark">{group.title}</h2>
+            <p className="mt-1 text-xs text-slate-500">One per line, written as: Organization | Role | optional note.</p>
+            <textarea
+              name={group.name}
+              rows={6}
+              defaultValue={group.items.map((item) => [item.organization, item.role, item.note].filter(Boolean).join(' | ')).join('\n')}
+              className={`${fieldClass} mt-3 font-mono`}
+            />
+          </section>
+        ))}
 
         <section className="card-surface p-6 lg:col-span-2">
           <h2 className="text-xl font-semibold text-brand-dark">Research experience to show</h2>

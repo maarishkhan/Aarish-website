@@ -95,6 +95,7 @@ export async function saveCvContentAction(formData: FormData) {
     conferences: lines(formData.get('conferences')),
     certifications: lines(formData.get('certifications')),
     leadership: parseLeadership(formData.get('leadership')),
+    leadershipSchool: parseLeadership(formData.get('leadershipSchool')),
     hiddenExperience: hiddenIds(formData, 'showExperience', experience.map((item) => item.id)),
     hiddenAwards: hiddenIds(formData, 'showAwards', awards.map((item) => item.id)),
     hiddenSkills: hiddenIds(formData, 'showSkills', skills.map((item) => item.id)),

@@ -83,7 +83,8 @@ export async function buildKnowledgeSections(): Promise<KnowledgeSection[]> {
     {
       title: 'Leadership, workshops and certifications',
       text: [
-        ...cv.leadership.map((item) => `${item.organization} — ${item.role}.${item.note ? ` ${item.note}` : ''}`),
+        ...cv.leadership.map((item) => `${item.organization} — ${item.role}.${item.note ? ` ${item.note}` : ''} (University and community)`),
+        ...cv.leadershipSchool.map((item) => `${item.organization}${item.role ? ` — ${item.role}` : ''}.${item.note ? ` ${item.note}` : ''} (High school)`),
         `Workshops and certifications: ${cv.certifications.join('; ')}.`,
       ].join('\n'),
     },

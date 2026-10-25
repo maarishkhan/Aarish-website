@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { formatPeriod } from '@/data/site-config';
 import { PrintButton } from '@/components/cv/print-button';
+import { leadershipGroupLabels } from '@/lib/cv-content-store';
 import { getCvData } from '@/lib/cv-data';
 
 export const metadata: Metadata = {
@@ -107,16 +108,27 @@ export default async function PlainCvPage() {
           ))}
         </Section>
 
-        {cv.leadership.length > 0 && (
+        {(cv.leadership.length > 0 || cv.leadershipSchool.length > 0) && (
           <Section title="Leadership and extracurriculars">
-            <ul className="list-disc pl-5">
-              {cv.leadership.map((item) => (
-                <li key={item.organization}>
-                  {item.organization}, {item.role}
-                  {item.note ? `. ${item.note}` : ''}
-                </li>
+            {[
+              { label: leadershipGroupLabels.university, items: cv.leadership },
+              { label: leadershipGroupLabels.school, items: cv.leadershipSchool },
+            ]
+              .filter((group) => group.items.length > 0)
+              .map((group) => (
+                <div key={group.label}>
+                  <p className="font-semibold">{group.label}</p>
+                  <ul className="list-disc pl-5">
+                    {group.items.map((item) => (
+                      <li key={item.organization}>
+                        {item.organization}
+                        {item.role ? `, ${item.role}` : ''}
+                        {item.note ? `. ${item.note}` : ''}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
           </Section>
         )}
       </div>

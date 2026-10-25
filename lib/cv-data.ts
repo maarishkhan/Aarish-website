@@ -48,7 +48,7 @@ export async function getCvData() {
     recognition: cvAwards.length,
     skills: Object.values(skillGroups).reduce((sum, names) => sum + names.length, 0),
     experience: cvExperience.length,
-    leadership: cv.leadership.length,
+    leadership: cv.leadership.length + cv.leadershipSchool.length,
   };
   const radarSettings = radarAxes.map((axis) => ({
     ...axis,

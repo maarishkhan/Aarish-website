@@ -1,6 +1,6 @@
 import { experience, formatPeriod } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
-import { readCvContent } from '@/lib/cv-content-store';
+import { leadershipGroupLabels, readCvContent } from '@/lib/cv-content-store';
 
 export const metadata = {
   title: 'Research Experience',
@@ -9,7 +9,11 @@ export const metadata = {
 };
 
 export default async function ExperiencePage() {
-  const { leadership } = await readCvContent();
+  const { leadership, leadershipSchool } = await readCvContent();
+  const leadershipGroups = [
+    { label: leadershipGroupLabels.university, items: leadership },
+    { label: leadershipGroupLabels.school, items: leadershipSchool },
+  ].filter((group) => group.items.length > 0);
 
   return (
     <div className="container-shell section-shell">
@@ -46,19 +50,24 @@ export default async function ExperiencePage() {
         ))}
       </ol>
 
-      {leadership.length > 0 && (
+      {leadershipGroups.length > 0 && (
         <section className="mt-16">
           <p className="eyebrow">Leadership</p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight text-brand-dark">Leadership and involvement</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {leadership.map((item) => (
-              <article key={item.organization} className="card-surface card-hover p-5">
-                <h3 className="text-lg font-semibold text-brand-dark">{item.organization}</h3>
-                {item.role && <p className="mt-1 text-sm font-medium text-slate-700">{item.role}</p>}
-                {item.note && <p className="mt-2 text-sm leading-6 text-slate-600">{item.note}</p>}
-              </article>
-            ))}
-          </div>
+          {leadershipGroups.map((group) => (
+            <div key={group.label} className="mt-8">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">{group.label}</h3>
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                {group.items.map((item) => (
+                  <article key={item.organization} className="card-surface card-hover p-5">
+                    <h4 className="text-lg font-semibold text-brand-dark">{item.organization}</h4>
+                    {item.role && <p className="mt-1 text-sm font-medium text-slate-700">{item.role}</p>}
+                    {item.note && <p className="mt-2 text-sm leading-6 text-slate-600">{item.note}</p>}
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
         </section>
       )}
     </div>

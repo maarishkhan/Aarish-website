@@ -957,7 +957,7 @@ export const databaseBlogPosts: BlogPost[] = await readDatabaseCollection<BlogPo
 export const blogPosts = databaseBlogPosts;
 
 /** Extra CV and home-page lists that have no page of their own: conferences, certifications, leadership and the home-page strips. */
-export type ProfileEntryKind = 'conference' | 'certification' | 'leadership' | 'presented_at' | 'recognized_by';
+export type ProfileEntryKind = 'conference' | 'certification' | 'leadership' | 'leadership_school' | 'presented_at' | 'recognized_by';
 
 export type ProfileEntry = {
   id: string;
@@ -968,7 +968,7 @@ export type ProfileEntry = {
   displayOrder: number;
 };
 
-const profileEntryKinds: ProfileEntryKind[] = ['conference', 'certification', 'leadership', 'presented_at', 'recognized_by'];
+const profileEntryKinds: ProfileEntryKind[] = ['conference', 'certification', 'leadership', 'leadership_school', 'presented_at', 'recognized_by'];
 
 const defaultProfileEntries: ProfileEntry[] = [
   { id: 'entry-1', kind: 'conference', name: 'Kennedy Space Center 2025 (NASA SmallSat Education Conference)', role: '', note: '', displayOrder: 1 },
@@ -982,13 +982,14 @@ const defaultProfileEntries: ProfileEntry[] = [
   { id: 'entry-9', kind: 'certification', name: 'Oracle Cloud Infrastructure 2024 Generative AI Certification', role: '', note: '', displayOrder: 9 },
   { id: 'entry-10', kind: 'certification', name: 'Eric Pitman Summer Workshop 2025 — Intern Computational Biologist', role: '', note: '', displayOrder: 10 },
   { id: 'entry-11', kind: 'leadership', name: 'Biomedical Engineering Society', role: 'Battle Bots Team Lead (2026–Present)', note: '', displayOrder: 11 },
-  { id: 'entry-12', kind: 'leadership', name: 'Computer Club', role: 'President (2025–Present); Vice President (2023–25)', note: '', displayOrder: 12 },
-  { id: 'entry-13', kind: 'leadership', name: 'National Honors Society', role: 'Vice President, Class of 2026 (2025–Present)', note: 'Organized the NHS Running Event and co-organized the Tech Mentorship Program.', displayOrder: 13 },
-  { id: 'entry-14', kind: 'leadership', name: 'Technology Student Association', role: 'Secretary & NY State Delegate (2024–25)', note: '', displayOrder: 14 },
-  { id: 'entry-15', kind: 'leadership', name: 'Global Impact Council', role: 'Director of Social Media (2024–25); Writing Team (2023–24); Co-Organizer, Emerging Research Incubator', note: '', displayOrder: 15 },
-  { id: 'entry-16', kind: 'leadership', name: 'Superintendent Inter-High Action Committee', role: 'Co-Chair (2022–Present)', note: '', displayOrder: 16 },
-  { id: 'entry-17', kind: 'leadership', name: 'Shared Decision Making Committee', role: 'Class Representative (2024–Present)', note: '', displayOrder: 17 },
-  { id: 'entry-18', kind: 'leadership', name: 'Science Olympiad (2022–Present)', role: 'Science Honors Society (2023–Present)', note: '', displayOrder: 18 },
+  { id: 'entry-12', kind: 'leadership_school', name: 'Computer Club', role: 'President (2025–Jun 2026); Vice President (2023–25)', note: '', displayOrder: 12 },
+  { id: 'entry-13', kind: 'leadership_school', name: 'National Honors Society', role: 'Vice President, Class of 2026 (2025–Jun 2026)', note: 'Organized the NHS Running Event and co-organized the Tech Mentorship Program.', displayOrder: 13 },
+  { id: 'entry-14', kind: 'leadership_school', name: 'Technology Student Association', role: 'Secretary & NY State Delegate (2024–Jun 2026)', note: '', displayOrder: 14 },
+  { id: 'entry-15', kind: 'leadership', name: 'Global Impact Council', role: 'Co-Organizer, Emerging Research Incubator (Present); Director of Social Media (2024–25); Writing Team (2023–24)', note: '', displayOrder: 15 },
+  { id: 'entry-16', kind: 'leadership_school', name: 'Superintendent Inter-High Action Committee', role: 'Co-Chair (2022–Jun 2026)', note: '', displayOrder: 16 },
+  { id: 'entry-17', kind: 'leadership_school', name: 'Shared Decision Making Committee', role: 'Class Representative (2024–Jun 2026)', note: '', displayOrder: 17 },
+  { id: 'entry-18', kind: 'leadership_school', name: 'Science Olympiad (2022–Jun 2026)', role: '', note: '', displayOrder: 18 },
+  { id: 'entry-31', kind: 'leadership_school', name: 'Science Honors Society (2023–Jun 2026)', role: '', note: '', displayOrder: 19 },
   { id: 'entry-19', kind: 'presented_at', name: 'IEEE ISEC', role: '', note: '', displayOrder: 19 },
   { id: 'entry-20', kind: 'presented_at', name: 'ACS NERD', role: '', note: '', displayOrder: 20 },
   { id: 'entry-21', kind: 'presented_at', name: 'IFoRE', role: '', note: '', displayOrder: 21 },
@@ -1025,5 +1026,6 @@ const entriesOfKind = (kind: ProfileEntryKind) => profileEntries.filter((entry) 
 export const cvConferences = entriesOfKind('conference').map((entry) => entry.name);
 export const cvWorkshopsAndCertifications = entriesOfKind('certification').map((entry) => entry.name);
 export const cvLeadership = entriesOfKind('leadership').map((entry) => ({ organization: entry.name, role: entry.role, note: entry.note || undefined }));
+export const cvLeadershipSchool = entriesOfKind('leadership_school').map((entry) => ({ organization: entry.name, role: entry.role, note: entry.note || undefined }));
 export const presentedAt = entriesOfKind('presented_at').map((entry) => entry.name);
 export const recognizedBy = entriesOfKind('recognized_by').map((entry) => entry.name);

@@ -26,7 +26,7 @@ export async function GET() {
     ...awards.map((award) => `- ${award.title}, ${[award.organization, award.year].filter(Boolean).join(', ')}`),
     '',
     '## Leadership',
-    ...cv.leadership.map((item) => `- ${item.organization}: ${item.role}${item.note ? `. ${item.note}` : ''}`),
+    ...[...cv.leadership, ...cv.leadershipSchool].map((item) => `- ${item.organization}${item.role ? `: ${item.role}` : ''}${item.note ? `. ${item.note}` : ''}`),
     '',
     '## Pages',
     `- [About](${base}/about)`,

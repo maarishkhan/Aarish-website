@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { cvConferences, cvLeadership, cvWorkshopsAndCertifications } from '@/data/site-config';
+import { cvConferences, cvLeadership, cvLeadershipSchool, cvWorkshopsAndCertifications } from '@/data/site-config';
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
 import { getServiceClient } from '@/lib/supabase-admin';
 
@@ -12,6 +12,9 @@ export type RadarKey = (typeof radarKeys)[number];
 export type RadarOverride = { value?: number; max?: number };
 
 export type CvLeadershipItem = { organization: string; role: string; note?: string };
+
+/** Headings for the two leadership lists, shown on the Experience page and the CV. */
+export const leadershipGroupLabels = { university: 'University & community', school: 'High school' } as const;
 
 /** Settings that only affect the CV. Everything not listed here is read straight from the site's own content. */
 export type CvContent = {
@@ -31,6 +34,7 @@ export type CvContent = {
   conferences: string[];
   certifications: string[];
   leadership: CvLeadershipItem[];
+  leadershipSchool: CvLeadershipItem[];
   hiddenExperience: string[];
   hiddenAwards: string[];
   hiddenSkills: string[];
@@ -63,6 +67,7 @@ export const defaultCvContent: CvContent = {
   conferences: cvConferences,
   certifications: cvWorkshopsAndCertifications,
   leadership: cvLeadership,
+  leadershipSchool: cvLeadershipSchool,
   hiddenExperience: [],
   hiddenAwards: [],
   hiddenSkills: [],
@@ -93,6 +98,12 @@ function mergeRadar(value: unknown): CvContent['radar'] {
   return radar;
 }
 
+function asLeadership(value: unknown, fallback: CvLeadershipItem[]) {
+  return Array.isArray(value)
+    ? value.filter((item): item is CvLeadershipItem => item && typeof item.organization === 'string' && typeof item.role === 'string')
+    : fallback;
+}
+
 function mergeCvContent(parsed: Partial<CvContent> | null): CvContent {
   const source = parsed ?? {};
 
@@ -109,9 +120,8 @@ function mergeCvContent(parsed: Partial<CvContent> | null): CvContent {
     radar: mergeRadar(source.radar),
     conferences: asStringArray(source.conferences, defaultCvContent.conferences),
     certifications: asStringArray(source.certifications, defaultCvContent.certifications),
-    leadership: Array.isArray(source.leadership)
-      ? source.leadership.filter((item) => item && typeof item.organization === 'string' && typeof item.role === 'string')
-      : defaultCvContent.leadership,
+    leadership: asLeadership(source.leadership, defaultCvContent.leadership),
+    leadershipSchool: asLeadership(source.leadershipSchool, defaultCvContent.leadershipSchool),
     hiddenExperience: asStringArray(source.hiddenExperience, []),
     hiddenAwards: asStringArray(source.hiddenAwards, []),
     hiddenSkills: asStringArray(source.hiddenSkills, []),
