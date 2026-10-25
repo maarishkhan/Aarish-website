@@ -1,7 +1,15 @@
 import Link from 'next/link';
 import { loginAdminAction } from './actions';
 
-export default function AdminLoginPage() {
+const messages: Record<string, string> = {
+  'invalid-credentials': 'Those details were not recognised. Check the email and password and try again.',
+  'session-secret': 'Your details are correct, but the server cannot start a session: ADMIN_SESSION_SECRET (16 or more random characters) is missing from the Vercel environment variables. Add it, redeploy, and sign in again.',
+};
+
+export default async function AdminLoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+  const { error } = await searchParams;
+  const message = error ? messages[error] : undefined;
+
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-4">
       <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -10,6 +18,12 @@ export default function AdminLoginPage() {
         <p className="mt-3 text-sm leading-6 text-slate-600">
           Sign in to manage profile and research content. 
         </p>
+
+        {message && (
+          <p role="alert" className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-900">
+            {message}
+          </p>
+        )}
 
         <form action={loginAdminAction} className="mt-6 space-y-4">
           <div>

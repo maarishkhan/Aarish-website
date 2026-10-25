@@ -1,5 +1,6 @@
 'use server';
 
+import type { Route } from 'next';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { isValidAdminCredentials, ADMIN_COOKIE_NAME } from '@/lib/admin-auth';
@@ -20,8 +21,18 @@ export async function loginAdminAction(formData: FormData) {
     redirect('/admin/login?error=invalid-credentials');
   }
 
+  // Signing the session fails in production when ADMIN_SESSION_SECRET is not set; say so instead of crashing.
+  let sessionToken: string;
+
+  try {
+    sessionToken = await createAdminSessionToken();
+  } catch (error) {
+    console.error('Could not create the admin session:', error instanceof Error ? error.message : error);
+    redirect('/admin/login?error=session-secret' as Route);
+  }
+
   const cookieStore = await cookies();
-  cookieStore.set(ADMIN_COOKIE_NAME, await createAdminSessionToken(), {
+  cookieStore.set(ADMIN_COOKIE_NAME, sessionToken, {
     httpOnly: true,
     sameSite: 'lax',
     secure: process.env.NODE_ENV === 'production',
