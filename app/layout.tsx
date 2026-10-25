@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${siteConfig.name}`,
     },
     description: siteConfig.headline,
-    keywords: ['Biomedical Engineering', 'Computational Biology', 'Cancer Immunotherapy', 'Genomics', 'Undergraduate Researcher'],
+    keywords: ['Biomedical Engineering', 'Computational Biology', 'Cancer Immunotherapy', 'Genomics', 'Computational Genetics', 'Synthetic Biology', 'Biomedical Engineering Student'],
 
     openGraph: {
       title: `${siteConfig.name} | ${siteConfig.title}`,

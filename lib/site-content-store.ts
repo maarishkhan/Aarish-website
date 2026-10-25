@@ -47,7 +47,7 @@ export type PersistedSiteContent = {
 
 export const defaultSiteContent: PersistedSiteContent = {
   name: 'Mohammad Aarish Khan',
-  title: 'Biomedical Engineering Researcher',
+  title: 'Biomedical Engineering Student',
   headline: 'Translational biomedical engineering for diagnostics, devices, and patient-centered innovation.',
   bio: 'I design and investigate biomedical technologies that connect engineering creativity with clinical impact, with a focus on computational biology, biomaterials, imaging, and human-centered medical systems.',
   university: 'University at Buffalo Honors College and Jacobs School of Medicine and Biomedical Sciences',

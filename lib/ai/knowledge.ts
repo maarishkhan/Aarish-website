@@ -11,12 +11,12 @@ import {
   researchProjects,
   skills,
 } from '@/data/site-config';
-import { cvConferences, cvLeadership, cvWorkshopsAndCertifications } from '@/data/cv-extras';
+import { readCvContent } from '@/lib/cv-content-store';
 import type { KnowledgeSection } from '@/lib/ai/provider';
 
 /** Builds the Research AI knowledge base from the same live data that powers the website. */
 export async function buildKnowledgeSections(): Promise<KnowledgeSection[]> {
-  const site = await getSiteConfig();
+  const [site, cv] = await Promise.all([getSiteConfig(), readCvContent()]);
   const skillsByCategory = new Map<string, string[]>();
 
   for (const skill of skills) {
@@ -73,7 +73,7 @@ export async function buildKnowledgeSections(): Promise<KnowledgeSection[]> {
       title: 'Presentations and conferences',
       text: [
         ...presentations.map((item) => `${item.title} — ${item.event} (${item.presentationType}, ${item.date}). ${item.abstract}`),
-        `Conferences attended or presented at: ${cvConferences.join('; ')}.`,
+        `Conferences attended or presented at: ${cv.conferences.join('; ')}.`,
       ].join('\n'),
     },
     {
@@ -83,8 +83,8 @@ export async function buildKnowledgeSections(): Promise<KnowledgeSection[]> {
     {
       title: 'Leadership, workshops and certifications',
       text: [
-        ...cvLeadership.map((item) => `${item.organization} — ${item.role}.${item.note ? ` ${item.note}` : ''}`),
-        `Workshops and certifications: ${cvWorkshopsAndCertifications.join('; ')}.`,
+        ...cv.leadership.map((item) => `${item.organization} — ${item.role}.${item.note ? ` ${item.note}` : ''}`),
+        `Workshops and certifications: ${cv.certifications.join('; ')}.`,
       ].join('\n'),
     },
     {

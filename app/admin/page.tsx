@@ -15,9 +15,14 @@ export default async function AdminPage() {
           <p className="eyebrow">Admin overview</p>
           <h1 className="text-4xl font-semibold tracking-tight text-brand-dark">Content management dashboard</h1>
         </div>
-        <Link href="/admin/editor" className="btn btn-primary btn-sm">
-          Open editor
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link href="/admin/cv" className="btn btn-secondary btn-sm">
+            Edit CV
+          </Link>
+          <Link href="/admin/editor" className="btn btn-primary btn-sm">
+            Open editor
+          </Link>
+        </div>
       </div>
 
       <div className="grid gap-5 md:grid-cols-3">

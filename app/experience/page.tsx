@@ -3,7 +3,7 @@ import { PageHeader } from '@/components/layout/page-header';
 
 export const metadata = {
   title: 'Research Experience',
-  description: 'Research and leadership experience in computational immunotherapy, ADHD genetics, and low-cost water purification at the University at Buffalo.',
+  description: 'Research and leadership experience in computational immunotherapy, neurological condition genetics, and low-cost water purification at the University at Buffalo.',
   alternates: { canonical: '/experience' },
 };
 

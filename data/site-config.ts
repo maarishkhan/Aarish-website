@@ -98,35 +98,35 @@ export const interests: ResearchInterest[] = [
     description: 'Using molecular modeling and interaction analysis to design and evaluate antibody-based immunotherapies, such as bispecific antibodies targeting 4-1BB and PD-L1 in non-small cell lung cancer.',
     keywords: ['bispecific antibodies', 'AlphaFold', 'GROMACS', 'NSCLC'],
     icon: 'dna',
-    displayOrder: 1,
+    displayOrder: 2,
     published: true,
   },
   {
     id: 'computational-genetics',
     title: 'Computational Genetics',
     shortDescription: 'Statistical and computational analysis of genetic data to study complex disease.',
-    description: 'Applying colocalization and statistical genetics pipelines, such as FastENLOC, to investigate the genetic architecture of ADHD and other complex conditions.',
-    keywords: ['genomics', 'FastENLOC', 'bioinformatics', 'ADHD'],
+    description: 'Applying FLAMES and FUMA-based analysis of genome-wide association data to investigate the genetic architecture of neurological conditions and other complex disease.',
+    keywords: ['genomics', 'GWAS', 'FUMA', 'FLAMES', 'neurological conditions'],
     icon: 'graph',
-    displayOrder: 2,
+    displayOrder: 1,
     published: true,
   },
   {
     id: 'global-health-engineering',
     title: 'Global Health Engineering',
     shortDescription: 'Low-cost, context-aware technologies for underserved communities.',
-    description: 'Designing affordable and maintainable engineering solutions, including water purification systems for refugee communities, shaped by local constraints and community needs.',
+    description: 'Designing affordable and maintainable engineering solutions, including UV-based water purification systems for disenfranchised communities, shaped by local constraints and community needs.',
     keywords: ['water purification', 'systems design', 'public health'],
     icon: 'pulse',
     displayOrder: 3,
     published: true,
   },
   {
-    id: 'sensing-and-devices',
-    title: 'Sensing and Devices',
-    shortDescription: 'Embedded electronics and instrumentation for data collection in the field.',
-    description: 'Building sensor and electronics systems, from high-altitude balloon payloads to environmental sampling, that connect engineering design with biological and environmental measurement.',
-    keywords: ['Arduino', 'instrumentation', 'sensing', 'device design'],
+    id: 'synthetic-biology',
+    title: 'Synthetic Biology',
+    shortDescription: 'Engineering biological systems and genetic tools for real-world applications.',
+    description: 'Exploring how genetic engineering and synthetic biology can be applied to biomedical problems, with an emphasis on accessible and translational approaches.',
+    keywords: ['synthetic biology', 'genetic engineering', 'translational research'],
     icon: 'sparkles',
     displayOrder: 4,
     published: true,
@@ -191,7 +191,7 @@ const defaultResearchProjects: ResearchProject[] = [
     researchQuestion: 'Can a single bispecific antibody simultaneously engage PD-L1 and 4-1BB with high affinity and stability, and can the computational workflow that evaluates it be automated?',
     motivation: 'Non-small cell lung cancer is a leading cause of cancer deaths, and dual-target antibodies may strengthen the immune response beyond single-target checkpoint inhibitors. Computational design lets candidate antibodies be screened quickly before costly laboratory work.',
     methodology: 'Ten antibodies and two receptors were evaluated through a six-stage pipeline: protein selection, structure modeling (AlphaFold), binding-site identification, molecular docking (HDock), interaction analysis (PLIP, Prodigy), and molecular dynamics simulation (GROMACS). DuoDok automates portions of this workflow as a web application.',
-    results: 'Docking and molecular dynamics confirmed strong binding of antibodies to 4-1BB and PD-L1, and the DuoBody design showed high predicted affinity and stability, supporting it as a promising NSCLC-targeting candidate. Published at IEEE ISEC 2025 and recognized with the Outstanding Poster Presentation Award (ACS NERD 2025) and the Medal of High Honors (Terra Science Fair).',
+    results: 'Docking and molecular dynamics confirmed an optimal bispecific antibody design for 4-1BB and PD-L1. The selected design showed high predicted affinity and stability, supporting it as a promising NSCLC-targeting candidate. Published at IEEE ISEC 2025 and recognized with the Outstanding Poster Presentation Award (ACS NERD 2025) and the Medal of High Honors (Terra Science Fair).',
     researchArea: 'Computational Immunotherapy',
     technologies: ['AlphaFold', 'GROMACS', 'HDock', 'PLIP', 'Prodigy', 'Biopython', 'Streamlit'],
     datasets: ['Antibody and receptor structures'],
@@ -201,7 +201,7 @@ const defaultResearchProjects: ResearchProject[] = [
     endDate: '06/2025',
     status: 'Published',
     featured: true,
-    images: ['/uploads/poster-with-coauthor.jpg'],
+    images: ['/uploads/research-poster.jpeg'],
     imageCaptions: ['Presenting the poster at the ACS Northeast Regional Discussion (NERD) 2025'],
     pipeline: [
       { title: 'Protein selection', detail: '10 antibodies and 2 receptors (4-1BB, PD-L1)' },
@@ -221,17 +221,17 @@ const defaultResearchProjects: ResearchProject[] = [
   },
   {
     id: 'proj-1',
-    title: 'ADHD Genetics Research',
+    title: 'Neurological Condition Genetics Research',
     slug: 'adhd-genetics-research',
-    shortDescription: 'Computational analysis of genetic data using FastENLOC to investigate the genetic basis of ADHD.',
-    description: 'Williams Lab, in the Jacobs School of Medicine and Biomedical Sciences at the University at Buffalo, studies the genetic and neurobiological basis of neurodevelopmental disorders, with a focus on ADHD. Mohammad Aarish Khan contributes by analyzing genetic data with the FastENLOC computational pipeline.',
-    researchQuestion: 'How can genomic and computational analysis help illuminate the genetic architecture underlying ADHD?',
-    motivation: 'Understanding the genetic underpinnings of ADHD may provide insight into disease mechanisms and inform more targeted research strategies.',
+    shortDescription: 'FLAMES and FUMA-based analysis of genome-wide association data to investigate the genetic basis of neurological conditions.',
+    description: 'Williams Lab, in the Jacobs School of Medicine and Biomedical Sciences at the University at Buffalo, studies the genetic and neurobiological basis of neurological and neurodevelopmental conditions. Mohammad Aarish Khan contributes through FLAMES and FUMA-based analysis of GWAS data sets.',
+    researchQuestion: 'How can genomic and computational analysis help illuminate the genetic architecture underlying neurological conditions?',
+    motivation: 'Understanding the genetic underpinnings of neurological conditions may provide insight into disease mechanisms and inform more targeted research strategies.',
     methodology: 'Computational genetics pipelines, statistical analysis, and evidence-based interpretation of gene-level associations.',
-    results: 'Ongoing. The work contributes to understanding how genetic data can be analyzed to support ADHD research.',
+    results: 'Ongoing. The work contributes to understanding how genetic data can be analyzed to support research on neurological conditions.',
     researchArea: 'Computational Biology',
-    technologies: ['Python', 'FastENLOC', 'Genomics', 'Biological Data Analysis'],
-    datasets: ['Genetic association data', 'Research genotype datasets'],
+    technologies: ['Python', 'FLAMES', 'FUMA', 'Genomics', 'Biological Data Analysis'],
+    datasets: ['GWAS data sets'],
     advisor: 'Williams Lab',
     institution: 'Jacobs School of Medicine and Biomedical Sciences, University at Buffalo',
     startDate: '08/2026',
@@ -241,7 +241,7 @@ const defaultResearchProjects: ResearchProject[] = [
     images: [],
     paperUrl: '',
     githubUrl: '',
-    tags: ['ADHD', 'genetics', 'computational biology'],
+    tags: ['neurological conditions', 'schizophrenia', 'genetics', 'computational biology'],
     published: true,
     createdAt: '2025-01-01',
     updatedAt: '2025-09-19',
@@ -250,8 +250,8 @@ const defaultResearchProjects: ResearchProject[] = [
     id: 'proj-2',
     title: 'Nushoor Water Purification Research',
     slug: 'nushoor-water-purification',
-    shortDescription: 'Low-cost water purification system design for refugee communities in Bangladesh with resource constraints in mind.',
-    description: 'A team at a local incubator for underserved communities is developing a low-cost water purification system for refugee communities in Bangladesh. Mohammad Aarish Khan collaborates on the system design, tailoring it to local constraints such as affordability, maintenance, and environmental conditions.',
+    shortDescription: 'Low-cost, UV-based water purification system fine-tuned for disenfranchised communities, designed around resource constraints.',
+    description: 'A team at a local incubator for underserved communities is developing a low-cost, UV-based water purification system fine-tuned for disenfranchised communities. Mohammad Aarish Khan collaborates on the system design, tailoring it to local constraints such as affordability, maintenance, and environmental conditions.',
     researchQuestion: 'How can water purification systems be designed to remain effective, affordable, and sustainable in underserved settings?',
     motivation: 'Many communities have limited resources and require low-maintenance, context-aware engineering solutions for essential water access.',
     methodology: 'The project combines systems design, community-driven constraints assessment, and engineering design optimization for practical deployment.',
@@ -406,13 +406,13 @@ const defaultExperience: ExperienceItem[] = [
   {
     id: 'exp-1',
     organization: 'Williams Lab',
-    role: 'ADHD Genetics Researcher',
+    role: 'Neurological Condition Genetics Researcher',
     location: 'Jacobs School of Medicine and Biomedical Sciences, University at Buffalo',
     startDate: '08/2026',
     endDate: 'Present',
-    description: 'Use the FastENLOC computational pipeline to analyze genetic data as part of an ongoing research study investigating the genetic basis of ADHD.',
+    description: 'Use FLAMES and FUMA-based analysis of GWAS data sets as part of an ongoing research study investigating the genetic basis of neurological conditions.',
     responsibilities: ['Analyze genetic datasets', 'Apply computational genetics pipelines', 'Support research interpretation and documentation'],
-    skills: ['FastENLOC', 'Python', 'Genomics', 'Bioinformatics'],
+    skills: ['FLAMES', 'FUMA', 'Python', 'Genomics', 'Bioinformatics'],
     researchAreas: ['Computational Biology', 'Genetics'],
     displayOrder: 1,
   },
@@ -423,8 +423,8 @@ const defaultExperience: ExperienceItem[] = [
     location: 'Local Incubator for Underserved Communities',
     startDate: '06/2026',
     endDate: 'Present',
-    description: 'Collaborate on a team designing a low-cost water purification system for refugee communities in Bangladesh, balancing affordability, maintenance, and environmental constraints.',
-    responsibilities: ['Design low-cost purification systems for refugee communities in Bangladesh', 'Tailor system design to community-specific constraints, including limited resources, cost, maintenance, and environmental conditions', 'Support engineering decision-making for practical deployment'],
+    description: 'Collaborate on a team designing a low-cost, UV-based water purification system fine-tuned for disenfranchised communities, balancing affordability, maintenance, and environmental constraints.',
+    responsibilities: ['Design low-cost, UV-based filtration systems fine-tuned for disenfranchised communities', 'Tailor system design to community-specific constraints, including limited resources, cost, maintenance, and environmental conditions', 'Support engineering decision-making for practical deployment'],
     skills: ['Systems Design', 'Public Health Engineering', 'Problem Solving'],
     researchAreas: ['Environmental Engineering', 'Public Health'],
     displayOrder: 2,
@@ -564,7 +564,7 @@ const defaultEducation: EducationItem[] = [
     field: 'Biomedical Engineering',
     startDate: '08/2026',
     endDate: 'Present',
-    description: 'Honors College student studying biomedical engineering with interests in computational genomics, synthetic biology and genetic engineering, and translational research.',
+    description: 'Honors College student studying biomedical engineering with interests in computational genomics, synthetic biology, genetic engineering, and translational research.',
     gpa: '',
     honors: ['Honors College'],
     coursework: ['Biomedical Engineering', 'Computational Biology', 'Data Analysis', 'Life Sciences'],
@@ -627,13 +627,33 @@ const defaultSkills: SkillItem[] = [
   { id: 'skill-11', name: 'PLIP', category: 'Computational Biology', level: 'Advanced' },
   { id: 'skill-12', name: 'Prodigy', category: 'Computational Biology', level: 'Advanced' },
   { id: 'skill-13', name: 'HDock', category: 'Computational Biology', level: 'Advanced' },
-  { id: 'skill-14', name: 'FastENLOC', category: 'Computational Biology', level: 'Advanced' },
+  { id: 'skill-14', name: 'FUMA (Functional Mapping and Annotation of GWAS)', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-21', name: 'FLAMES (long-read sequencing analysis)', category: 'Computational Biology', level: 'Intermediate' },
   { id: 'skill-15', name: 'Biopython', category: 'Computational Biology', level: 'Intermediate' },
   { id: 'skill-16', name: 'Benchling', category: 'Computational Biology', level: 'Intermediate' },
   { id: 'skill-17', name: 'Streamlit', category: 'Web Development', level: 'Intermediate' },
   { id: 'skill-18', name: 'Google Colab', category: 'Web Development', level: 'Intermediate' },
   { id: 'skill-19', name: 'Notion', category: 'Productivity', level: 'Advanced' },
   { id: 'skill-20', name: 'Oracle Cloud Infrastructure', category: 'Cloud', level: 'Intermediate' },
+  { id: 'skill-22', name: 'Computational genetics', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-23', name: 'Genome-wide association study (GWAS) analysis', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-24', name: 'Genetic association analysis', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-25', name: 'Statistical genetics', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-26', name: 'Neurological disease genetics', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-34', name: 'Psychiatric disease genetics', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-35', name: 'ADHD genetics', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-36', name: 'Schizophrenia genetics', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-37', name: 'Genetic dataset analysis', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-38', name: 'Frugal gene editing research', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-39', name: 'Functional annotation of genetic variants', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-40', name: 'CRISPR/Cas systems', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-27', name: 'Genomic medicine', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-28', name: 'Translational genomics', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-29', name: 'Synthetic biology', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-30', name: 'Genetic engineering', category: 'Computational Biology', level: 'Intermediate' },
+  { id: 'skill-31', name: 'Microsoft Word', category: 'Productivity', level: 'Intermediate' },
+  { id: 'skill-32', name: 'PowerPoint', category: 'Productivity', level: 'Intermediate' },
+  { id: 'skill-33', name: 'Excel', category: 'Productivity', level: 'Intermediate' },
 ];
 
 export const databaseSkills: SkillItem[] = await readDatabaseCollection<SkillItem>(
@@ -936,3 +956,74 @@ export const databaseBlogPosts: BlogPost[] = await readDatabaseCollection<BlogPo
 
 export const blogPosts = databaseBlogPosts;
 
+/** Extra CV and home-page lists that have no page of their own: conferences, certifications, leadership and the home-page strips. */
+export type ProfileEntryKind = 'conference' | 'certification' | 'leadership' | 'presented_at' | 'recognized_by';
+
+export type ProfileEntry = {
+  id: string;
+  kind: ProfileEntryKind;
+  name: string;
+  role: string;
+  note: string;
+  displayOrder: number;
+};
+
+const profileEntryKinds: ProfileEntryKind[] = ['conference', 'certification', 'leadership', 'presented_at', 'recognized_by'];
+
+const defaultProfileEntries: ProfileEntry[] = [
+  { id: 'entry-1', kind: 'conference', name: 'Kennedy Space Center 2025 (NASA SmallSat Education Conference)', role: '', note: '', displayOrder: 1 },
+  { id: 'entry-2', kind: 'conference', name: 'IFoRE 2025', role: '', note: '', displayOrder: 2 },
+  { id: 'entry-3', kind: 'conference', name: 'ACS NERD 2025', role: '', note: '', displayOrder: 3 },
+  { id: 'entry-4', kind: 'conference', name: 'Terra Science Fair', role: '', note: '', displayOrder: 4 },
+  { id: 'entry-5', kind: 'conference', name: 'Global Impact Council Conference', role: '', note: '', displayOrder: 5 },
+  { id: 'entry-6', kind: 'conference', name: 'IEEE ISEC 2025', role: '', note: '', displayOrder: 6 },
+  { id: 'entry-7', kind: 'certification', name: 'MIT Beaver Works: Autonomous Cars', role: '', note: '', displayOrder: 7 },
+  { id: 'entry-8', kind: 'certification', name: 'Biotech in Action — Biogen / Lab Central / MIT', role: '', note: '', displayOrder: 8 },
+  { id: 'entry-9', kind: 'certification', name: 'Oracle Cloud Infrastructure 2024 Generative AI Certification', role: '', note: '', displayOrder: 9 },
+  { id: 'entry-10', kind: 'certification', name: 'Eric Pitman Summer Workshop 2025 — Intern Computational Biologist', role: '', note: '', displayOrder: 10 },
+  { id: 'entry-11', kind: 'leadership', name: 'Biomedical Engineering Society', role: 'Battle Bots Team Lead (2026–Present)', note: '', displayOrder: 11 },
+  { id: 'entry-12', kind: 'leadership', name: 'Computer Club', role: 'President (2025–Present); Vice President (2023–25)', note: '', displayOrder: 12 },
+  { id: 'entry-13', kind: 'leadership', name: 'National Honors Society', role: 'Vice President, Class of 2026 (2025–Present)', note: 'Organized the NHS Running Event and co-organized the Tech Mentorship Program.', displayOrder: 13 },
+  { id: 'entry-14', kind: 'leadership', name: 'Technology Student Association', role: 'Secretary & NY State Delegate (2024–25)', note: '', displayOrder: 14 },
+  { id: 'entry-15', kind: 'leadership', name: 'Global Impact Council', role: 'Director of Social Media (2024–25); Writing Team (2023–24); Co-Organizer, Emerging Research Incubator', note: '', displayOrder: 15 },
+  { id: 'entry-16', kind: 'leadership', name: 'Superintendent Inter-High Action Committee', role: 'Co-Chair (2022–Present)', note: '', displayOrder: 16 },
+  { id: 'entry-17', kind: 'leadership', name: 'Shared Decision Making Committee', role: 'Class Representative (2024–Present)', note: '', displayOrder: 17 },
+  { id: 'entry-18', kind: 'leadership', name: 'Science Olympiad (2022–Present)', role: 'Science Honors Society (2023–Present)', note: '', displayOrder: 18 },
+  { id: 'entry-19', kind: 'presented_at', name: 'IEEE ISEC', role: '', note: '', displayOrder: 19 },
+  { id: 'entry-20', kind: 'presented_at', name: 'ACS NERD', role: '', note: '', displayOrder: 20 },
+  { id: 'entry-21', kind: 'presented_at', name: 'IFoRE', role: '', note: '', displayOrder: 21 },
+  { id: 'entry-22', kind: 'presented_at', name: 'NASA SmallSat Education Conference', role: '', note: '', displayOrder: 22 },
+  { id: 'entry-23', kind: 'presented_at', name: 'Terra Science Fair', role: '', note: '', displayOrder: 23 },
+  { id: 'entry-24', kind: 'presented_at', name: 'Global Impact Council', role: '', note: '', displayOrder: 24 },
+  { id: 'entry-25', kind: 'recognized_by', name: 'NY Academy of Sciences', role: '', note: '', displayOrder: 25 },
+  { id: 'entry-26', kind: 'recognized_by', name: 'American Chemical Society', role: '', note: '', displayOrder: 26 },
+  { id: 'entry-27', kind: 'recognized_by', name: 'Terra Science Fair', role: '', note: '', displayOrder: 27 },
+  { id: 'entry-28', kind: 'recognized_by', name: 'Office of Naval Research', role: '', note: '', displayOrder: 28 },
+  { id: 'entry-29', kind: 'recognized_by', name: 'RIT', role: '', note: '', displayOrder: 29 },
+  { id: 'entry-30', kind: 'recognized_by', name: 'College Board', role: '', note: '', displayOrder: 30 },
+];
+
+export const profileEntries: ProfileEntry[] = (
+  await readDatabaseCollection<ProfileEntry>('profile_entries', defaultProfileEntries, (row) => {
+    const kind = asString(row.kind, '') as ProfileEntryKind;
+
+    if (!profileEntryKinds.includes(kind)) return null as unknown as ProfileEntry;
+
+    return {
+      id: asString(row.id, ''),
+      kind,
+      name: asString(row.name, ''),
+      role: asString(row.role, ''),
+      note: asString(row.note, ''),
+      displayOrder: Number(row.display_order ?? row.displayOrder ?? 0),
+    };
+  })
+).sort((a, b) => a.displayOrder - b.displayOrder);
+
+const entriesOfKind = (kind: ProfileEntryKind) => profileEntries.filter((entry) => entry.kind === kind);
+
+export const cvConferences = entriesOfKind('conference').map((entry) => entry.name);
+export const cvWorkshopsAndCertifications = entriesOfKind('certification').map((entry) => entry.name);
+export const cvLeadership = entriesOfKind('leadership').map((entry) => ({ organization: entry.name, role: entry.role, note: entry.note || undefined }));
+export const presentedAt = entriesOfKind('presented_at').map((entry) => entry.name);
+export const recognizedBy = entriesOfKind('recognized_by').map((entry) => entry.name);

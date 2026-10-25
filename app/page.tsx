@@ -3,15 +3,15 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { ArrowRight, Cpu, Dna, Globe, Microscope } from 'lucide-react';
 import { Helix } from '@/components/ui/helix';
-import { awards, getSiteConfig, getSocialLinks, featuredResearch, interests, publications, researchProjects } from '@/data/site-config';
-import { cvConferences, presentedAt, recognizedBy } from '@/data/cv-extras';
+import { readCvContent } from '@/lib/cv-content-store';
+import { awards, getSiteConfig, getSocialLinks, featuredResearch, interests, presentedAt, publications, recognizedBy, researchProjects } from '@/data/site-config';
 
 const interestIcons = [Microscope, Dna, Globe, Cpu];
 
 export const metadata = { alternates: { canonical: '/' } };
 
 export default async function HomePage() {
-  const siteConfig = await getSiteConfig();
+  const [siteConfig, cvContent] = await Promise.all([getSiteConfig(), readCvContent()]);
   const socialLinks = getSocialLinks(siteConfig).filter((link) => link.enabled);
 
   const enabledSections = siteConfig.templateSections
@@ -35,7 +35,7 @@ export default async function HomePage() {
     description: siteConfig.headline,
     image: profileImage.startsWith('http') ? profileImage : `${siteUrl}${profileImage}`,
     affiliation: { '@type': 'CollegeOrUniversity', name: 'University at Buffalo' },
-    knowsAbout: ['Biomedical engineering', 'Computational biology', 'Cancer immunotherapy', 'Genomics', 'Antibody design'],
+    knowsAbout: ['Biomedical engineering', 'Computational genetics', 'Synthetic biology', 'Genomic medicine', 'Cancer immunotherapy', 'Antibody design'],
     sameAs: socialLinks.map((link) => link.href),
   };
 
@@ -100,7 +100,7 @@ export default async function HomePage() {
             {[
               { value: researchProjects.filter((item) => item.published).length, label: 'Research projects' },
               { value: publications.filter((item) => item.published).length, label: publications.filter((item) => item.published).length === 1 ? 'Publication' : 'Publications' },
-              { value: cvConferences.length, label: 'Conferences' },
+              { value: cvContent.conferences.length, label: 'Conferences' },
               { value: awards.length, label: 'Awards & honors' },
             ].map((stat) => (
               <div key={stat.label} className="text-center md:border-r md:border-white/10 md:last:border-r-0">

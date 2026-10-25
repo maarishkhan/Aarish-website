@@ -194,3 +194,12 @@ create policy "Public can read site settings" on site_settings for select using 
 -- Private tables: RLS on with no policies = no access except via the service-role key.
 alter table profiles enable row level security;
 alter table admin_users enable row level security;
+
+create table if not exists profile_entries (
+  id uuid primary key default gen_random_uuid(),
+  kind text not null check (kind in ('conference', 'certification', 'leadership', 'presented_at', 'recognized_by')),
+  name text not null,
+  role text default '',
+  note text default '',
+  display_order integer default 0
+);

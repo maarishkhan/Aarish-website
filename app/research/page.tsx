@@ -5,7 +5,7 @@ import { PageHeader } from '@/components/layout/page-header';
 
 export const metadata = {
   title: 'Research Projects',
-  description: 'Biomedical engineering research projects: bispecific antibody design for cancer immunotherapy, the genetics of ADHD, and low-cost water purification.',
+  description: 'Biomedical engineering research projects: bispecific antibody design for cancer immunotherapy, the genetics of neurological conditions, and low-cost UV water purification.',
   alternates: { canonical: '/research' },
 };
 

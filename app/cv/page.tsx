@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { PrintButton } from '@/components/cv/print-button';
 import { PageHeader } from '@/components/layout/page-header';
 import { awards, education, experience, formatPeriod, getSiteConfig, publications, skills } from '@/data/site-config';
-import { cvConferences, cvLeadership, cvWorkshopsAndCertifications } from '@/data/cv-extras';
+import { readCvContent } from '@/lib/cv-content-store';
 
 function SidebarSection({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -51,23 +51,26 @@ export const metadata = {
 };
 
 export default async function CvPage() {
-  const site = await getSiteConfig();
+  const [site, cv] = await Promise.all([getSiteConfig(), readCvContent()]);
   const [firstName, ...restName] = site.name.split(' ');
   const isCurrent = (item: { endDate: string }) => /present/i.test(item.endDate);
-  const current = experience.filter(isCurrent);
-  const past = experience.filter((item) => !isCurrent(item));
+  const cvExperience = experience.filter((item) => !cv.hiddenExperience.includes(item.id));
+  const cvAwards = awards.filter((item) => !cv.hiddenAwards.includes(item.id));
+  const current = cvExperience.filter(isCurrent);
+  const past = cvExperience.filter((item) => !isCurrent(item));
   const featuredPublications = publications.filter((item) => item.published && item.featured);
   const cvPublications = featuredPublications.length > 0 ? featuredPublications : publications.filter((item) => item.published);
-  const skillGroups = skills.reduce<Record<string, string[]>>((groups, skill) => {
+  const skillGroups = skills.filter((skill) => !cv.hiddenSkills.includes(skill.id)).reduce<Record<string, string[]>>((groups, skill) => {
     (groups[skill.category] ??= []).push(skill.name);
     return groups;
   }, {});
   const contactLines = [
-    site.email,
-    site.socials.linkedin && stripProtocol(site.socials.linkedin),
-    site.socials.github && stripProtocol(site.socials.github),
-    site.socials.scholar && 'Google Scholar profile',
-    site.socials.orcid && `ORCID: ${stripProtocol(site.socials.orcid).replace('orcid.org/', '')}`,
+    cv.email || site.email,
+    cv.phone,
+    cv.showLinkedin && site.socials.linkedin && stripProtocol(site.socials.linkedin),
+    cv.showGithub && site.socials.github && stripProtocol(site.socials.github),
+    cv.showScholar && site.socials.scholar && 'Google Scholar profile',
+    cv.showOrcid && site.socials.orcid && `ORCID: ${stripProtocol(site.socials.orcid).replace('orcid.org/', '')}`,
   ].filter(Boolean) as string[];
 
   const renderRole = (item: (typeof experience)[number]) => (
@@ -115,17 +118,17 @@ export default async function CvPage() {
               ))}
             </SidebarSection>
             <SidebarSection title="Awards & honors">
-              {awards.map((award) => (
+              {cvAwards.map((award) => (
                 <p key={award.id}>– {award.organization}: {award.title}{award.year ? ` ${award.year}` : ''}</p>
               ))}
             </SidebarSection>
             <SidebarSection title="Conferences">
-              {cvConferences.map((item) => (
+              {cv.conferences.map((item) => (
                 <p key={item}>– {item}</p>
               ))}
             </SidebarSection>
             <SidebarSection title="Workshops & certs">
-              {cvWorkshopsAndCertifications.map((item) => (
+              {cv.certifications.map((item) => (
                 <p key={item}>– {item}</p>
               ))}
             </SidebarSection>
@@ -165,7 +168,7 @@ export default async function CvPage() {
 
           <MainSection title="Leadership & extracurriculars">
             <div className="space-y-1.5 text-[13px] leading-5">
-              {cvLeadership.map((item) => (
+              {cv.leadership.map((item) => (
                 <p key={item.organization}>
                   <strong>– {item.organization}</strong> <span className="ml-2">{item.role}</span>
                   {item.note && (

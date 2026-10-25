@@ -86,7 +86,7 @@ Without the Supabase variables the site still renders from the built-in data, bu
 
 - Profile, navigation, section toggles and images: admin editor at `/admin/editor`.
 - Projects, publications, experience, education, skills, awards, presentations and blog posts: Supabase tables (defaults live in `data/site-config.ts`).
-- The CV page is generated from the same data; extra CV-only entries (conferences, certifications, leadership) are in `data/cv-extras.ts`.
+- The CV page is generated from the same data; the extra entries (conferences, certifications, leadership and the home-page strips) are the `profile_entries` collection in `data/site-config.ts`, which can also be managed in Supabase (see `supabase/schema.sql`).
 
 ## Research AI
 
