@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const SUGGESTIONS = [
   'What are the main research areas?',
@@ -88,7 +89,7 @@ export function ResearchChat() {
         ) : null}
       </div>
 
-      <p className="mt-4 text-xs text-slate-500">Answers are generated from the content of this website and may be incomplete. For anything important, please contact the researcher directly.</p>
+      <p className="mt-4 text-xs text-slate-500">Answers are generated from the content of this website and may be incomplete. For anything important, please contact the researcher directly. Your question may be sent to an AI provider to generate the answer, so please do not include personal or confidential information. See the <Link href="/privacy" className="underline">privacy notice</Link>.</p>
     </div>
   );
 }

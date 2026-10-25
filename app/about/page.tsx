@@ -35,11 +35,18 @@ export default async function AboutPage() {
 
       <section className="mt-16">
         <p className="eyebrow">Gallery</p>
-        <h2 className="mt-2 text-2xl font-semibold text-brand-dark">Presenting research</h2>
-        <figure className="mt-4 max-w-3xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-          <img src="/uploads/poster-with-coauthor.jpg" alt="Presenting the bispecific antibody research poster at ACS NERD 2025" className="h-auto w-full" loading="lazy" />
-          <figcaption className="px-4 py-3 text-sm text-slate-600">Presenting at the ACS Northeast Regional Discussion (NERD) 2025</figcaption>
-        </figure>
+        <h2 className="mt-2 text-2xl font-semibold text-brand-dark">Presenting and recognition</h2>
+        <div className="mt-4 grid items-start gap-4 sm:grid-cols-2">
+          {[
+            { src: '/uploads/acs-nerd-poster-presentation.jpg', alt: 'Presenting the bispecific antibody research poster at ACS NERD 2025', caption: 'Presenting at the ACS Northeast Regional Discussion (NERD) 2025' },
+            { src: '/uploads/terra-science-fair-medal.jpg', alt: 'Receiving the Medal of High Honors and the Office of Naval Research Award at the Terra Science Fair', caption: 'Terra Science Fair: Medal of High Honors and Office of Naval Research Award' },
+          ].map((photo) => (
+            <figure key={photo.src} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src={photo.src} alt={photo.alt} className="h-auto w-full" loading="lazy" />
+              <figcaption className="px-4 py-3 text-sm text-slate-600">{photo.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
       </section>
 
       <div className="mt-10 grid gap-6 md:grid-cols-2">

@@ -7,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogEnabled = enabledPages.includes('/blog');
 
   // The contact page is always listed, even when its menu link is switched off.
-  const pages = Array.from(new Set([...enabledPages, '/contact']));
+  const pages = Array.from(new Set([...enabledPages, '/contact', '/privacy', '/terms']));
   const details = [
     ...researchProjects.filter((item) => item.published).map((item) => `/research/${item.slug}`),
     ...publications.filter((item) => item.published).map((item) => `/publications/${item.slug}`),

@@ -43,8 +43,12 @@ export async function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-12 border-t border-white/10 pt-6 text-xs text-slate-400">
-          © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+        <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved. A personal website, not affiliated with or endorsed by any organization named on it.</p>
+          <p className="flex gap-4">
+            <Link href="/privacy" className="transition hover:text-white">Privacy</Link>
+            <Link href="/terms" className="transition hover:text-white">Terms &amp; disclaimer</Link>
+          </p>
         </div>
       </div>
     </footer>

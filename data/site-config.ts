@@ -201,7 +201,7 @@ const defaultResearchProjects: ResearchProject[] = [
     endDate: '06/2025',
     status: 'Published',
     featured: true,
-    images: ['/uploads/research-poster.jpeg'],
+    images: ['/uploads/duodok-poster-acs-nerd.jpg'],
     imageCaptions: ['Presenting the poster at the ACS Northeast Regional Discussion (NERD) 2025'],
     pipeline: [
       { title: 'Protein selection', detail: '10 antibodies and 2 receptors (4-1BB, PD-L1)' },
@@ -715,6 +715,7 @@ const defaultAwards: Award[] = [
     year: '2025',
     description: 'Awarded the Medal of High Honors for outstanding research impact and scientific communication, and received the Office of Naval Research Award.',
     category: 'Science fair',
+    image: '/uploads/terra-science-fair-medal.jpg',
     featured: true,
   },
   {
@@ -760,6 +761,16 @@ const defaultAwards: Award[] = [
     year: '2024',
     description: 'Won 1st Place in the Computer Programming competition.',
     category: 'Competition',
+    featured: false,
+  },
+  {
+    id: 'award-14',
+    title: '2nd Place and Honorable Mention, Student Showcase',
+    organization: 'Computer Science for High Schoolers (CS4HS), Buffalo State',
+    year: '2025',
+    description: 'Presented a computer science project accepted to the 2025 CS4HS Student Showcase and Competition at SUNY Buffalo State, together with teammate Mohammad Aasim Khan, and received a 2nd Place trophy and an Honorable Mention (May 31, 2025).',
+    category: 'Competition',
+    image: '/uploads/cs4hs-showcase-2025.jpg',
     featured: false,
   },
   {
