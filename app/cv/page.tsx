@@ -64,12 +64,26 @@ export default async function CvPage() {
 
   return (
     <div className="container-shell section-shell print:max-w-none print:p-0">
-      <PageHeader eyebrow="CV" title="Curriculum Vitae" intro="A full record of research, awards, and leadership. Download it as a PDF using the button." action={
+      <PageHeader
+        eyebrow="CV"
+        title="Curriculum Vitae"
+        intro={cv.cvPdfUrl ? 'A full record of research, awards, and leadership. Get the one-page resume, or download or print the full CV below.' : 'A full record of research, awards, and leadership. Download it as a PDF using the button.'}
+        action={
           <div className="flex flex-wrap items-center gap-3">
-            <Link href="/cv/plain" className="btn btn-outline-light">Plain version</Link>
-            <PrintButton variant="gold" />
+            {cv.cvPdfUrl ? (
+              <>
+                <a href={cv.cvPdfUrl} download={cv.cvPdfName || 'CV.pdf'} target="_blank" rel="noreferrer" title="Download the one-page resume as a PDF" className="btn btn-gold">
+                  One-pager (PDF)
+                </a>
+                <PrintButton variant="outline-light" label="Download / print as PDF" title="Download or print the full CV shown below" />
+              </>
+            ) : (
+              <PrintButton variant="gold" />
+            )}
+            <Link href="/cv/plain" title="A simple text-only layout" className="btn btn-outline-light">Plain version</Link>
           </div>
-        } />
+        }
+      />
 
       <div className="overflow-hidden border border-slate-200 bg-white shadow-[0_20px_55px_rgba(15,23,42,0.12)] lg:grid lg:grid-cols-[19rem_minmax(0,1fr)] print:grid print:grid-cols-[15.5rem_minmax(0,1fr)] print:border-0 print:shadow-none">
         <aside className="bg-[#13314d] p-7 text-white sm:p-9 lg:min-h-[1050px] print:min-h-0 print:p-5 print:text-[11px] print:[-webkit-print-color-adjust:exact] print:[print-color-adjust:exact]">
@@ -189,18 +203,6 @@ export default async function CvPage() {
           </MainSection>
         </main>
       </div>
-
-      {cv.cvPdfUrl && (
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm print:hidden">
-          <div>
-            <p className="font-serif text-lg font-bold text-brand-dark">Download my CV</p>
-            <p className="mt-1 text-sm text-slate-600">{cv.cvPdfName || 'CV.pdf'} · PDF</p>
-          </div>
-          <a href={cv.cvPdfUrl} download={cv.cvPdfName || 'CV.pdf'} target="_blank" rel="noreferrer" className="btn btn-gold">
-            Download CV (PDF)
-          </a>
-        </div>
-      )}
     </div>
   );
 }

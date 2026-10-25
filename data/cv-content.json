@@ -6,8 +6,8 @@
   "showScholar": true,
   "showOrcid": true,
   "showRadar": true,
-  "cvPdfUrl": "",
-  "cvPdfName": "",
+  "cvPdfUrl": "/uploads/cv-1792956477000.pdf",
+  "cvPdfName": "Mohammad-Aarish-Khan-Resume-UB-2026.pdf",
   "radar": {},
   "conferences": [
     "Kennedy Space Center 2025 (NASA SmallSat Education Conference)",
@@ -56,12 +56,12 @@
       "role": "Class Representative (2024–Jun 2026)"
     },
     {
-      "organization": "Science Olympiad (2022–Jun 2026)",
-      "role": ""
+      "organization": "Science Olympiad",
+      "role": "2022–Jun 2026"
     },
     {
-      "organization": "Science Honors Society (2023–Jun 2026)",
-      "role": ""
+      "organization": "Science Honors Society",
+      "role": "2023–Jun 2026"
     }
   ],
   "hiddenExperience": [],

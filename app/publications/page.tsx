@@ -24,16 +24,16 @@ export default function PublicationsPage() {
             <div className="mt-5 flex flex-wrap items-center gap-4">
               {publication.abstractUrl && (
                 <Link href={publication.abstractUrl as Route} className="inline-flex text-sm font-medium text-brand" target="_blank" rel="noreferrer">
-                  View abstract
+                  Abstract (IEEE Xplore)
                 </Link>
               )}
               {(publication.externalUrl || publication.pdfUrl) && (
                 <Link href={(publication.externalUrl || publication.pdfUrl) as Route} className="inline-flex text-sm font-medium text-slate-700" target="_blank" rel="noreferrer">
-                  View details
+                  Read the paper
                 </Link>
               )}
               <Link href={`/publications/${publication.slug}` as Route} className="inline-flex text-sm font-medium text-slate-700">
-                Publication details
+                Full details
               </Link>
             </div>
           </article>

@@ -6,8 +6,8 @@ import Link from 'next/link';
 const SUGGESTIONS = [
   'What are the main research areas?',
   'Tell me about the cancer immunotherapy project',
-  'What computational tools does he use?',
-  'What awards has he received?',
+  'What computational tools are used in the research?',
+  'What awards and honors are listed?',
 ];
 
 export function ResearchChat() {
@@ -41,7 +41,7 @@ export function ResearchChat() {
   }
 
   return (
-    <div className="card-surface max-w-4xl p-6 sm:p-8">
+    <div className="card-surface p-6 sm:p-8">
       <div className="flex flex-wrap gap-2">
         {SUGGESTIONS.map((suggestion) => (
           <button

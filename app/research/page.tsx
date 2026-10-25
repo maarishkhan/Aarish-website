@@ -31,6 +31,39 @@ export default function ResearchPage() {
                   <span key={tag} className="chip">{tag}</span>
                 ))}
               </div>
+              {project.images[0] && (
+                <dl className="mt-6 space-y-5 border-t border-slate-200 pt-5 text-sm">
+                  <div>
+                    <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Outcome</dt>
+                    <dd className="mt-1.5 leading-7 text-slate-600">{project.results}</dd>
+                  </div>
+                  {project.pipeline && project.pipeline.length > 0 && (
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Method</dt>
+                      <dd className="mt-2">
+                        <ol className="grid gap-x-6 gap-y-1.5 text-slate-600 sm:grid-cols-2">
+                          {project.pipeline.map((step, index) => (
+                            <li key={step.title} className="flex gap-2">
+                              <span className="font-semibold text-[#bb7728]">{index + 1}.</span>
+                              <span>{step.title}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </dd>
+                    </div>
+                  )}
+                  {project.technologies.length > 0 && (
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Tools</dt>
+                      <dd className="mt-2 flex flex-wrap gap-2">
+                        {project.technologies.map((tool) => (
+                          <span key={tool} className="chip">{tool}</span>
+                        ))}
+                      </dd>
+                    </div>
+                  )}
+                </dl>
+              )}
               <Link href={`/research/${project.slug}`} className="link-brand mt-6">
                 Read project <ArrowRight size={16} />
               </Link>

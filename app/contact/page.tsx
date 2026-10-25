@@ -21,7 +21,7 @@ export default async function ContactPage() {
         intro="I welcome conversations about research collaboration, mentorship, and opportunities in biomedical engineering and computational biology. Email is the best way to reach me."
       />
 
-      <div className="max-w-2xl">
+      <div className="grid items-start gap-6 lg:grid-cols-2">
         <div className="card-surface space-y-5 p-6 sm:p-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Email</p>
@@ -41,6 +41,19 @@ export default async function ContactPage() {
               ))}
             </div>
           )}
+        </div>
+
+        <div className="card-surface p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Happy to talk about</p>
+          <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700">
+            <li className="flex gap-3"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />Research collaboration in computational genetics and computational immunotherapy</li>
+            <li className="flex gap-3"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />Community-driven engineering projects and global health technology</li>
+            <li className="flex gap-3"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />Mentorship, student programs and science communication</li>
+          </ul>
+          <div className="mt-6 flex flex-wrap gap-3 border-t border-slate-200 pt-5">
+            <a href={`mailto:${siteConfig.email}`} className="btn btn-primary btn-sm">Send an email</a>
+            <Link href="/cv" className="btn btn-secondary btn-sm">View CV</Link>
+          </div>
         </div>
       </div>
     </div>
