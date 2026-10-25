@@ -5,6 +5,10 @@
   "showGithub": true,
   "showScholar": true,
   "showOrcid": true,
+  "showRadar": true,
+  "cvPdfUrl": "",
+  "cvPdfName": "",
+  "radar": {},
   "conferences": [
     "Kennedy Space Center 2025 (NASA SmallSat Education Conference)",
     "IFoRE 2025",

@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
 import { PrintButton } from '@/components/cv/print-button';
 import { PageHeader } from '@/components/layout/page-header';
-import { awards, education, experience, formatPeriod, getSiteConfig, publications, skills } from '@/data/site-config';
-import { readCvContent } from '@/lib/cv-content-store';
+import Link from 'next/link';
+import { experience, formatPeriod } from '@/data/site-config';
+import { RadarChart } from '@/components/cv/radar-chart';
+import { getCvData } from '@/lib/cv-data';
 
 function SidebarSection({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -40,10 +42,6 @@ function Role({ title, details, bullets }: { title: string; details: string; bul
   );
 }
 
-function stripProtocol(url: string) {
-  return url.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
-}
-
 export const metadata = {
   title: 'Curriculum Vitae',
   description: 'Curriculum vitae of Mohammad Aarish Khan: education, research experience, awards, presentations, and skills.',
@@ -51,27 +49,8 @@ export const metadata = {
 };
 
 export default async function CvPage() {
-  const [site, cv] = await Promise.all([getSiteConfig(), readCvContent()]);
+  const { site, cv, education, current, past, cvAwards, cvPublications, skillGroups, contactLines, radar, currentEducation } = await getCvData();
   const [firstName, ...restName] = site.name.split(' ');
-  const isCurrent = (item: { endDate: string }) => /present/i.test(item.endDate);
-  const cvExperience = experience.filter((item) => !cv.hiddenExperience.includes(item.id));
-  const cvAwards = awards.filter((item) => !cv.hiddenAwards.includes(item.id));
-  const current = cvExperience.filter(isCurrent);
-  const past = cvExperience.filter((item) => !isCurrent(item));
-  const featuredPublications = publications.filter((item) => item.published && item.featured);
-  const cvPublications = featuredPublications.length > 0 ? featuredPublications : publications.filter((item) => item.published);
-  const skillGroups = skills.filter((skill) => !cv.hiddenSkills.includes(skill.id)).reduce<Record<string, string[]>>((groups, skill) => {
-    (groups[skill.category] ??= []).push(skill.name);
-    return groups;
-  }, {});
-  const contactLines = [
-    cv.email || site.email,
-    cv.phone,
-    cv.showLinkedin && site.socials.linkedin && stripProtocol(site.socials.linkedin),
-    cv.showGithub && site.socials.github && stripProtocol(site.socials.github),
-    cv.showScholar && site.socials.scholar && 'Google Scholar profile',
-    cv.showOrcid && site.socials.orcid && `ORCID: ${stripProtocol(site.socials.orcid).replace('orcid.org/', '')}`,
-  ].filter(Boolean) as string[];
 
   const renderRole = (item: (typeof experience)[number]) => (
     <Role
@@ -84,7 +63,12 @@ export default async function CvPage() {
 
   return (
     <div className="container-shell section-shell print:max-w-none print:p-0">
-      <PageHeader eyebrow="CV" title="Curriculum Vitae" intro="A full record of research, awards, and leadership. Download it as a PDF using the button." action={<PrintButton variant="gold" />} />
+      <PageHeader eyebrow="CV" title="Curriculum Vitae" intro="A full record of research, awards, and leadership. Download it as a PDF using the button." action={
+          <div className="flex flex-wrap items-center gap-3">
+            <Link href="/cv/plain" className="btn btn-outline-light">Plain version</Link>
+            <PrintButton variant="gold" />
+          </div>
+        } />
 
       <div className="overflow-hidden border border-slate-200 bg-white shadow-[0_20px_55px_rgba(15,23,42,0.12)] lg:grid lg:grid-cols-[19rem_minmax(0,1fr)] print:grid print:grid-cols-[15.5rem_minmax(0,1fr)] print:border-0 print:shadow-none">
         <aside className="bg-[#13314d] p-7 text-white sm:p-9 lg:min-h-[1050px] print:min-h-0 print:p-5 print:text-[11px] print:[-webkit-print-color-adjust:exact] print:[print-color-adjust:exact]">
@@ -94,7 +78,13 @@ export default async function CvPage() {
               <br />
               {restName.join(' ')}
             </h2>
-            <p className="mt-5 text-sm font-semibold">{site.title}</p>
+            <p className="mt-5 text-sm font-semibold uppercase tracking-[0.12em]">{currentEducation?.degree || site.title}</p>
+            {currentEducation && (
+              <p className="mt-1 text-sm italic text-slate-300">
+                {currentEducation.institution}
+                {currentEducation.startDate ? ` · ${currentEducation.startDate} – ${currentEducation.endDate}` : ''}
+              </p>
+            )}
             <p className="mt-2 text-sm italic text-slate-300">{site.location}</p>
           </header>
           <div className="space-y-7 print:space-y-4">
@@ -136,6 +126,11 @@ export default async function CvPage() {
         </aside>
 
         <main className="space-y-10 p-7 sm:p-9 lg:p-10 print:space-y-4 print:p-5 print:text-[12px]">
+          {cv.showRadar && (
+            <div className="border-b border-slate-200 pb-6 print:pb-3">
+              <RadarChart axes={radar} />
+            </div>
+          )}
           <MainSection title="Research experience">
             {current.length > 0 && (
               <>
@@ -183,6 +178,18 @@ export default async function CvPage() {
           </MainSection>
         </main>
       </div>
+
+      {cv.cvPdfUrl && (
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm print:hidden">
+          <div>
+            <p className="font-serif text-lg font-bold text-brand-dark">Download my CV</p>
+            <p className="mt-1 text-sm text-slate-600">{cv.cvPdfName || 'CV.pdf'} · PDF</p>
+          </div>
+          <a href={cv.cvPdfUrl} download={cv.cvPdfName || 'CV.pdf'} target="_blank" rel="noreferrer" className="btn btn-gold">
+            Download CV (PDF)
+          </a>
+        </div>
+      )}
     </div>
   );
 }

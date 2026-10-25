@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { saveCvContentAction } from './actions';
 import { awards, experience, formatPeriod, getSiteConfig, skills } from '@/data/site-config';
 import { readCvContent } from '@/lib/cv-content-store';
+import { PDF_LIMIT_MB } from '@/lib/uploads';
+import { getCvData, radarAxes } from '@/lib/cv-data';
 
 const fieldClass = 'w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 focus:border-brand focus:outline-none';
 
@@ -20,7 +22,7 @@ function CheckRow({ name, value, label, detail, checked }: { name: string; value
 
 export default async function AdminCvPage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
   const { status } = await searchParams;
-  const [cv, site] = await Promise.all([readCvContent(), getSiteConfig()]);
+  const [cv, site, { radarSettings }] = await Promise.all([readCvContent(), getSiteConfig(), getCvData()]);
   const skillCategories = Array.from(new Set(skills.map((skill) => skill.category)));
 
   return (
@@ -41,6 +43,11 @@ export default async function AdminCvPage({ searchParams }: { searchParams: Prom
       </div>
 
       {status === 'saved' && <p className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">CV settings saved.</p>}
+      {status === 'upload-error' && (
+        <p className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          The PDF was not uploaded, and no other changes were saved. Choose a PDF under {PDF_LIMIT_MB} MB. On the live site, uploads also need Supabase storage to be configured.
+        </p>
+      )}
       {status === 'not-saved' && (
         <p className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
           Nothing was saved. This host cannot write files and no database is connected. Connect Supabase (or run the site locally) to store CV changes.
@@ -73,6 +80,79 @@ export default async function AdminCvPage({ searchParams }: { searchParams: Prom
               </label>
             ))}
           </div>
+        </section>
+
+        <section className="card-surface p-6 lg:col-span-2">
+          <h2 className="text-xl font-semibold text-brand-dark">Downloadable CV (PDF)</h2>
+          <p className="mt-1 text-xs text-slate-500">
+            Upload a finished CV and a download card appears at the bottom of the CV page. Without a file, the card is not shown.
+          </p>
+          {cv.cvPdfUrl ? (
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm">
+              <span>
+                Current file:{' '}
+                <a href={cv.cvPdfUrl} target="_blank" rel="noreferrer" className="font-medium text-brand underline">{cv.cvPdfName || 'CV.pdf'}</a>
+              </span>
+              <label className="flex items-center gap-2 text-slate-700">
+                <input type="checkbox" name="removeCvPdf" className="h-4 w-4 rounded border-slate-300 text-brand focus:ring-brand" />
+                Remove this file
+              </label>
+            </div>
+          ) : (
+            <p className="mt-4 text-sm text-slate-600">No file uploaded yet.</p>
+          )}
+          <label className="mt-4 block text-sm font-medium text-slate-700">
+            {cv.cvPdfUrl ? 'Replace with a new PDF' : 'Choose a PDF'} <span className="font-normal text-slate-500">(under {PDF_LIMIT_MB} MB)</span>
+            <input
+              name="cvPdfFile"
+              type="file"
+              accept="application/pdf"
+              className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-600 file:mr-3 file:rounded-full file:border-0 file:bg-brand/10 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-brand"
+            />
+          </label>
+        </section>
+
+        <section className="card-surface p-6 lg:col-span-2">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="text-xl font-semibold text-brand-dark">Profile radar chart</h2>
+              <p className="mt-1 text-xs text-slate-500">
+                Shown at the top of the CV. Turn it off and the CV starts straight with Research Experience, with no gap.
+              </p>
+            </div>
+            <label className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">
+              Show radar chart
+              <input type="checkbox" name="showRadar" defaultChecked={cv.showRadar} className="h-4 w-4 rounded border-slate-300 text-brand focus:ring-brand" />
+            </label>
+          </div>
+          <div className="mt-5 overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="text-xs uppercase tracking-wide text-slate-500">
+                  <th className="pb-2 pr-4 font-semibold">Axis</th>
+                  <th className="pb-2 pr-4 font-semibold">Value shown</th>
+                  <th className="pb-2 font-semibold">Full at (scale)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {radarSettings.map((axis) => (
+                  <tr key={axis.key} className="border-t border-slate-100">
+                    <td className="py-2 pr-4 font-medium text-slate-700">
+                      {axis.label}
+                      <span className="block text-xs font-normal text-slate-500">counted from the site: {axis.auto}</span>
+                    </td>
+                    <td className="py-2 pr-4">
+                      <input name={`radarValue-${axis.key}`} type="number" min={0} step="1" defaultValue={cv.radar[axis.key]?.value ?? ''} placeholder={`auto (${axis.auto})`} className={`${fieldClass} max-w-[10rem]`} />
+                    </td>
+                    <td className="py-2">
+                      <input name={`radarMax-${axis.key}`} type="number" min={1} step="1" defaultValue={cv.radar[axis.key]?.max ?? ''} placeholder={`default (${radarAxes.find((item) => item.key === axis.key)?.max})`} className={`${fieldClass} max-w-[10rem]`} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-xs text-slate-500">Leave a box blank to use the automatic count or the default scale. The value shown is also the number printed beside the chart.</p>
         </section>
 
         <section className="card-surface p-6">

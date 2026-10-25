@@ -5,6 +5,12 @@ import { cvConferences, cvLeadership, cvWorkshopsAndCertifications } from '@/dat
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
 import { getServiceClient } from '@/lib/supabase-admin';
 
+export const radarKeys = ['research', 'presentations', 'recognition', 'skills', 'experience', 'leadership'] as const;
+export type RadarKey = (typeof radarKeys)[number];
+
+/** Blank (undefined) means "use the automatic count" / "use the default scale". */
+export type RadarOverride = { value?: number; max?: number };
+
 export type CvLeadershipItem = { organization: string; role: string; note?: string };
 
 /** Settings that only affect the CV. Everything not listed here is read straight from the site's own content. */
@@ -17,6 +23,11 @@ export type CvContent = {
   showGithub: boolean;
   showScholar: boolean;
   showOrcid: boolean;
+  showRadar: boolean;
+  /** Public URL and display name of the uploaded CV file; blank when none is uploaded. */
+  cvPdfUrl: string;
+  cvPdfName: string;
+  radar: Partial<Record<RadarKey, RadarOverride>>;
   conferences: string[];
   certifications: string[];
   leadership: CvLeadershipItem[];
@@ -45,6 +56,10 @@ export const defaultCvContent: CvContent = {
   showGithub: true,
   showScholar: true,
   showOrcid: true,
+  showRadar: true,
+  cvPdfUrl: '',
+  cvPdfName: '',
+  radar: {},
   conferences: cvConferences,
   certifications: cvWorkshopsAndCertifications,
   leadership: cvLeadership,
@@ -61,6 +76,23 @@ function asStringArray(value: unknown, fallback: string[]) {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : fallback;
 }
 
+function asRadarNumber(value: unknown, min: number) {
+  return typeof value === 'number' && Number.isFinite(value) && value >= min ? value : undefined;
+}
+
+function mergeRadar(value: unknown): CvContent['radar'] {
+  const source = (value && typeof value === 'object' ? value : {}) as Record<string, { value?: unknown; max?: unknown } | undefined>;
+  const radar: CvContent['radar'] = {};
+
+  for (const key of radarKeys) {
+    const override = { value: asRadarNumber(source[key]?.value, 0), max: asRadarNumber(source[key]?.max, 1) };
+
+    if (override.value !== undefined || override.max !== undefined) radar[key] = override;
+  }
+
+  return radar;
+}
+
 function mergeCvContent(parsed: Partial<CvContent> | null): CvContent {
   const source = parsed ?? {};
 
@@ -71,6 +103,10 @@ function mergeCvContent(parsed: Partial<CvContent> | null): CvContent {
     showGithub: typeof source.showGithub === 'boolean' ? source.showGithub : defaultCvContent.showGithub,
     showScholar: typeof source.showScholar === 'boolean' ? source.showScholar : defaultCvContent.showScholar,
     showOrcid: typeof source.showOrcid === 'boolean' ? source.showOrcid : defaultCvContent.showOrcid,
+    showRadar: typeof source.showRadar === 'boolean' ? source.showRadar : defaultCvContent.showRadar,
+    cvPdfUrl: typeof source.cvPdfUrl === 'string' ? source.cvPdfUrl : defaultCvContent.cvPdfUrl,
+    cvPdfName: typeof source.cvPdfName === 'string' ? source.cvPdfName : defaultCvContent.cvPdfName,
+    radar: mergeRadar(source.radar),
     conferences: asStringArray(source.conferences, defaultCvContent.conferences),
     certifications: asStringArray(source.certifications, defaultCvContent.certifications),
     leadership: Array.isArray(source.leadership)
