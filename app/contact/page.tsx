@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Route } from 'next';
 import { PageHeader } from '@/components/layout/page-header';
+import { EmailActions } from '@/components/contact/email-actions';
 import { getSiteConfig, getSocialLinks } from '@/data/site-config';
 
 export const metadata = {
@@ -50,9 +51,12 @@ export default async function ContactPage() {
             <li className="flex gap-3"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />Community-driven engineering projects and global health technology</li>
             <li className="flex gap-3"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />Mentorship, student programs and science communication</li>
           </ul>
-          <div className="mt-6 flex flex-wrap gap-3 border-t border-slate-200 pt-5">
-            <a href={`mailto:${siteConfig.email}`} className="btn btn-primary btn-sm">Send an email</a>
-            <Link href="/cv" className="btn btn-secondary btn-sm">View CV</Link>
+          <div className="mt-6 space-y-4 border-t border-slate-200 pt-5">
+            <EmailActions email={siteConfig.email} name={siteConfig.name} />
+            <p className="text-xs leading-5 text-slate-500">
+              No email app opens? Use <strong>Open in Gmail</strong>, or copy the address and write from any mail service.
+            </p>
+            <Link href="/cv" className="inline-flex text-sm font-medium text-brand underline-offset-4 hover:underline">View CV →</Link>
           </div>
         </div>
       </div>
