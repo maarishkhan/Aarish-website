@@ -22,15 +22,15 @@ export async function generateMetadata(): Promise<Metadata> {
     keywords: ['Biomedical Engineering', 'Computational Biology', 'Cancer Immunotherapy', 'Genomics', 'Undergraduate Researcher'],
 
     openGraph: {
-      title: siteConfig.name,
-      description: siteConfig.bio,
+      title: `${siteConfig.name} | ${siteConfig.title}`,
+      description: siteConfig.headline,
       type: 'website',
       locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
-      title: siteConfig.name,
-      description: siteConfig.bio,
+      title: `${siteConfig.name} | ${siteConfig.title}`,
+      description: siteConfig.headline,
     },
   };
 }
