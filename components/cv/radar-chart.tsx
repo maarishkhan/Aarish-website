@@ -54,7 +54,7 @@ export function RadarChart({ axes }: { axes: RadarAxis[] }) {
         {axes.map((axis) => (
           <div key={axis.label} className="flex items-baseline gap-3">
             <dd className="w-8 text-right font-serif text-2xl font-bold text-brand-dark print:text-lg">{axis.value}</dd>
-            <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#bb7728]">{axis.label}</dt>
+            <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">{axis.label}</dt>
           </div>
         ))}
       </dl>

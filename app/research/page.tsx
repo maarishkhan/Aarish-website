@@ -44,7 +44,7 @@ export default function ResearchPage() {
                         <ol className="grid gap-x-6 gap-y-1.5 text-slate-600 sm:grid-cols-2">
                           {project.pipeline.map((step, index) => (
                             <li key={step.title} className="flex gap-2">
-                              <span className="font-semibold text-[#bb7728]">{index + 1}.</span>
+                              <span className="font-semibold text-accent">{index + 1}.</span>
                               <span>{step.title}</span>
                             </li>
                           ))}

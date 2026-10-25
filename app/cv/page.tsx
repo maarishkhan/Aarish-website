@@ -34,7 +34,7 @@ function Role({ title, details, bullets }: { title: string; details: string; bul
         <h3 className="font-semibold text-brand-dark">{title}</h3>
         <p className="shrink-0 text-xs italic text-slate-500">{details}</p>
       </div>
-      <ul className="mt-1 list-disc space-y-0.5 pl-5 text-[13px] leading-5 marker:text-[#bb7728]">
+      <ul className="mt-1 list-disc space-y-0.5 pl-5 text-[13px] leading-5 marker:text-accent">
         {bullets.map((bullet) => (
           <li key={bullet}>{bullet}</li>
         ))}
@@ -149,13 +149,13 @@ export default async function CvPage() {
           <MainSection title="Research experience">
             {current.length > 0 && (
               <>
-                <p className="text-xs font-bold italic uppercase tracking-wide text-[#bb7728]">Current research</p>
+                <p className="text-xs font-bold italic uppercase tracking-wide text-accent">Current research</p>
                 {current.map(renderRole)}
               </>
             )}
             {past.length > 0 && (
               <>
-                <p className="pt-1 text-xs font-bold italic uppercase tracking-wide text-[#bb7728]">Past research</p>
+                <p className="pt-1 text-xs font-bold italic uppercase tracking-wide text-accent">Past research</p>
                 {past.map(renderRole)}
               </>
             )}
@@ -185,7 +185,7 @@ export default async function CvPage() {
                 .filter((group) => group.items.length > 0)
                 .map((group) => (
                   <div key={group.label} className="space-y-1.5">
-                    <p className="text-xs font-bold italic uppercase tracking-wide text-[#bb7728]">{group.label}</p>
+                    <p className="text-xs font-bold italic uppercase tracking-wide text-accent">{group.label}</p>
                     {group.items.map((item) => (
                       <p key={item.organization}>
                         <strong>– {item.organization}</strong> {item.role && <span className="ml-2">{item.role}</span>}
