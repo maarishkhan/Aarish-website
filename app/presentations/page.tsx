@@ -11,6 +11,28 @@ export default function PresentationsPage() {
   return (
     <div className="container-shell section-shell">
       <PageHeader eyebrow="Presentations" title="Talks, posters, and scholarly communication" />
+      <article className="card-surface overflow-hidden border-l-4 border-l-gold">
+        <div className="grid gap-6 p-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(18rem,0.75fr)] lg:items-center">
+          <div>
+            <p className="text-xs uppercase tracking-[0.14em] text-slate-500">Conference presentation · 2025</p>
+            <h2 className="mt-2 text-2xl font-semibold text-brand-dark">SmallSat Education Conference at NASA Kennedy Space Center</h2>
+            <p className="mt-2 text-sm text-slate-600">October 25–26, 2025 · Kennedy Space Center, Florida</p>
+            <p className="mt-4 text-sm leading-7 text-slate-600">
+              Presented findings from SOLARIS, a high-altitude balloon payload studying how solar-panel efficiency varies with altitude. Watch the conference presentation below.
+            </p>
+          </div>
+          <video
+            className="aspect-video w-full rounded-xl bg-slate-950 shadow-sm"
+            controls
+            preload="metadata"
+            playsInline
+            aria-label="Presentation at the 2025 SmallSat Education Conference at NASA Kennedy Space Center"
+          >
+            <source src="/uploads/my-presentation-nasa.mp4" type="video/mp4" />
+            Your browser does not support embedded video. You can <a href="/uploads/my-presentation-nasa.mp4">open the presentation video</a> directly.
+          </video>
+        </div>
+      </article>
       <div className="space-y-5">
         {presentations.map((presentation) => (
           <article key={presentation.id} className="card-surface card-hover border-l-4 border-l-gold p-6">

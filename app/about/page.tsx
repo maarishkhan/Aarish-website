@@ -41,6 +41,7 @@ export default async function AboutPage() {
             {[
               { src: '/uploads/acs-nerd-poster-presentation.jpg', alt: 'Presenting the bispecific antibody research poster at ACS NERD 2025', caption: 'Presenting at the ACS Northeast Regional Discussion (NERD) 2025', position: 'object-center', natural: true },
               { src: '/uploads/cs4hs-showcase-2025.jpg', alt: 'With a teammate, holding the 2nd Place and Honorable Mention trophies at the CS4HS Student Showcase', caption: 'CS4HS Student Showcase, SUNY Buffalo State: 2nd Place and Honorable Mention', position: 'object-[50%_17%]' },
+              { src: '/uploads/myPhoto.jpeg', alt: 'Seated in a classroom with classmates', caption: 'A moment from school', position: 'object-center' },
             ].map((photo) => (
               <figure key={photo.src} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                 <img src={photo.src} alt={photo.alt} className={photo.natural ? 'h-auto w-full' : `aspect-[5/3] w-full object-cover ${photo.position}`} loading="lazy" />
