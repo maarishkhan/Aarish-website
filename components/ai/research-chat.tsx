@@ -2,11 +2,15 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import type { Route } from 'next';
 import { trackEvent } from '@/lib/track';
 
 const SUGGESTIONS = [
+  'Complete profile please',
   'What are the main research areas?',
   'Tell me about the cancer immunotherapy project',
+  'What did I present at the NASA SmallSat conference?',
+  'What is the Catalyst Speaker Series video about?',
   'What computational tools are used in the research?',
   'What awards and honors are listed?',
 ];
@@ -14,6 +18,7 @@ const SUGGESTIONS = [
 export function ResearchChat() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
+  const [sources, setSources] = useState<{ label: string; href: string }[]>([]);
   const [loading, setLoading] = useState(false);
 
   async function ask(text: string) {
@@ -26,6 +31,7 @@ export function ResearchChat() {
     setQuestion(prompt);
     setLoading(true);
     setAnswer('');
+    setSources([]);
 
     try {
       const response = await fetch('/api/ai', {
@@ -36,6 +42,7 @@ export function ResearchChat() {
       const data = await response.json();
 
       setAnswer(data.answer || 'No response available.');
+      setSources(Array.isArray(data.sources) ? data.sources : []);
     } catch {
       setAnswer('The assistant is temporarily unavailable. Please try again later.');
     } finally {
@@ -89,6 +96,20 @@ export function ResearchChat() {
           <div className="mt-6 whitespace-pre-line rounded-2xl border border-brand/15 bg-brand/5 p-4 text-sm leading-7 text-slate-700">
             {answer}
           </div>
+        ) : null}
+        {sources.length > 0 ? (
+          <nav className="mt-4" aria-label="Related pages">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Related pages</p>
+            <ul className="mt-2 flex flex-wrap gap-2">
+              {sources.map((source) => (
+                <li key={source.href}>
+                  <Link href={source.href as Route} className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-brand hover:border-brand">
+                    {source.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         ) : null}
       </div>
 

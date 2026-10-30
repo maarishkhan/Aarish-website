@@ -10,4 +10,4 @@ export function LegalSection({ title, children }: { title: string; children: Rea
   );
 }
 
-export const legalUpdated = 'October 25, 2026';
+export const legalUpdated = 'October 30, 2026';

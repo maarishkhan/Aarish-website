@@ -32,7 +32,6 @@ export async function getCvData() {
     }, {});
   const contactLines = [
     cv.email || site.email,
-    cv.phone,
     cv.showLinkedin && site.socials.linkedin && stripProtocol(site.socials.linkedin),
     cv.showGithub && site.socials.github && stripProtocol(site.socials.github),
     cv.showScholar && site.socials.scholar && 'Google Scholar profile',

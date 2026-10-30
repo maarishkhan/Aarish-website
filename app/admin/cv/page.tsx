@@ -5,6 +5,7 @@ import { awards, experience, formatPeriod, getSiteConfig, skills } from '@/data/
 import { leadershipGroupLabels, readCvContent } from '@/lib/cv-content-store';
 import { PDF_LIMIT_MB } from '@/lib/uploads';
 import { getCvData, radarAxes } from '@/lib/cv-data';
+import { requireAdminSession } from '@/lib/admin-auth';
 
 const fieldClass = 'w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 focus:border-brand focus:outline-none';
 
@@ -21,6 +22,7 @@ function CheckRow({ name, value, label, detail, checked }: { name: string; value
 }
 
 export default async function AdminCvPage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
+  await requireAdminSession();
   const { status } = await searchParams;
   const [cv, site, { radarSettings }] = await Promise.all([readCvContent(), getSiteConfig(), getCvData()]);
   const skillCategories = Array.from(new Set(skills.map((skill) => skill.category)));

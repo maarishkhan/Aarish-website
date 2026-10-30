@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { callAiProvider } from '@/lib/ai/provider';
+import { callAiProvider, getConfiguredAiProvider } from '@/lib/ai/provider';
 import { buildKnowledgeSections } from '@/lib/ai/knowledge';
 
 const MAX_QUESTION_LENGTH = 500;
@@ -26,17 +26,21 @@ function isRateLimited(key: string) {
 }
 
 export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-
-  if (isRateLimited(ip)) {
-    return NextResponse.json({ answer: 'Too many questions in a short time. Please wait a minute and try again.', status: 'rate-limited' }, { status: 429 });
-  }
-
   const body = await request.json().catch(() => ({}));
   const prompt = typeof body?.prompt === 'string' ? body.prompt.trim().slice(0, MAX_QUESTION_LENGTH) : '';
 
   if (!prompt) {
     return NextResponse.json({ answer: 'Please enter a question.', status: 'error' }, { status: 400 });
+  }
+
+  // Local website search is inexpensive. Apply the short window only when a
+  // paid external language-model provider is configured.
+  if (getConfiguredAiProvider().enabled) {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+
+    if (isRateLimited(ip)) {
+      return NextResponse.json({ answer: 'Too many questions in a short time. Please wait a minute and try again.', status: 'rate-limited' }, { status: 429 });
+    }
   }
 
   const result = await callAiProvider(prompt, await buildKnowledgeSections());

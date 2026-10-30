@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { saveSiteContentAction } from './actions';
 import { readSiteContent } from '@/lib/site-content-store';
+import { requireAdminSession } from '@/lib/admin-auth';
 
 // The home page sections that can be switched on or off. Other pages are controlled from "Navigation & visibility".
 const defaultTemplateSections = [
@@ -12,6 +13,7 @@ const defaultTemplateSections = [
 ];
 
 export default async function AdminEditorPage() {
+  await requireAdminSession();
   const currentContent = await readSiteContent();
 
   return (

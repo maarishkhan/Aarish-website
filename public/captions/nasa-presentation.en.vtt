@@ -1,0 +1,41 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:15.000
+ ...and power coming out of our solar panels, so as you can see there, in our initial schematics, we used a multiplexer for connecting two power sensors, which were INA3221s.
+
+00:00:15.000 --> 00:00:23.000
+ We used a barometer that was a BMP390 for altitude, pressure, and temperature.
+
+00:00:23.000 --> 00:00:31.000
+ We used a humidity sensor for humidity, just so we could tell if our balloons were going through a cloud or not.
+
+00:00:31.000 --> 00:00:41.000
+ We used the Arduino Uno R3 as our mainframe, and an SD card reader to hold the data from the sensors.
+
+00:00:41.000 --> 00:00:53.000
+ For the final flight, we removed our multiplexer because it wasn't a very robust connection, and as such, we were having quite a bit of trouble with it.
+
+00:00:53.000 --> 00:01:00.000
+ Then we went from having three [unclear] to a single one.
+
+00:01:00.000 --> 00:01:13.000
+ Now, here's the final circuitry. Essentially, all the power from the solar panels goes into the INA3221s, which measure for both voltage and current.
+
+00:01:13.000 --> 00:01:21.000
+ And also, the BMP390 measures, as I said before, for pressure, temperature, and altitude.
+
+00:01:21.000 --> 00:01:33.000
+ And all of those via I2C connection are going to be Arduino R4 Minima. And additionally, we have the DHT11 as our humidity sensor.
+
+00:01:33.000 --> 00:01:44.000
+ And that uses analog connection to connect to the Arduino. And finally, all that data is going by SPI to our SD card reader.
+
+00:01:44.000 --> 00:01:58.000
+ Now, just so we could have a rough idea of how the data would go, we did some basic mathematical predictions using assumed values.
+
+00:01:58.000 --> 00:02:26.000
+ We used simplified mathematical formulas, including the Beer-Lambert law, and what we found was that as it goes up in altitude, the irradiance should go up, which means the temperature and air mass has to come down, therefore meaning that our power would ultimately increase.
+
+00:02:26.000 --> 00:02:27.400
+ All right.
+

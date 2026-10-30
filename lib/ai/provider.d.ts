@@ -1,9 +1,11 @@
-export type KnowledgeSection = { title: string; text: string };
+export type AiSource = { label: string; href: string };
+export type KnowledgeSection = { title: string; text: string; sources?: AiSource[] };
 
 export function sectionsToContext(sections?: KnowledgeSection[]): string;
 export function buildSystemPrompt(sections?: KnowledgeSection[]): string;
 export function buildAiPrompt(prompt?: string, sections?: KnowledgeSection[]): string;
 export function answerFromSections(prompt?: string, sections?: KnowledgeSection[]): string;
+export function sourcesForQuestion(prompt?: string, sections?: KnowledgeSection[]): AiSource[];
 
 export function getConfiguredAiProvider(
   provider?: string,
@@ -36,4 +38,5 @@ export function callAiProvider(
   provider: string;
   status: 'live' | 'fallback';
   message: string;
+  sources: AiSource[];
 }>;

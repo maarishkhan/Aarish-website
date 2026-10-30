@@ -540,7 +540,12 @@ export const databaseExperience: ExperienceItem[] = await readDatabaseCollection
   })
 );
 
-export const experience = databaseExperience;
+// Keep the Council role visible even when a database-backed experience list omits
+// it. The Council and Laboratory remain separate organizations.
+const globalImpactCouncilExperience = defaultExperience.find((item) => item.organization === 'Global Impact Council');
+export const experience = globalImpactCouncilExperience && !databaseExperience.some((item) => item.organization.trim().toLowerCase() === 'global impact council')
+  ? [...databaseExperience, globalImpactCouncilExperience]
+  : databaseExperience;
 
 export type EducationItem = {
   id: string;
@@ -996,7 +1001,8 @@ const defaultProfileEntries: ProfileEntry[] = [
   { id: 'entry-12', kind: 'leadership_school', name: 'Computer Club', role: 'President (2025–Jun 2026); Vice President (2023–25)', note: '', displayOrder: 12 },
   { id: 'entry-13', kind: 'leadership_school', name: 'National Honors Society', role: 'Vice President, Class of 2026 (2025–Jun 2026)', note: 'Organized the NHS Running Event and co-organized the Tech Mentorship Program.', displayOrder: 13 },
   { id: 'entry-14', kind: 'leadership_school', name: 'Technology Student Association', role: 'Secretary & NY State Delegate (2024–Jun 2026)', note: '', displayOrder: 14 },
-  { id: 'entry-15', kind: 'leadership', name: 'Global Impact Council', role: 'Co-Organizer, Emerging Research Incubator (until Aug 2026); Director of Social Media (2024–25); Writing Team (2023–24)', note: '', displayOrder: 15 },
+  { id: 'entry-15', kind: 'leadership', name: 'Global Impact Council', role: 'Co-Organizer, Emerging Research Incubator (until Aug 2026); Director of Social Media (2024–25); Writing Team (2023–24)', note: '', displayOrder: 17 },
+  { id: 'entry-32', kind: 'leadership', name: 'Global Impact Laboratory', role: 'Founding Member, Secretary (2026 – Present)', note: '', displayOrder: 16 },
   { id: 'entry-16', kind: 'leadership_school', name: 'Superintendent Inter-High Action Committee', role: 'Co-Chair (2022–Jun 2026)', note: '', displayOrder: 16 },
   { id: 'entry-17', kind: 'leadership_school', name: 'Shared Decision Making Committee', role: 'Class Representative (2024–Jun 2026)', note: '', displayOrder: 17 },
   { id: 'entry-18', kind: 'leadership_school', name: 'Science Olympiad', role: '2022–Jun 2026', note: '', displayOrder: 18 },

@@ -2,8 +2,10 @@ import Link from 'next/link';
 import { getSiteConfig } from '@/data/site-config';
 import { getAiStatus } from '@/lib/content-validation';
 import { isSupabaseConfigured } from '@/lib/supabase';
+import { requireAdminSession } from '@/lib/admin-auth';
 
 export default async function AdminPage() {
+  await requireAdminSession();
   const siteConfig = await getSiteConfig();
   const aiStatus = getAiStatus(process.env.AI_PROVIDER, process.env.AI_API_KEY);
   const databaseReady = isSupabaseConfigured();

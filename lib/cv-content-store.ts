@@ -106,6 +106,17 @@ function asLeadership(value: unknown, fallback: CvLeadershipItem[]) {
 
 function mergeCvContent(parsed: Partial<CvContent> | null): CvContent {
   const source = parsed ?? {};
+  const councilName = 'global impact council';
+  const leadership = asLeadership(source.leadership, defaultCvContent.leadership);
+  const leadershipSchool = asLeadership(source.leadershipSchool, defaultCvContent.leadershipSchool)
+    .filter((item) => item.organization.trim().toLowerCase() !== councilName);
+  const councilLeadership = [...asLeadership(source.leadership, []), ...asLeadership(source.leadershipSchool, [])]
+    .find((item) => item.organization.trim().toLowerCase() === councilName)
+    ?? defaultCvContent.leadership.find((item) => item.organization.trim().toLowerCase() === councilName);
+
+  if (councilLeadership && !leadership.some((item) => item.organization.trim().toLowerCase() === councilName)) {
+    leadership.push(councilLeadership);
+  }
 
   return {
     email: typeof source.email === 'string' ? source.email : defaultCvContent.email,
@@ -120,8 +131,8 @@ function mergeCvContent(parsed: Partial<CvContent> | null): CvContent {
     radar: mergeRadar(source.radar),
     conferences: asStringArray(source.conferences, defaultCvContent.conferences),
     certifications: asStringArray(source.certifications, defaultCvContent.certifications),
-    leadership: asLeadership(source.leadership, defaultCvContent.leadership),
-    leadershipSchool: asLeadership(source.leadershipSchool, defaultCvContent.leadershipSchool),
+    leadership,
+    leadershipSchool,
     hiddenExperience: asStringArray(source.hiddenExperience, []),
     hiddenAwards: asStringArray(source.hiddenAwards, []),
     hiddenSkills: asStringArray(source.hiddenSkills, []),

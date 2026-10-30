@@ -29,8 +29,12 @@ export default function PresentationsPage() {
             aria-label="Presentation at the 2025 SmallSat Education Conference at NASA Kennedy Space Center"
           >
             <source src="/uploads/my-presentation-nasa.mp4" type="video/mp4" />
+            <track kind="captions" src="/captions/nasa-presentation.en.vtt" srcLang="en" label="English" default />
             Your browser does not support embedded video. You can <a href="/uploads/my-presentation-nasa.mp4">open the presentation video</a> directly.
           </video>
+          <p className="text-sm text-slate-600 lg:col-span-2">
+            <a href="/transcripts/nasa-presentation.txt" className="font-medium text-brand underline underline-offset-4">Read the transcript</a>
+          </p>
         </div>
       </article>
       <div className="space-y-5">

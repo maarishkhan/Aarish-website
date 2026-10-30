@@ -1,6 +1,10 @@
 import Link from 'next/link';
+import { isAdminAuthenticated } from '@/lib/admin-auth';
+import { logoutAdminAction } from '@/app/admin/login/actions';
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const authenticated = await isAdminAuthenticated();
+
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="border-b border-slate-200 bg-white/90 backdrop-blur-sm">
@@ -14,6 +18,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link href="/admin/editor" className="transition hover:text-slate-900">Site content</Link>
             <Link href="/admin/cv" className="transition hover:text-slate-900">CV</Link>
             <Link href="/" className="transition hover:text-slate-900">View site</Link>
+            {authenticated && (
+              <form action={logoutAdminAction}>
+                <button type="submit" className="font-medium text-brand hover:underline">Sign out</button>
+              </form>
+            )}
           </nav>
         </div>
       </header>

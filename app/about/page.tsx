@@ -37,8 +37,11 @@ export default async function AboutPage() {
         <p className="eyebrow">Speaker Series</p>
         <h2 id="graduate-spotlight-title" className="mt-2 text-2xl font-semibold text-brand-dark">Portrait of a Graduate: Creative Innovator and Critical Thinker</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-          A profile highlighting curiosity, creativity, and student experiences.
+          A profile highlighting curiosity, creativity, and student experiences, created by the Williamsville Central School District and PTSA.
         </p>
+        <a href="https://www.williamsvillek12.org/departments/instruction/portrait-of-a-graduate/portrait-of-a-graduate-speaker-series" target="_blank" rel="noreferrer" className="mt-2 inline-block text-sm font-medium text-brand underline underline-offset-4">
+          View the Williamsville Speaker Series
+        </a>
         <video
           className="mt-5 aspect-video w-full rounded-2xl bg-slate-950 shadow-sm"
           controls
@@ -47,8 +50,12 @@ export default async function AboutPage() {
           aria-label="Speaker Series profile: Portrait of a Graduate, Creative Innovator and Critical Thinker"
         >
           <source src="/uploads/Catalyst.mp4" type="video/mp4" />
+          <track kind="captions" src="/captions/catalyst.en.vtt" srcLang="en" label="English" default />
           Your browser does not support embedded video. You can <a href="/uploads/Catalyst.mp4">open the video directly</a>.
         </video>
+        <p className="mt-3 text-sm text-slate-600">
+          <a href="/transcripts/catalyst.txt" className="font-medium text-brand underline underline-offset-4">Read the transcript</a>
+        </p>
       </section>
 
       <section className="mt-16">

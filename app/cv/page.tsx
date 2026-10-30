@@ -68,12 +68,12 @@ export default async function CvPage() {
       <PageHeader
         eyebrow="CV"
         title="Curriculum Vitae"
-        intro={cv.cvPdfUrl ? 'A full record of research, awards, and leadership. Get the one-page resume, or download or print the full CV below.' : 'A full record of research, awards, and leadership. Download it as a PDF using the button.'}
+        intro={cv.cvPdfUrl ? 'A full record of research, awards, and leadership. Open the one-page resume, or download or print the full CV below.' : 'A full record of research, awards, and leadership. Download it as a PDF using the button.'}
         action={
           <div className="flex flex-wrap items-center gap-3">
             {cv.cvPdfUrl ? (
               <>
-                <TrackedLink event="cv_onepager_download" href={cv.cvPdfUrl} download={cv.cvPdfName || 'CV.pdf'} target="_blank" rel="noreferrer" title="Download the one-page resume as a PDF" className="btn btn-gold">
+                <TrackedLink event="cv_onepager_open" href={cv.cvPdfUrl} target="_blank" rel="noopener noreferrer" title="Open the one-page resume PDF in a new tab" className="btn btn-gold">
                   One-pager (PDF)
                 </TrackedLink>
                 <PrintButton variant="outline-light" label="Download / print as PDF" title="Download or print the full CV shown below" />
