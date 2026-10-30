@@ -38,7 +38,7 @@ export default async function TermsPage() {
         </LegalSection>
 
         <LegalSection title="Photos, privacy and takedown requests">
-          <p>If you appear in a photo or are named on this site and want it removed or corrected, or if you believe content here infringes your rights, email {site.email}. Please say which page and item you mean. I will review requests promptly and remove or correct content where appropriate.</p>
+          <p>If you appear in a photo or video or are named on this site and want it removed or corrected, or if you believe content here infringes your rights, email {site.email}. Please say which page and item you mean. I will review requests promptly and remove or correct content where appropriate.</p>
         </LegalSection>
 
         <LegalSection title="External links">

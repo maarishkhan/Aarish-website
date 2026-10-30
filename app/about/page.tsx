@@ -33,6 +33,24 @@ export default async function AboutPage() {
         </div>
       </div>
 
+      <section className="mt-16" aria-labelledby="graduate-spotlight-title">
+        <p className="eyebrow">Speaker Series</p>
+        <h2 id="graduate-spotlight-title" className="mt-2 text-2xl font-semibold text-brand-dark">Portrait of a Graduate: Creative Innovator and Critical Thinker</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+          A profile highlighting curiosity, creativity, and student experiences.
+        </p>
+        <video
+          className="mt-5 aspect-video w-full rounded-2xl bg-slate-950 shadow-sm"
+          controls
+          preload="metadata"
+          playsInline
+          aria-label="Speaker Series profile: Portrait of a Graduate, Creative Innovator and Critical Thinker"
+        >
+          <source src="/uploads/Catalyst.mp4" type="video/mp4" />
+          Your browser does not support embedded video. You can <a href="/uploads/Catalyst.mp4">open the video directly</a>.
+        </video>
+      </section>
+
       <section className="mt-16">
         <p className="eyebrow">Gallery</p>
         <h2 className="mt-2 text-2xl font-semibold text-brand-dark">Presenting and recognition</h2>

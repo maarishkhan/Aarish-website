@@ -41,8 +41,8 @@ export default async function PrivacyPage() {
           <p>Information is used only to run and secure the site, understand how many people visit, answer questions you send, and improve the content. It is not sold. It is shared only with the service providers named above, who process it on my behalf.</p>
         </LegalSection>
 
-        <LegalSection title="Photos and other people">
-          <p>Photos on this site are of me, or include people who agreed to appear. If you appear in a photo and would like it removed or cropped, email {site.email} and I will do it promptly.</p>
+        <LegalSection title="Photos, videos, and other people">
+          <p>Photos and videos on this site feature me and may include other people who agreed to appear. If you appear in a photo or video and would like it removed or edited, email {site.email} and I will review your request promptly.</p>
         </LegalSection>
 
         <LegalSection title="Your choices and contact">
