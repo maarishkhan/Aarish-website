@@ -30,6 +30,7 @@ export default async function HomePage() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: siteConfig.name,
+    alternateName: 'Aarish Khan',
     url: siteUrl,
     jobTitle: siteConfig.title,
     description: siteConfig.headline,
