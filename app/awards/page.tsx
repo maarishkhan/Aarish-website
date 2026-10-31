@@ -97,7 +97,7 @@ function AwardCard({ award, order }: { award: AwardItem; order: number }) {
       <p className="mt-2 text-sm text-slate-600">{[award.organization, award.year].filter(Boolean).join(' • ')}</p>
       <p className="mt-4 text-sm leading-6 text-slate-600">{award.description}</p>
       {award.quote && (
-        <blockquote className="mt-5 border-l-2 border-[#bb7728] pl-4 text-sm italic leading-6 text-slate-600">
+        <blockquote className="mt-5 border-l-2 border-gold pl-4 text-sm italic leading-6 text-slate-600">
           “{award.quote.text}”
           <footer className="mt-2 text-xs not-italic text-slate-500">— {award.quote.attribution}</footer>
         </blockquote>

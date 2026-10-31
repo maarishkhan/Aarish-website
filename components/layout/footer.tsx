@@ -11,9 +11,9 @@ export async function Footer() {
   const navItems = [...enabledItems, { label: 'Contact', href: '/contact', enabled: true }];
 
   return (
-    <footer className="relative overflow-hidden bg-brand-dark text-slate-300 print:hidden">
+    <footer className="brand-band relative overflow-hidden bg-brand-dark text-slate-300 print:hidden">
       <div className="pattern-hex absolute inset-0" aria-hidden="true" />
-      <div className="h-1 w-full bg-gradient-to-r from-brand via-gold to-gold-bright" />
+      <div className="relative h-1 w-full bg-gradient-to-r from-brand via-gold to-gold-bright" />
       <div className="container-shell relative py-14">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>

@@ -44,7 +44,7 @@ export default async function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, '\\u003c') }} />
       <section className="hero-band relative overflow-hidden text-white">
         <div className="pattern-hex absolute inset-0" aria-hidden="true" />
-        <Helix className="helix left-1/2 hidden w-[28rem] -translate-x-1/2 lg:block" />
+        <Helix className="helix inset-y-0 left-1/2 hidden w-[28rem] -translate-x-1/2 lg:block" />
         <div className="container-shell relative grid items-center gap-12 py-14 lg:grid-cols-[1.05fr_1fr] lg:py-20">
           <div>
             <p className="eyebrow eyebrow-light reveal reveal-1">{siteConfig.title}</p>
@@ -161,7 +161,7 @@ export default async function HomePage() {
       )}
 
       {enabledSections.featuredResearch && (
-        <section className="section-tight">
+        <section className="section-tight section-wash">
           <div className="container-shell">
             <div className="section-heading">
               <p className="eyebrow">Featured Research</p>

@@ -13,7 +13,7 @@ export function NavLink({ href, children, onClick, className = '' }: { href: str
       href={href as Route}
       onClick={onClick}
       aria-current={active ? 'page' : undefined}
-      className={`${className} ${active ? 'font-semibold text-brand' : 'text-slate-600 hover:text-brand'}`}
+      className={`${className} ${active ? 'font-semibold text-accent-light' : 'text-white/80 hover:text-white'}`}
     >
       {children}
     </Link>

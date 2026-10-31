@@ -12,7 +12,7 @@ function SidebarSection({ title, children }: { title: string; children: ReactNod
   return (
     <section>
       <h2 className="font-serif text-lg font-bold uppercase tracking-wide text-white">{title}</h2>
-      <div className="mt-1.5 h-px bg-[#bb7728]" />
+      <div className="mt-1.5 h-px bg-gold" />
       <div className="mt-3 space-y-2 text-[13px] leading-5 text-slate-100 print:mt-2 print:space-y-1 print:text-[10.5px] print:leading-4">{children}</div>
     </section>
   );
@@ -22,7 +22,7 @@ function MainSection({ title, children }: { title: string; children: ReactNode }
   return (
     <section>
       <h2 className="font-serif text-2xl font-bold uppercase tracking-wide text-brand-dark">{title}</h2>
-      <div className="mt-1.5 h-px bg-[#bb7728]" />
+      <div className="mt-1.5 h-px bg-gold" />
       <div className="mt-4 space-y-3 text-sm leading-6 text-slate-800 print:mt-2 print:space-y-2 print:text-[12px] print:leading-5">{children}</div>
     </section>
   );

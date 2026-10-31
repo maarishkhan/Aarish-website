@@ -16,10 +16,10 @@
   --card: #ffffff;
   --muted: #5b6475;
   --border: #dfeaf3;
-  --primary: #123d66;
+  --primary: #13314d;
   --primary-soft: #dfeeff;
-  --accent: #2d9c9a;
-  --accent-soft: #dff7f7;
+  --accent: #9a5f1a;
+  --accent-soft: #f6ead8;
   --highlight: #f3f8ff;
   --shadow: rgba(15, 23, 42, 0.08);
 }
@@ -45,7 +45,7 @@ h2 {
 }
 
 ::selection {
-  background: rgba(45, 156, 154, 0.2);
+  background: rgba(154, 95, 26, 0.2);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -92,9 +92,16 @@ h2 {
       linear-gradient(135deg, #0b1e32 0%, #13314d 60%, #1a4570 100%);
   }
 
+  .brand-band {
+    background:
+      radial-gradient(44rem 20rem at 88% 100%, rgba(224, 163, 77, 0.16), transparent 66%),
+      radial-gradient(40rem 22rem at 4% 100%, rgba(59, 130, 196, 0.2), transparent 68%),
+      radial-gradient(45rem 12rem at 82% 0%, rgba(224, 163, 77, 0.12), transparent 62%),
+      linear-gradient(110deg, #0b1e32 0%, #13314d 62%, #17436c 100%);
+  }
+
   .helix {
     position: absolute;
-    inset: 0;
     pointer-events: none;
     opacity: 0.32;
   }
@@ -120,6 +127,10 @@ h2 {
   /* Tighter vertical rhythm for the stacked sections of the home page. Inner pages keep section-shell, because their header band overlaps its top padding. */
   .section-tight {
     @apply py-10 sm:py-12;
+  }
+
+  .section-wash {
+    background: linear-gradient(112deg, rgba(223, 238, 255, 0.72) 0%, rgba(255, 255, 255, 0.9) 52%, rgba(246, 234, 216, 0.48) 100%);
   }
 
   .section-heading {
