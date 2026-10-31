@@ -13,7 +13,7 @@ export default async function PrivacyPage() {
 
   return (
     <div className="container-shell section-shell">
-      <PageHeader eyebrow="Privacy" title="Privacy notice" intro={`Last updated ${legalUpdated}. This is a personal portfolio website. It does not ask visitors to create accounts or enter personal details.`} />
+      <PageHeader eyebrow="Privacy" title="Privacy notice" intro={`Last updated ${legalUpdated}. This is a personal portfolio website and is not affiliated with or endorsed by any organization named on it. It does not ask visitors to create accounts or enter personal details.`} />
 
       <div className="max-w-3xl">
         <LegalSection title="What is collected">
