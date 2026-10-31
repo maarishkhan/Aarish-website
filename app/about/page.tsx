@@ -60,23 +60,15 @@ export default async function AboutPage() {
 
       <section className="mt-16">
         <p className="eyebrow">Gallery</p>
-        <h2 className="mt-2 text-2xl font-semibold text-brand-dark">Presenting and recognition</h2>
+        <h2 className="mt-2 text-2xl font-semibold text-brand-dark">Research and school moments</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <div className="flex flex-col gap-4">
-            {[
-              { src: '/uploads/acs-nerd-poster-presentation.jpg', alt: 'Presenting the bispecific antibody research poster at ACS NERD 2025', caption: 'Presenting at the ACS Northeast Regional Discussion (NERD) 2025', position: 'object-center', natural: true },
-              { src: '/uploads/cs4hs-showcase-2025.jpg', alt: 'With a teammate, holding the 2nd Place and Honorable Mention trophies at the CS4HS Student Showcase', caption: 'CS4HS Student Showcase, SUNY Buffalo State: 2nd Place and Honorable Mention', position: 'object-[50%_17%]' },
-              { src: '/uploads/myPhoto.jpeg', alt: 'Seated in a classroom with classmates', caption: 'A moment from school', position: 'object-center' },
-            ].map((photo) => (
-              <figure key={photo.src} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                <img src={photo.src} alt={photo.alt} className={photo.natural ? 'h-auto w-full' : `aspect-[5/3] w-full object-cover ${photo.position}`} loading="lazy" />
-                <figcaption className="px-4 py-3 text-sm text-slate-600">{photo.caption}</figcaption>
-              </figure>
-            ))}
-          </div>
-          <figure className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <img src="/uploads/terra-science-fair-medal.jpg" alt="Receiving the Medal of High Honors and the Office of Naval Research Award at the Terra Science Fair" className="min-h-0 w-full flex-1 object-cover object-top" loading="lazy" />
-            <figcaption className="px-4 py-3 text-sm text-slate-600">Terra Science Fair: Medal of High Honors and Office of Naval Research Award</figcaption>
+          <figure className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <img src="/uploads/acs-nerd-poster-presentation.jpg" alt="Presenting the bispecific antibody research poster at ACS NERD 2025" className="h-auto w-full" loading="lazy" />
+            <figcaption className="px-4 py-3 text-sm text-slate-600">Presenting at the ACS Northeast Regional Discussion (NERD) 2025</figcaption>
+          </figure>
+          <figure className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <img src="/uploads/myPhoto-gallery.webp" alt="Seated in a classroom with classmates" className="aspect-[5/3] w-full object-cover object-center" loading="lazy" />
+            <figcaption className="px-4 py-3 text-sm text-slate-600">A moment from school</figcaption>
           </figure>
         </div>
       </section>

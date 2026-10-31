@@ -40,8 +40,11 @@ export default async function ExperiencePage() {
             </ul>
             {item.images && item.images.length > 0 && (
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                {item.images.map((src) => (
-                  <img key={src} src={src} alt={`${item.role} at ${item.organization}`} className="aspect-video w-full rounded-xl border border-slate-200 object-cover" loading="lazy" />
+                {item.images.map((src, index) => (
+                  <figure key={src} className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                    <img src={src} alt={item.imageCaptions?.[index] || `${item.role} at ${item.organization}`} className="aspect-video w-full object-cover" loading="lazy" />
+                    {item.imageCaptions?.[index] && <figcaption className="px-3 py-2 text-sm text-slate-600">{item.imageCaptions[index]}</figcaption>}
+                  </figure>
                 ))}
               </div>
             )}
