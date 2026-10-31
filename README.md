@@ -108,3 +108,6 @@ Without the Supabase variables the site still renders from the built-in data, bu
 ## License
 
 This project is intended for educational and research portfolio use. Add a license file before production deployment if you plan to distribute or publish it publicly.
+
+
+
