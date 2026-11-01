@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getSiteConfig } from '@/data/site-config';
+import { awards, getSiteConfig } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
 
 export const metadata = {
@@ -9,11 +9,40 @@ export const metadata = {
   alternates: { canonical: '/about' },
 };
 
+const FAQ = [
+  {
+    question: 'Who is Mohammad Aarish Khan?',
+    answer: 'Mohammad Aarish Khan is a first-year biomedical engineering student in the University at Buffalo Honors College who works on computational genetics, synthetic biology and cancer immunotherapy.',
+  },
+  {
+    question: 'What has Mohammad Aarish Khan published?',
+    answer: 'He is first author of the conference paper "Bispecific DuoBody Antibody Targeting 4-1BB on Cancer Cells and PD-L1 on T-Cells for Immunotherapy in NSCLC", published at the 2025 IEEE Integrated STEM Education Conference (ISEC) with Gaurav Sharma.',
+  },
+  {
+    question: 'What research does he do?',
+    answer: 'He designs bispecific antibodies for cancer immunotherapy (the DuoDok pipeline), analyses genome-wide association data on neurological conditions at the Williams Lab in the Jacobs School of Medicine and Biomedical Sciences, University at Buffalo, and works on low-cost UV water purification with Nushoor.',
+  },
+  {
+    question: 'What awards has he received?',
+    answer: `He has received ${awards.length} awards and honors, including Emerging Student Researcher of the Year from the New York Academy of Sciences (2025), the Outstanding Poster Presentation Award at ACS NERD 2025, and the Medal of High Honors at the Terra Science Fair (2025).`,
+  },
+  {
+    question: 'Where has he presented his work?',
+    answer: 'He has presented at the NASA SmallSat Education Conference at Kennedy Space Center, ACS NERD, IFoRE, IEEE ISEC and the Terra Science Fair.',
+  },
+];
+
 export default async function AboutPage() {
   const siteConfig = await getSiteConfig();
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })),
+  };
 
   return (
     <div className="container-shell section-shell">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, '\\u003c') }} />
       <PageHeader eyebrow="About" title="Student profile and academic direction" />
 
       <div className="grid items-center gap-10 md:grid-cols-[20rem_minmax(0,1fr)] md:gap-14">
@@ -87,6 +116,17 @@ export default async function AboutPage() {
           </p>
         </div>
       </div>
+      <section className="mt-16" aria-labelledby="faq-heading">
+        <h2 id="faq-heading" className="text-2xl font-semibold text-brand-dark">Frequently asked questions</h2>
+        <dl className="mt-6 grid gap-5 md:grid-cols-2">
+          {FAQ.map((item) => (
+            <div key={item.question} className="card-surface p-6">
+              <dt className="font-semibold text-brand-dark">{item.question}</dt>
+              <dd className="mt-3 text-sm leading-7 text-slate-600">{item.answer}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
     </div>
   );
 }

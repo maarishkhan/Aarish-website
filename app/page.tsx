@@ -38,6 +38,7 @@ export default async function HomePage() {
     affiliation: { '@type': 'CollegeOrUniversity', name: 'University at Buffalo' },
     knowsAbout: ['Biomedical engineering', 'Computational genetics', 'Synthetic biology', 'Genomic medicine', 'Cancer immunotherapy', 'Antibody design'],
     sameAs: socialLinks.map((link) => link.href),
+    award: awards.slice(0, 10).map((award) => `${award.title}, ${award.organization}${award.year ? ` (${award.year})` : ''}`),
   };
 
   return (

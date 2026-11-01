@@ -103,8 +103,20 @@ function GroupCards({ items }: { items: AwardItem[] }) {
 }
 
 export default function AwardsPage() {
+  const awardsJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Awards and Honors of Mohammad Aarish Khan',
+    about: {
+      '@type': 'Person',
+      name: 'Mohammad Aarish Khan',
+      award: awards.map((award) => `${award.title}, ${award.organization}${award.year ? ` (${award.year})` : ''}`),
+    },
+  };
+
   return (
     <div className="container-shell section-shell">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(awardsJsonLd).replace(/</g, '\\u003c') }} />
       <PageHeader eyebrow="Awards" title="Recognition and honors" intro="Awards grouped by area, with the most recent and most significant first." />
       <div className="space-y-14">
         {groupAwards().map((group) => (
