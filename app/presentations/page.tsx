@@ -3,7 +3,7 @@ import { PageHeader } from '@/components/layout/page-header';
 
 export const metadata = {
   title: 'Presentations and Posters',
-  description: 'Conference talks and research posters presented at IFoRE, ACS NERD, SmallSat, and IEEE ISEC.',
+  description: 'Conference talks and research posters by Mohammad Aarish Khan, presented at the NASA SmallSat Education Conference, ACS NERD, IFoRE, IEEE ISEC, the Terra Science Fair and the Global Impact Council Conference.',
   alternates: { canonical: '/presentations' },
 };
 
