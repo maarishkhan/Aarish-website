@@ -7,6 +7,20 @@ export const metadata = {
   alternates: { canonical: '/presentations' },
 };
 
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+
+/** Sort key for a date such as "November 1, 2025", "October 30 – November 1, 2025" or "2025"; a bare year counts as mid-year. */
+function dateKey(date: string) {
+  const year = Number(date.match(/\d{4}/)?.[0] ?? 0);
+  const month = MONTHS.findIndex((name) => date.toLowerCase().includes(name));
+  const day = Number(date.match(/\b(\d{1,2})\b(?!\d)/)?.[1] ?? 1);
+
+  return month === -1 ? year * 10000 + 701 : year * 10000 + (month + 1) * 100 + day;
+}
+
+// The SmallSat talk is featured at the top, so the rest are listed newest first.
+const sortedPresentations = [...presentations].sort((a, b) => dateKey(b.date) - dateKey(a.date));
+
 export default function PresentationsPage() {
   return (
     <div className="container-shell section-shell">
@@ -14,7 +28,7 @@ export default function PresentationsPage() {
       <article className="card-surface overflow-hidden border-l-4 border-l-gold">
         <div className="grid gap-6 p-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(18rem,0.75fr)] lg:items-center">
           <div>
-            <p className="text-xs uppercase tracking-[0.14em] text-slate-500">Conference presentation · 2025</p>
+            <p className="text-xs uppercase tracking-[0.14em] text-slate-500">Featured presentation · Conference · 2025</p>
             <h2 className="mt-2 text-2xl font-semibold text-brand-dark">SmallSat Education Conference at NASA Kennedy Space Center</h2>
             <p className="mt-2 text-sm text-slate-600">October 25–26, 2025 · Kennedy Space Center, Florida</p>
             <p className="mt-4 text-sm leading-7 text-slate-600">
@@ -38,7 +52,7 @@ export default function PresentationsPage() {
         </div>
       </article>
       <div className="space-y-5">
-        {presentations.map((presentation) => (
+        {sortedPresentations.map((presentation) => (
           <article key={presentation.id} className="card-surface card-hover border-l-4 border-l-gold p-6">
             <p className="text-xs uppercase tracking-[0.14em] text-slate-500">{presentation.presentationType}</p>
             <h2 className="mt-2 text-2xl font-semibold text-brand-dark">{presentation.title}</h2>

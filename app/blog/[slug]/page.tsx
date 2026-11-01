@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation';
 import { PageHeader } from '@/components/layout/page-header';
-import { blogPosts } from '@/data/site-config';
+import { blogPosts, getSiteConfig } from '@/data/site-config';
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const blogEnabled = (await getSiteConfig()).navItems.some((item) => item.href === '/blog' && item.enabled);
   const post = blogPosts.find((item) => item.slug === slug && item.published);
 
-  if (!post) {
+  if (!blogEnabled || !post) {
     notFound();
   }
 

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import type { Route } from 'next';
 import { blogPosts, getSiteConfig } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
@@ -11,6 +12,9 @@ export const metadata = {
 
 export default async function BlogPage() {
   const siteConfig = await getSiteConfig();
+
+  // The blog stays reachable only while its menu link is switched on.
+  if (!siteConfig.navItems.some((item) => item.href === '/blog' && item.enabled)) notFound();
 
   return (
     <div className="container-shell section-shell">
