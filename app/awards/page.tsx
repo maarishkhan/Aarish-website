@@ -1,99 +1,55 @@
 import { awards } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
-import { readImageSize } from '@/lib/image-size';
 
 export const metadata = {
   title: 'Awards and Honors',
-  description: 'Awards and honors earned by Mohammad Aarish Khan, including recognition from the New York Academy of Sciences, ACS NERD, IEEE and the AP Scholar program.',
+  description: 'Awards and honors earned by Mohammad Aarish Khan, including recognition from the New York Academy of Sciences, ACS NERD, Terra Science Fair, WNY Turing Challenge, the College Board and the Town of Amherst.',
   alternates: { canonical: '/awards' },
 };
 
 type AwardItem = (typeof awards)[number];
 
-const COLUMNS = 3;
-// Rough widths and line heights (px) of a card on the three-column layout, used only to balance the columns.
-const CARD_WIDTH = 392;
-const lines = (text: string, charsPerLine: number) => Math.max(1, Math.ceil(text.length / charsPerLine));
+/** Sections in display order. An award lands in the first section that lists its category; anything else goes to the last. */
+const SECTIONS = [
+  { title: 'Research and scientific recognition', categories: ['Research excellence', 'Poster presentation', 'Science fair', 'Team award', 'Conference presentation'] },
+  { title: 'Competitions', categories: ['Competition', 'STEM achievement', 'Literature'] },
+  { title: 'Academic achievement and scholarships', categories: ['Academic achievement', 'Scholarship'] },
+  { title: 'Service and leadership', categories: ['Community service', 'Service', 'Leadership and service'] },
+];
 
-function estimateHeight(award: AwardItem) {
-  let height = 48 + 2 + 16 + 12 + lines(award.title, 30) * 28 + 8 + lines([award.organization, award.year].filter(Boolean).join(' • '), 50) * 20;
+/** Latest year in a label such as "2024–2025" or "2024, 2025, 2026"; 0 when there is none. */
+const latestYear = (year: string) => Math.max(0, ...(year.match(/\d{4}/g) ?? []).map(Number));
 
-  height += 16 + lines(award.description, 50) * 24;
-
-  if (award.quote) height += 20 + lines(award.quote.text, 44) * 24 + 8 + lines(award.quote.attribution, 55) * 16;
-
-  if (award.image) {
-    const size = readImageSize(award.image);
-
-    height += 20 + (size ? (CARD_WIDTH * size.height) / size.width : CARD_WIDTH * 0.75);
-  }
-
-  return height;
+/** Featured awards first, then newest first, keeping the original order for ties. */
+function sortAwards(items: AwardItem[]) {
+  return items
+    .map((item, index) => ({ item, index }))
+    .sort((a, b) => Number(b.item.featured) - Number(a.item.featured) || latestYear(b.item.year) - latestYear(a.item.year) || a.index - b.index)
+    .map(({ item }) => item);
 }
 
-const spreadOf = (sums: number[]) => Math.max(...sums) - Math.min(...sums);
+function groupAwards() {
+  const groups = SECTIONS.map((section) => ({ title: section.title, items: [] as AwardItem[] }));
 
-/**
- * Splits the awards into columns that finish at about the same height. With a modest number of cards it tries every
- * split and keeps the one with the smallest gap between the tallest and shortest column; otherwise it deals the tallest
- * cards first into the shortest column. Each column keeps the original order of its cards.
- */
-function balanceColumns(items: AwardItem[]) {
-  const heights = items.map((item) => estimateHeight(item) + 20);
-  const assignment: number[] = new Array(items.length).fill(0);
-  let best: number[] | null = null;
-  let bestSpread = Infinity;
+  for (const award of awards) {
+    const found = SECTIONS.findIndex((section) => section.categories.includes(award.category));
 
-  const search = (index: number, sums: number[]) => {
-    if (index === items.length) {
-      if (spreadOf(sums) < bestSpread) {
-        bestSpread = spreadOf(sums);
-        best = [...assignment];
-      }
-
-      return;
-    }
-
-    // The first card always goes in the first column, which skips mirror-image splits.
-    for (let column = 0; column < (index === 0 ? 1 : COLUMNS); column += 1) {
-      assignment[index] = column;
-      sums[column] += heights[index];
-      search(index + 1, sums);
-      sums[column] -= heights[index];
-    }
-  };
-
-  if (items.length <= 15) search(0, new Array(COLUMNS).fill(0));
-
-  const placed: number[][] = Array.from({ length: COLUMNS }, () => []);
-
-  if (best) {
-    (best as number[]).forEach((column, index) => placed[column].push(index));
-  } else {
-    const sums = new Array(COLUMNS).fill(0);
-
-    for (const index of items.map((_, i) => i).sort((a, b) => heights[b] - heights[a])) {
-      const column = sums.indexOf(Math.min(...sums));
-
-      placed[column].push(index);
-      sums[column] += heights[index];
-    }
+    groups[found === -1 ? groups.length - 1 : found].items.push(award);
   }
 
-  return placed.map((indexes) => indexes.sort((a, b) => a - b).map((index) => items[index]));
+  return groups.filter((group) => group.items.length > 0).map((group) => ({ ...group, items: sortAwards(group.items) }));
 }
 
-function AwardCard({ award, order }: { award: AwardItem; order: number }) {
+function AwardCard({ award }: { award: AwardItem }) {
   return (
-    <article
-      style={{ '--award-order': order } as React.CSSProperties}
-      className="card-surface card-hover order-[var(--award-order)] overflow-hidden p-6 lg:order-none"
-    >
+    <article className="card-surface card-hover flex h-full flex-col overflow-hidden p-6">
       {award.image && (
-        <img src={award.image} alt={`${award.title}, ${award.organization}`} className="-mx-6 -mt-6 mb-5 h-auto w-[calc(100%+3rem)] max-w-none" loading="lazy" />
+        <div className="relative -mx-6 -mt-6 mb-5 aspect-[4/3] w-[calc(100%+3rem)] overflow-hidden bg-slate-100">
+          <img src={award.image} alt={`${award.title}, ${award.organization}`} className="absolute inset-0 h-full w-full object-contain" loading="lazy" />
+        </div>
       )}
       <p className="text-xs uppercase tracking-[0.14em] text-brand">{award.category}</p>
-      <h2 className="mt-3 text-xl font-semibold text-brand-dark">{award.title}</h2>
+      <h3 className="mt-3 text-xl font-semibold text-brand-dark">{award.title}</h3>
       <p className="mt-2 text-sm text-slate-600">{[award.organization, award.year].filter(Boolean).join(' • ')}</p>
       <p className="mt-4 text-sm leading-6 text-slate-600">{award.description}</p>
       {award.quote && (
@@ -106,19 +62,58 @@ function AwardCard({ award, order }: { award: AwardItem; order: number }) {
   );
 }
 
+/** Columns that divide the cards evenly where possible, so the last row is not left with a single card. */
+const columnClass = (count: number) => (count === 1 ? 'md:grid-cols-1 lg:grid-cols-1' : count % 3 !== 0 && count % 2 === 0 ? 'lg:grid-cols-2' : 'lg:grid-cols-3');
+
+/**
+ * Cards with a photo form one aligned grid and text-only cards a compact grid below it, so no card stretches to a taller
+ * neighbour. A lone photo card sits beside a stack of the text cards instead.
+ */
+function GroupCards({ items }: { items: AwardItem[] }) {
+  const withImage = items.filter((award) => award.image);
+  const textOnly = items.filter((award) => !award.image);
+
+  if (withImage.length === 1 && textOnly.length > 1) {
+    return (
+      <div className="grid gap-5 lg:grid-cols-2 lg:items-stretch">
+        <AwardCard award={withImage[0]} />
+        <div className="flex flex-col gap-5 lg:justify-between">
+          {textOnly.map((award) => (
+            <AwardCard key={award.id} award={award} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-5">
+      {[withImage, textOnly].map(
+        (list, index) =>
+          list.length > 0 && (
+            <div key={index} className={`grid gap-5 ${list.length === 1 ? '' : 'md:grid-cols-2'} ${columnClass(list.length)}`}>
+              {list.map((award) => (
+                <AwardCard key={award.id} award={award} />
+              ))}
+            </div>
+          )
+      )}
+    </div>
+  );
+}
+
 export default function AwardsPage() {
-  // Wide screens: three balanced columns. Smaller screens: the column wrappers disappear (display: contents) and the
-  // cards sit in one column, put back into their original order with CSS `order`.
   return (
     <div className="container-shell section-shell">
-      <PageHeader eyebrow="Awards" title="Recognition and honors" />
-      <div className="mx-auto flex max-w-2xl flex-col gap-5 lg:max-w-none lg:flex-row lg:items-start">
-        {balanceColumns(awards).map((column, index) => (
-          <div key={index} className="contents lg:flex lg:min-w-0 lg:flex-1 lg:flex-col lg:gap-5">
-            {column.map((award) => (
-              <AwardCard key={award.id} award={award} order={awards.indexOf(award)} />
-            ))}
-          </div>
+      <PageHeader eyebrow="Awards" title="Recognition and honors" intro="Awards grouped by area, with the most recent and most significant first." />
+      <div className="space-y-14">
+        {groupAwards().map((group) => (
+          <section key={group.title} aria-labelledby={`awards-${group.title.replace(/\W+/g, '-').toLowerCase()}`}>
+            <h2 id={`awards-${group.title.replace(/\W+/g, '-').toLowerCase()}`} className="mb-6 border-b border-slate-200 pb-3 text-2xl font-semibold text-brand-dark">
+              {group.title}
+            </h2>
+            <GroupCards items={group.items} />
+          </section>
         ))}
       </div>
     </div>

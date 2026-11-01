@@ -810,7 +810,7 @@ const defaultAwards: Award[] = [
     id: 'award-19',
     title: 'Bronze YES Award, 36 Hours of Service',
     organization: 'Town of Amherst',
-    year: '2026',
+    year: '2025',
     description: 'Recognized with the Bronze YES Award for completing 36 hours of service with Amherst Youth Engaged in Service during 2025.',
     category: 'Community service',
     image: '/uploads/amherst-bronze-yes-award-2025.jpg',
@@ -820,7 +820,7 @@ const defaultAwards: Award[] = [
     id: 'award-20',
     title: 'Outstanding Member, Amherst Youth Consortium',
     organization: 'Town of Amherst',
-    year: '2024',
+    year: '2023–2024',
     description: 'Recognized for service and leadership with the Amherst Youth Consortium in 2023.',
     category: 'Community service',
     image: '/uploads/amherst-youth-consortium-outstanding-member-2024.jpg',
@@ -929,7 +929,7 @@ const defaultAwards: Award[] = [
     description: 'Studied variation in solar-panel efficiency across altitude with a high-altitude balloon payload (SOLARIS) and presented the findings at the SmallSat Education Conference held October 25\u201326, 2025 at Kennedy Space Center.',
     category: 'Conference presentation',
     image: '/uploads/smallsat-kennedy-space-center.jpg',
-    featured: false,
+    featured: true,
   },
 ];
 
