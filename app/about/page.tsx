@@ -126,6 +126,9 @@ export default async function AboutPage() {
             </div>
           ))}
         </dl>
+        <p className="mt-6 text-sm text-slate-600">
+          More questions? <Link href="/research-ai" className="font-medium text-brand underline underline-offset-4">Ask the Research AI</Link>.
+        </p>
       </section>
     </div>
   );
