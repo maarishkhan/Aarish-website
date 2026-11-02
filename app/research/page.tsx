@@ -17,10 +17,12 @@ export default function ResearchPage() {
         {researchProjects.map((project) => (
           <article
             key={project.id}
-            className={`card-surface card-hover overflow-hidden ${project.images[0] ? 'lg:col-span-2 lg:grid lg:grid-cols-2' : 'p-6 sm:p-8'}`}
+            className={`card-surface card-hover overflow-hidden ${project.images[0] ? 'lg:col-span-2 lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]' : 'p-6 sm:p-8'}`}
           >
             {project.images[0] && (
-              <img src={project.images[0]} alt={project.title} className="h-full max-h-96 w-full object-cover lg:max-h-none" loading="lazy" />
+              <div className="relative">
+                <img src={project.images[0]} alt={project.title} className="h-auto max-h-96 w-full object-cover lg:absolute lg:inset-0 lg:h-full lg:max-h-none" loading="lazy" />
+              </div>
             )}
             <div className={project.images[0] ? 'p-6 sm:p-8' : ''}>
               <div className="pill">{project.status}</div>

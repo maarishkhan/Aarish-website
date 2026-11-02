@@ -769,6 +769,15 @@ const defaultAwards: Award[] = [
     featured: false,
   },
   {
+    id: 'award-24',
+    title: 'Presidential Scholarship',
+    organization: 'Rochester Institute of Technology (RIT)',
+    year: '2025',
+    description: 'Offered the RIT Presidential Scholarship, in addition to the Science and Math Award scholarship.',
+    category: 'Scholarship',
+    featured: false,
+  },
+  {
     id: 'award-15',
     title: 'UB Flagship Scholarship',
     organization: 'University at Buffalo',

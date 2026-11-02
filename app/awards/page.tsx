@@ -1,5 +1,6 @@
 import { awards } from '@/data/site-config';
 import { PageHeader } from '@/components/layout/page-header';
+import { readImageSize } from '@/lib/image-size';
 
 export const metadata = {
   title: 'Awards and Honors',
@@ -40,63 +41,68 @@ function groupAwards() {
   return groups.filter((group) => group.items.length > 0).map((group) => ({ ...group, items: sortAwards(group.items) }));
 }
 
-function AwardCard({ award }: { award: AwardItem }) {
+function AwardCard({ award, className = '' }: { award: AwardItem; className?: string }) {
   return (
-    <article className="card-surface card-hover flex h-full flex-col overflow-hidden p-6">
-      {award.image && (
-        <div className="relative -mx-6 -mt-6 mb-5 aspect-[4/3] w-[calc(100%+3rem)] overflow-hidden bg-slate-100">
-          <img src={award.image} alt={`${award.title}, ${award.organization}`} className="absolute inset-0 h-full w-full object-contain" loading="lazy" />
-        </div>
-      )}
+    <article className={`card-surface card-hover flex h-full flex-col overflow-hidden p-6 ${className}`}>
       <p className="text-xs uppercase tracking-[0.14em] text-brand">{award.category}</p>
       <h3 className="mt-3 text-xl font-semibold text-brand-dark">{award.title}</h3>
       <p className="mt-2 text-sm text-slate-600">{[award.organization, award.year].filter(Boolean).join(' • ')}</p>
       <p className="mt-4 text-sm leading-6 text-slate-600">{award.description}</p>
-      {award.quote && (
-        <blockquote className="mt-5 border-l-2 border-gold pl-4 text-sm italic leading-6 text-slate-600">
-          “{award.quote.text}”
-          <footer className="mt-2 text-xs not-italic text-slate-500">— {award.quote.attribution}</footer>
-        </blockquote>
-      )}
     </article>
   );
 }
 
-/** Columns that divide the cards evenly where possible, so the last row is not left with a single card. */
-const columnClass = (count: number) => (count === 1 ? 'md:grid-cols-1 lg:grid-cols-1' : count % 3 !== 0 && count % 2 === 0 ? 'lg:grid-cols-2' : 'lg:grid-cols-3');
+/** An award with a photo as a wide card (a tall photo is capped in height on small screens): the photo fills one side at its own shape and the text sits beside it, alternating sides. */
+function FeatureCard({ award, flip }: { award: AwardItem; flip: boolean }) {
+  const size = award.image ? readImageSize(award.image) : null;
+  const ratio = size ? size.width / size.height : 1;
+  const wide = ratio > 1.2;
+  // A banner-shaped photo gets a wider column so it is not padded with empty strips.
+  const banner = ratio > 1.6;
 
-/**
- * Cards with a photo form one aligned grid and text-only cards a compact grid below it, so no card stretches to a taller
- * neighbour. A lone photo card sits beside a stack of the text cards instead.
- */
+  return (
+    <article className={`card-surface card-hover grid overflow-hidden ${banner ? 'lg:grid-cols-[minmax(0,min(44rem,55%))_minmax(0,1fr)]' : wide ? 'lg:grid-cols-[minmax(0,32.5rem)_minmax(0,1fr)]' : 'lg:grid-cols-[minmax(0,17.5rem)_minmax(0,1fr)]'} ${flip ? 'lg:[direction:rtl]' : ''}`}>
+      <div className="flex items-center bg-slate-100 lg:[direction:ltr]">
+        <img src={award.image} alt={`${award.title}, ${award.organization}`} className="mx-auto h-auto max-h-[32rem] w-auto max-w-full lg:max-h-none lg:w-full" loading="lazy" />
+      </div>
+      <div className="flex flex-col justify-center p-6 sm:p-8 lg:[direction:ltr]">
+        <p className="text-xs uppercase tracking-[0.14em] text-brand">{award.category}</p>
+        <h3 className="mt-3 text-2xl font-semibold text-brand-dark">{award.title}</h3>
+        <p className="mt-2 text-sm font-medium text-slate-600">{[award.organization, award.year].filter(Boolean).join(' • ')}</p>
+        <p className="mt-4 text-base leading-7 text-slate-600">{award.description}</p>
+        {award.quote && (
+          <blockquote className="mt-5 border-l-2 border-gold pl-4 text-sm italic leading-6 text-slate-600">
+            “{award.quote.text}”
+            <footer className="mt-2 text-xs not-italic text-slate-500">— {award.quote.attribution}</footer>
+          </blockquote>
+        )}
+      </div>
+    </article>
+  );
+}
+
+/** Cards with a photo are wide cards, alternating sides; text-only cards form a grid below with no card left alone in a row. */
 function GroupCards({ items }: { items: AwardItem[] }) {
   const withImage = items.filter((award) => award.image);
   const textOnly = items.filter((award) => !award.image);
-
-  if (withImage.length === 1 && textOnly.length > 1) {
-    return (
-      <div className="grid gap-5 lg:grid-cols-2 lg:items-stretch">
-        <AwardCard award={withImage[0]} />
-        <div className="flex flex-col gap-5 lg:justify-between">
-          {textOnly.map((award) => (
-            <AwardCard key={award.id} award={award} />
-          ))}
-        </div>
-      </div>
-    );
-  }
+  const leftOver = textOnly.length % 3;
 
   return (
     <div className="space-y-5">
-      {[withImage, textOnly].map(
-        (list, index) =>
-          list.length > 0 && (
-            <div key={index} className={`grid gap-5 ${list.length === 1 ? '' : 'md:grid-cols-2'} ${columnClass(list.length)}`}>
-              {list.map((award) => (
-                <AwardCard key={award.id} award={award} />
-              ))}
-            </div>
-          )
+      {withImage.map((award, index) => (
+        <FeatureCard key={award.id} award={award} flip={index % 2 === 1} />
+      ))}
+      {textOnly.length > 0 && (
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-6">
+          {textOnly.map((award, index) => {
+            const fromEnd = textOnly.length - index;
+            // On wide screens three cards fill a row; a last row of one or two cards is stretched to the full width.
+            const span = leftOver === 1 && fromEnd === 1 ? 'lg:col-span-6' : leftOver === 2 && fromEnd <= 2 ? 'lg:col-span-3' : 'lg:col-span-2';
+            const alone = textOnly.length % 2 === 1 && fromEnd === 1 ? 'md:col-span-2' : '';
+
+            return <AwardCard key={award.id} award={award} className={`${span} ${alone}`} />;
+          })}
+        </div>
       )}
     </div>
   );
