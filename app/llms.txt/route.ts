@@ -16,6 +16,8 @@ export async function GET() {
     '',
     `${siteConfig.university} · ${siteConfig.location}`,
     '',
+    `Also known as: Aarish Khan, M. Aarish Khan. Topics: biomedical engineering and sciences, computational genetics, synthetic biology, cancer immunotherapy, bispecific antibodies, genomic medicine, community-driven engineering.`,
+    '',
     '## Research',
     ...researchProjects.filter((item) => item.published).map((item) => `- [${item.title}](${base}/research/${item.slug}): ${item.shortDescription}`),
     '',

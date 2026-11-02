@@ -19,7 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${siteConfig.name}`,
     },
     description: siteConfig.headline,
-    keywords: ['Biomedical Engineering', 'Computational Biology', 'Cancer Immunotherapy', 'Genomics', 'Computational Genetics', 'Synthetic Biology', 'Biomedical Engineering Student'],
+    authors: [{ name: siteConfig.name }],
+    keywords: [siteConfig.name, 'Aarish Khan', 'Biomedical Engineering and Sciences', 'Community-Driven Engineering', 'Bispecific Antibody', 'University at Buffalo Honors College', 'Biomedical Engineering', 'Computational Biology', 'Cancer Immunotherapy', 'Genomics', 'Computational Genetics', 'Synthetic Biology', 'Biomedical Engineering Student'],
 
     openGraph: {
       title: `${siteConfig.name} | ${siteConfig.title}`,

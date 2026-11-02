@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "keywords": [
     "biomedical-engineering",
