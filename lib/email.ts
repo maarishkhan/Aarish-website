@@ -1,9 +1,11 @@
-/** Minimal Resend client (REST API, no dependency). Email stays disabled until RESEND_API_KEY and EMAIL_FROM are set. */
+import nodemailer from 'nodemailer';
+
+/** Sends through Gmail SMTP using an app password. Email stays disabled until GMAIL_USER and GMAIL_APP_PASSWORD are set. */
 
 export type EmailMessage = { to: string; subject: string; html: string; text: string };
 
 export function isEmailConfigured() {
-  return Boolean(process.env.RESEND_API_KEY?.trim() && process.env.EMAIL_FROM?.trim());
+  return Boolean(process.env.GMAIL_USER?.trim() && process.env.GMAIL_APP_PASSWORD?.trim());
 }
 
 export function siteUrl() {
@@ -14,39 +16,61 @@ export function escapeHtml(value: string) {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-async function post(path: string, body: unknown) {
-  const response = await fetch(`https://api.resend.com${path}`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+function createTransport() {
+  return nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    // Google shows app passwords with spaces; they are not part of the password.
+    auth: { user: process.env.GMAIL_USER?.trim(), pass: process.env.GMAIL_APP_PASSWORD?.replace(/\s+/g, '') },
   });
-
-  if (!response.ok) console.error('Resend request failed:', response.status, (await response.text()).slice(0, 200));
-
-  return response.ok;
 }
 
-function toPayload(message: EmailMessage) {
-  return { from: process.env.EMAIL_FROM, to: [message.to], subject: message.subject, html: message.html, text: message.text };
+function fromAddress() {
+  const name = (process.env.EMAIL_FROM_NAME || '').replace(/["<>\r\n]/g, '').trim();
+  const address = process.env.GMAIL_USER?.trim() ?? '';
+
+  return name ? `"${name}" <${address}>` : address;
 }
 
 export async function sendEmail(message: EmailMessage) {
   if (!isEmailConfigured()) return false;
 
-  return post('/emails', toPayload(message));
+  try {
+    await createTransport().sendMail({ from: fromAddress(), to: message.to, subject: message.subject, html: message.html, text: message.text });
+    return true;
+  } catch (error) {
+    console.error('Email send failed:', error instanceof Error ? error.message : error);
+    return false;
+  }
 }
 
-/** Sends in batches of 100 (Resend's limit); returns how many messages were accepted. */
+/** Sends over one connection, a few at a time; returns how many messages were accepted. */
 export async function sendEmailBatch(messages: EmailMessage[]) {
   if (!isEmailConfigured()) return 0;
 
-  let sent = 0;
+  const transport = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    pool: true,
+    maxConnections: 3,
+    auth: { user: process.env.GMAIL_USER?.trim(), pass: process.env.GMAIL_APP_PASSWORD?.replace(/\s+/g, '') },
+  });
+  const from = fromAddress();
+  const results = await Promise.all(
+    messages.map((message) =>
+      transport
+        .sendMail({ from, to: message.to, subject: message.subject, html: message.html, text: message.text })
+        .then(() => true)
+        .catch((error: unknown) => {
+          console.error('Email send failed:', error instanceof Error ? error.message : error);
+          return false;
+        }),
+    ),
+  );
 
-  for (let index = 0; index < messages.length; index += 100) {
-    const chunk = messages.slice(index, index + 100);
+  transport.close();
 
-    if (await post('/emails/batch', chunk.map(toPayload))) sent += chunk.length;
-  }
-
-  return sent;
+  return results.filter(Boolean).length;
 }

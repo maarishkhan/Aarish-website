@@ -61,7 +61,7 @@ export default async function AnnouncePage({ searchParams }: { searchParams: Pro
           <input type="checkbox" name="sendEmail" disabled={!emailReady || subscriberCount === 0} className="mt-1" />
           <span>
             Also email subscribers ({subscriberCount} confirmed)
-            {!emailReady && <span className="block text-xs text-slate-500">Email isn&apos;t configured yet (set RESEND_API_KEY and EMAIL_FROM).</span>}
+            {!emailReady && <span className="block text-xs text-slate-500">Email isn&apos;t configured yet (set GMAIL_USER and GMAIL_APP_PASSWORD).</span>}
           </span>
         </label>
         <button type="submit" className="btn btn-primary">Publish announcement</button>

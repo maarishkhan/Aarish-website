@@ -28,7 +28,7 @@ export default async function PrivacyPage() {
               <strong>Research AI questions.</strong> If you use the Research AI page, the question you type is processed to produce an answer. When an AI provider is switched on, your question and the public site content are sent to that provider (for example Anthropic, OpenAI or Google) to generate the reply. Please do not enter personal, sensitive or confidential information. Questions are not stored by this site.
             </li>
             <li>
-              <strong>Update emails (optional).</strong> If you subscribe to updates, your email address is stored and used only to send you announcements about new content on this site. You must confirm your address first, every email includes an unsubscribe link, and unsubscribing stops all further emails. Emails are sent through Resend. Your address is never sold or shared for any other purpose.
+              <strong>Update emails (optional).</strong> If you subscribe to updates, your email address is stored and used only to send you announcements about new content on this site. You must confirm your address first, every email includes an unsubscribe link, and unsubscribing stops all further emails. Emails are sent through Gmail. Your address is never sold or shared for any other purpose.
             </li>
             <li>
               <strong>Email.</strong> If you email {site.email}, I receive your address and message and will use them only to reply.
