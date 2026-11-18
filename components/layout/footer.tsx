@@ -2,6 +2,8 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { Mail } from 'lucide-react';
 import { getSiteConfig, getSocialLinks } from '@/data/site-config';
+import { SubscribeForm } from '@/components/subscribe/subscribe-form';
+import { isSignupAvailable } from '@/lib/subscribers';
 
 export async function Footer() {
   const siteConfig = await getSiteConfig();
@@ -23,6 +25,7 @@ export async function Footer() {
             <a href={`mailto:${siteConfig.email}`} className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-accent-light hover:text-white">
               <Mail size={16} /> {siteConfig.email}
             </a>
+            {isSignupAvailable() && <SubscribeForm />}
           </div>
           <nav aria-label="Footer">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-light">Explore</p>

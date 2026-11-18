@@ -208,3 +208,18 @@ create table if not exists profile_entries (
 alter table profile_entries enable row level security;
 drop policy if exists "Public can read profile entries" on profile_entries;
 create policy "Public can read profile entries" on profile_entries for select using (true);
+
+-- Email subscribers for update announcements. Private: RLS on with no policies,
+-- so only the service-role key (server code) can read or write.
+create table if not exists subscribers (
+  id uuid primary key default gen_random_uuid(),
+  email text not null unique,
+  token text not null unique,
+  confirmed boolean not null default false,
+  created_at timestamptz not null default now(),
+  confirm_sent_at timestamptz,
+  confirmed_at timestamptz,
+  unsubscribed_at timestamptz
+);
+
+alter table subscribers enable row level security;
