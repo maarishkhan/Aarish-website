@@ -5,6 +5,8 @@ import { Analytics } from '@vercel/analytics/next';
 import { getSiteConfig } from '@/data/site-config';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
+import { AnnouncementBanner } from '@/components/announcement/announcement-banner';
+import { readAnnouncement } from '@/lib/announcement-store';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 const serif = Source_Serif_4({ subsets: ['latin'], display: 'swap', variable: '--font-serif' });
@@ -36,7 +38,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const announcement = await readAnnouncement();
+
   return (
     <html lang="en">
       <body className={`${inter.className} ${serif.variable}`}>
@@ -47,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           >
             Skip to main content
           </a>
+          {announcement?.active && <AnnouncementBanner id={announcement.id} message={announcement.message} link={announcement.link} />}
           <Navbar />
           <main id="main">{children}</main>
           <Footer />
