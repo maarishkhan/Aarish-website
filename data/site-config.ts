@@ -412,7 +412,7 @@ const defaultExperience: ExperienceItem[] = [
     startDate: '08/2026',
     endDate: 'Present',
     description: 'Use FLAMES and FUMA-based analysis of GWAS data sets as part of an ongoing research study investigating the genetic basis of neurological and psychiatric conditions, including ADHD and schizophrenia.',
-    responsibilities: ['Apply FUMA and FLAMES analyses to genetic datasets to investigate the genetic underpinnings of ADHD and schizophrenia', 'Create a population-level evolutionary analysis pipeline with plug-and-play functionality for FastENLOC results', 'Support research interpretation and documentation'],
+    responsibilities: ['Apply FUMA and FLAMES analyses to genetic datasets to investigate the genetic underpinnings of ADHD and schizophrenia', 'Perform evolutionary analysis on 12+ SNPs', 'Support research interpretation and documentation'],
     skills: ['FLAMES', 'FUMA', 'Python', 'Genomics', 'Bioinformatics'],
     researchAreas: ['Computational Biology', 'Genetics'],
     displayOrder: 1,
